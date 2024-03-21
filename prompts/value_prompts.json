@@ -1,0 +1,84 @@
+[
+    [
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Curtains, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread"
+            ,
+            "subgoal": "PickupObject : Fork",
+            "critic": "My task requires six sub-goals in order:pickup the fork,open the cabinet, put the fork on the plate,pick up the plate,close the cabinet,put plate on the countertop. My current state satisfies one of the six sub-goals:pickup the fork. The value is 1/6=0.17"
+        },
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": 
+                 "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Curtains, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread"
+            ,
+            "subgoal": "OpenObject : Cabinet",
+            "critic": "My task requires six sub-goals in order:pickup the fork,open the cabinet, put the fork on the plate,pick up the plate,close the cabinet,put plate on the countertop.My current state satisfies two of the six sub-goals:pickup the fork,open the cabinet. The value is 2/6=0.33"
+        },
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": 
+                 "Microwave, LightSwitch, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Plate, SaltShaker, Vase, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, PaperTowelRoll, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, Spatula, Bread"
+            ,
+            "subgoal": "PutObject : Plate",
+            "critic": "My task requires six sub-goals in order:pickup the fork,open the cabinet, put the fork on the plate,pick up the plate,close the cabinet,put plate on the countertop. My current state satisfies three of the six sub-goals:pickup the fork,open the cabinet, put the fork on the plate. The value is 3/6=0.5"
+        },
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": 
+                  "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "PickupObject : Plate",
+            "critic": "My task requires six sub-goals in order:pickup the fork,open the cabinet, put the fork on the plate,pick up the plate,close the cabinet,put plate on the countertop. My current state satisfies four of the six sub-goals:pickup the fork,open the cabinet, put the fork on the plate,pick up the plate. The value is 4/6=0.67"
+        },
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": 
+                "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, WineBottle, Lettuce, Ladle, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Curtains, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread"
+            ,
+            "subgoal": "CloseObject : Cabinet",
+            "critic": "My task requires six sub-goals in order:pickup the fork,open the cabinet, put the fork on the plate,pick up the plate,close the cabinet,put plate on the countertop. My current state satisfies five of the six sub-goals:pickup the fork,open the cabinet, put the fork on the plate,pick up the plate,close the cabinet. The value is 5/6=0.83"
+        },
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": 
+                  "Microwave, LightSwitch, Egg, Bowl, Faucet, ButterKnife, Book, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Vase, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, WineBottle, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, Statue, Spatula, Bread"
+            ,
+            "subgoal": "PutObject : CounterTop",
+            "critic": "My task requires six sub-goals in order:pickup the fork,open the cabinet, put the fork on the plate,pick up the plate,close the cabinet,put plate on the countertop. My current state satisfies six of the six sub-goals:pickup the fork,open the cabinet, put the fork on the plate,pick up the plate,close the cabinet,put plate on the countertop. The value is 6/6=1"
+        },
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": 
+               "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread"
+            ,
+            "subgoal": "Stop : NIL",
+            "critic": "My task requires six sub-goals in order:pickup the fork,open the cabinet, put the fork on the plate,pick up the plate,close the cabinet,put plate on the countertop. My current state satisfies six of the six sub-goals:pickup the fork, open the cabinet, put the fork on the plate,pick up the plate,close the cabinet,put plate on the countertop. The value is 6/6=1"
+        }
+    ],
+    [
+        {
+            "task": "Put a cardboard roll on a toilet paper roll holder.",
+            "predict": 
+                 "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Toilet, BasketBall, ToiletPaper, Cabinet, SinkBasin, LightSwitch, Plunger"
+            ,
+            "subgoal": "PickupObject : ToiletPaper",
+            "critic": "My task requires two sub-goals in order: pickup the toiletpaper, put the toiletpaper on toilet paper hanger. My current state satisfies one of the two states: pickup the toiletpaper. the value is 1/2=0.5"
+        },
+        {
+            "task": "Put a cardboard roll on a toilet paper roll holder.",
+            "predict": 
+                "ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerHead, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger"
+            ,
+            "subgoal": "PutObject : ToiletPaperHanger",
+            "critic": "My task requires two sub-goals in order: pickup the toiletpaper, put the toiletpaper on toilet paper hanger. My current state satisfies two of the two states: pickup the toiletpaper, put the toiletpaper on toilet paper hanger. the value is 2/2=1"
+        },
+        {
+            "task": "Put a cardboard roll on a toilet paper roll holder.",
+            "predict": 
+                "ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerHead, SprayBottle, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Toilet, Drawer, SinkBasin, LightSwitch, Plunger"
+            ,
+            "subgoal": "Stop : NIL",
+            "critic": "My task requires two sub-goals in order: pickup the toiletpaper, put the toiletpaper on toilet paper hanger. My current state satisfies two of the two states: pickup the toiletpaper, put the toiletpaper on toilet paper hanger. the value is 2/2=1"
+        }
+    ]
+]

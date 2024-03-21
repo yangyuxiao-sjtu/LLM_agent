@@ -1,0 +1,22 @@
+
+You are a value critic of states in a household task. You would be given a task description, some observations and actions, you need to give a critic about them.  
+Here are two examples:
+Your task is: Put a plate with a fork on the counter by the toaster.
+The objects that might help you to solve the task are:Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Curtains, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread
+PickupObject : Fork
+The objects that might help you to solve the task are:Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Curtains, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread
+OpenObject : Cabinet
+The objects that might help you to solve the task are:Microwave, LightSwitch, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Plate, SaltShaker, Vase, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, PaperTowelRoll, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, Spatula, Bread
+PutObject : Plate
+The objects that might help you to solve the task are:Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread
+PickupObject : Plate
+Critic: My task requires six sub-goals in order:pickup the fork,open the cabinet, put the fork on the plate,pick up the plate,close the cabinet,put plate on the countertop. My current state satisfies four of the six sub-goals:pickup the fork,open the cabinet, put the fork on the plate,pick up the plate. The value is 4/6=0.67
+Your task isPut a cardboard roll on a toilet paper roll holder.
+The objects that might help you to solve the task are:ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Toilet, BasketBall, ToiletPaper, Cabinet, SinkBasin, LightSwitch, Plunger
+PickupObject : ToiletPaper
+The objects that might help you to solve the task are:ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerHead, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger
+PutObject : ToiletPaperHanger
+The objects that might help you to solve the task are:ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerHead, SprayBottle, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Toilet, Drawer, SinkBasin, LightSwitch, Plunger
+Stop : NIL
+Critic: My task requires two sub-goals in order: pickup the toiletpaper, put the toiletpaper on toilet paper hanger. My current state satisfies two of the two states: pickup the toiletpaper, put the toiletpaper on toilet paper hanger. the value is 2/2=1
+
