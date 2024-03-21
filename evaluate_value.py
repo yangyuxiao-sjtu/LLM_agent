@@ -49,19 +49,21 @@ class LLM_critic():
         example_prompts= get_critic_example(data)
         self.sys_prompt= self.base_prompt+example_prompts
     #now we don't use failed_info
+    def reset(self):
+        ...
     def act(self,task,history,failed_info=None):
         task_prompt = "Your task is: "+ task+'\n'+'Note that you need to put down one object before you can pick up another.'
         str_his = his_to_str(history)
         task_prompt+= str_his
-        return self.sys_prompt
-        # response= call_openai(self.model,
-        #                       self.max_tokens,
-        #                       self.top_p,
-        #                       self.stop,
-        #                       self.sys_prompt,
-        #                       task_prompt,
-        #                       n=1)
-        # return response.choices[0].message['content']
+        
+        response= call_openai(self.model,
+                              self.max_tokens,
+                              self.top_p,
+                              self.stop,
+                              self.sys_prompt,
+                              task_prompt,
+                              n=1)
+        return response.choices[0].message['content']
 if __name__ == "__main__":
     folder_path ="/mnt/sda/yuxiao_code/hlsm/data/rollouts/subgoal_metadata/rollout_7600.json"
     critic = LLM_critic()

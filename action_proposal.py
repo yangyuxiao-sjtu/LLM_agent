@@ -28,7 +28,11 @@ ACTION_TYPES = [
     "Explore",
     "Stop"
 ]
-
+action_instr=f"""
+The allowed types of actions are: {','.join(ACTION_TYPES)}
+The target of OpenObject,CloseObject,PickupObject,ToggleObjectOn,ToggleObjectOff,SliceObject is the object agent interacts with and the target of PutObjectis the place to put the object.
+Explore and Stop have no target.Note if all requirements are satisfied, you just need to output Stop\n
+"""
 
 
 class action_proposal():
@@ -37,14 +41,14 @@ class action_proposal():
                  max_tokens=100,
                 top_p=0.8,
                 prompt_path='./prompts/action_prompts.json',
-                example_num=1,
-                stop='\n'):
+                example_num=2,
+                stop=['\n','.']):
         self.model = model
         self.max_tokens=max_tokens
         self.top_p=top_p
         self.baseprompt = f"""Interact with a household to solve a task. At each step, you will be provided with the previous observations and action pairs, as well as the current observation.
-        You need to return an action.The answer should contain two parts, the action type and a object. The allowed types of actions are: {','.join(ACTION_TYPES)}
-        Here are {2*example_num} examples.\n
+        You need to return an action.The answer should contain two parts, the action type and a target. f{action_instr}
+        Here are {2*example_num} examples.Note that you need to put down one object before you can pick up another.\n
         """
         self.stop=stop
         #return a short example and a long example
@@ -57,7 +61,7 @@ class action_proposal():
 
 #TODO now the output action are same, we need to add diversity
     def get_actions(self,task:str,history,metadata,n,failed_info=None):
-        task_prompt = "Your task is: "+ task+'note if all requirements are satisfied, you just need to output Stop\n'
+        task_prompt = "Your task is: "+ task+'\n'
         str_history=his_to_str(history,metadata)
         task_prompt+=str_history
         response = call_openai(model=self.model,
@@ -68,10 +72,6 @@ class action_proposal():
                           user_prompt=task_prompt,
                           n=n,
                           )
-        
-       
-
- 
         return [choice.message['content'] for choice in response.choices]
 #naive test
 if __name__ == "__main__":
@@ -79,14 +79,14 @@ if __name__ == "__main__":
     proposal = action_proposal()
     with open(folder_path,"r",encoding="utf-8")as f:
         data=json.load(f)
-    history =data[:2]
+    history =data[:-1]
     for his in history:
         his['action']=his['subgoal']
         his['metadata']=his['predict']
     task=data[0]['task']
-    metadata=data[2]['predict']
+    metadata=data[-1]['predict']
     # print(history)
-    actions = proposal.get_actions(task,history,metadata,3)
+    actions = proposal.get_actions(task,history,metadata,5)
     print(actions)
 
 

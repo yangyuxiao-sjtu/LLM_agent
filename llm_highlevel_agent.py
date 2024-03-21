@@ -1,5 +1,11 @@
 from typing import Dict, List, Type, Union
-
+import sys
+from evaluate_value import LLM_critic
+from action_proposal import action_proposal
+from adapt_model import adap_model
+from predict import predict_model
+import torch
+sys.path.append('/mnt/sda/yuxiao_code/hlsm')
 from lgp.abcd.task import Task
 from lgp.abcd.agent import Agent
 from lgp.abcd.subgoal import Subgoal
@@ -8,20 +14,22 @@ from lgp.abcd.observation import Observation
 from lgp.abcd.functions.observation_function import ObservationFunction
 from lgp.abcd.repr.state_repr import StateRepr
 from lgp.abcd.skill import Skill
-
+from lgp.env.alfred.alfred_subgoal import AlfredSubgoal
 from lgp.env.alfred.alfred_action import AlfredAction
+
 
 import copy
 class LlmAgent(Agent):
     def __init__(self,
-        adaptation_model,
-        critic_model,
-        value_model,
-        action_propsal_model,
-        predict_model,
-        device :str
+        device ='cuda',
+        gamma=0.9,
+        adaptation_model=adap_model(),
+        value_model=LLM_critic(),
+        action_propsal_model=action_proposal(),
+        predict_model=predict_model()
         ):
         super().__init__()
+        self.gamma=gamma
         #the trined LLaVa model
         self.adaptation_model=adaptation_model
         #the llm used in RAFA
@@ -74,9 +82,37 @@ class LlmAgent(Agent):
         self.trace['metadata']=meta_info
         self.trace['action']=action
         self.trace['critic']=critic
-    def _choose_action(self,act_his,sample_pernode,depth):
-        #Tobe Done
-        ...
+    def _get_critic_value(self,critic):
+        str_value = critic.partition('=')[-1]
+        str_value.replace(".","")
+        try:
+            value =float(str_value)
+        except ValueError:
+            print("str_value error:",str_value)
+        return value
+    def _choose_action(self,action_history_list,length):
+        tmp_value = [None]*len(action_history_list)
+        for i,act_his in enumerate(action_history_list):
+            depth =len(act_his)-length
+            value = self._get_critic_value(act_his[-1]['critic'])
+            tmp_value[i]=value *(self.gamma **depth)
+            argmax = tmp_value.index(max(tmp_value))
+        # the first critic,action of the best long term rollout
+        critic =action_history_list[argmax][length]['critic']
+        action =action_history_list[argmax][length]['action']
+        acion_type = action.partition(':')[0].replace(" ","")
+        action_obj = action.partition(":")[1].replace(" ","")
+        obj_id =AlfredSubgoal.object_string_to_intid(action_obj)
+        obj_tensor =torch.zeros([1,125]).to(self.device)
+        if(obj_id==125):
+            print('object name error:',action_obj)
+        obj_tensor[obj_id]=1.0
+        return AlfredSubgoal.from_type_str_and_arg_vector(acion_type, obj_tensor)
+
+        
+
+
+     
     def _get_start_idx(self,sample_pernode,depth):
         return 0 if depth == 0 else  (sample_pernode**depth -1)/(sample_pernode-1)
     
@@ -85,7 +121,7 @@ class LlmAgent(Agent):
               sample_pernode=3):
         
         #convert the action into str form,as we only need it 
-        root_act_his= [{'metadata':action['metadata'],'action':str(action['action']),'critic':action['critic'] }for action in self.action_history]
+        root_act_his= [{'metadata':action['metadata'],'action':str(action['action']).replace("HLA: ", ""),'critic':action['critic'] }for action in self.action_history]
         #there should be atmost sample_pernode**(depth+1) nodes
         tmp_act_his = [None]*((sample_pernode** (depth+1)))
         # this refers to the metadata after taking action
@@ -115,18 +151,19 @@ class LlmAgent(Agent):
                     child_idx = child_start_idx+child_num
                     #the metadata before taking action
                     child_metadata=tmp_metadata[parent_idx]
-                    #giving predict model action history, current metadata and current action, should return a new metadata
-                    tmp_metadata[child_idx]=self.predict.get_obs(tmp_act_his[parent_idx],child_metadata,actions[child_num])
-                    #giving value model action history, current metadata, current action and failed_info, should return a critic
                     tmp_act_his[child_idx]=copy.deepcopy(tmp_act_his[parent_idx])
                     tmp_act_his[child_idx].append({'metadata':child_metadata,'action':actions[child_num],'critic':None})
+                    #giving predict model action history, current metadata and current action, should return a new metadata
+                    tmp_metadata[child_idx]=self.predict.act(self.task,tmp_act_his[child_idx])
+                    #giving value model action history, current metadata, current action and failed_info, should return a critic
+
                     child_critic =self.value.act(self.task,tmp_act_his[child_idx],failed_info)
                     tmp_act_his[child_idx][-1]['critic']=child_critic
 
 
-        
 
-        return self._choose_action(tmp_act_his,sample_pernode,depth)
+        #tmp_act_his[0] is the root action history, so we choose the highest cumulative reward start from 1
+        return self._choose_action(tmp_act_his[1:],len(root_act_his))
     def act(self, observation_or_state_repr: Union[Observation, StateRepr]) -> Action:
         #call below function to create a action, where act_type_str can be create through AlfredSubgoal.action_type_intid_to_str
         # and arg_vector_out is a   torch.Size([1, 125]) one hot vector where 1 indicate which object to interact with

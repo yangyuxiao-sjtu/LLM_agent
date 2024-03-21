@@ -38,6 +38,6 @@ def call_openai(model,
         n=n,
         logprobs=True,
         top_logprobs= 4,
+        stop=stop
     )        
-    
     return response
