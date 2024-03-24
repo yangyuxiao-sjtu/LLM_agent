@@ -23,9 +23,13 @@ def get_critic_example(data):
         tmp_prompt+='The objects that might help you to solve the task are:' +data[0][i]['predict']+'\n'+data[0][i]['subgoal']+'\n'
     tmp_prompt+='Critic: '+data[0][3]['critic']+'\n'
     tmp_prompt+='Your task is'+data[1][0]['task']+'\n'
-    for eg in data[1]:
-        tmp_prompt+='The objects that might help you to solve the task are:' +eg['predict']+'\n'+eg['subgoal']+'\n'
+    eg=data[1][0]
+    tmp_prompt+='The objects that might help you to solve the task are:' +eg['predict']+'\n'+eg['subgoal']+'\n'
     tmp_prompt+='Critic: '+data[1][-1]['critic']+'\n'
+    for eg in data[2]:
+        tmp_prompt+='The objects that might help you to solve the task are:' +eg['predict']+'\n'+eg['subgoal']+'\n'
+        tmp_prompt+='Critic: '+data[1][-1]['critic']+'\n'
+
     return tmp_prompt
 
 class LLM_critic():
@@ -53,9 +57,10 @@ class LLM_critic():
         ...
     def act(self,task,history,failed_info=None):
         task_prompt = "Your task is: "+ task+'\n'+'Note that you need to put down one object before you can pick up another.'
+
         str_his = his_to_str(history)
         task_prompt+= str_his
-        
+        print('critic_task_prompt',task_prompt)
         response= call_openai(self.model,
                               self.max_tokens,
                               self.top_p,
@@ -69,12 +74,12 @@ if __name__ == "__main__":
     critic = LLM_critic()
     with open(folder_path,"r",encoding="utf-8")as f:
         data=json.load(f)
-    history =data[:3]
+    history =data[:1]
     for his in history:
-        his['action']=his['subgoal']
+        his['action']=his['subgoal'].replace("HLA:","")
         his['metadata']=his['predict']
     task=data[0]['task']
-    metadata=data[3]['predict']
+    metadata=data[2]['predict']
     # print(history)
     actions = critic.act(task,history)
     print(actions)

@@ -80,5 +80,25 @@
             "subgoal": "Stop : NIL",
             "critic": "My task requires two sub-goals in order: pickup the toiletpaper, put the toiletpaper on toilet paper hanger. My current state satisfies two of the two states: pickup the toiletpaper, put the toiletpaper on toilet paper hanger. the value is 2/2=1"
         }
+    ],
+    [
+        {
+            "task": "Examine a remote in lamp light.",
+            "predict": "Painting, Window, CoffeeTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Television, TVStand, Shelf, Drawer, LightSwitch",
+            "subgoal": "PickupObject : RemoteControl",
+            "critic": "My task requires two sub-goals in order: pickup the remotecontrol, turn on the floorlamp. My current state satisfies one of the two states: pickup the remotecontrol. the value is 1/2=0.5"
+        },
+        {
+            "task": "Examine a remote in lamp light.",
+            "predict": "Dresser, Newspaper, CellPhone, Painting, Window, SideTable, Sofa, WateringPlant, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Cabinet, Drawer, Television, LightSwitch",
+            "subgoal": "ToggleObjectOn : FloorLamp",
+            "critic": "My task requires two sub-goals in order: pickup the remotecontrol, turn on the floorlamp. My current state satisfies two of the two states: pickup the remotecontrol, turn on the floorlamp. the value is 2/2=1"
+        },
+        {
+            "task": "Examine a remote in lamp light.",
+            "predict": "LightSwitch, Mirror, Lamp, TissueBox, Newspaper, Painting, Window, CoffeeTable, SideTable, Boots, Plate, Sofa, WateringCan, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Pencil, KeyChain, FloorLamp, CreditCard, Box, Curtains, Television, Vase, Drawer, TVStand, Watch, Statue",
+            "subgoal": "Stop : NIL",
+            "critic": "My task requires two sub-goals in order: pickup the remotecontrol, turn on the floorlamp. My current state satisfies two of the two states: pickup the remotecontrol, turn on the floorlamp. the value is 2/2=1"
+        }
     ]
 ]

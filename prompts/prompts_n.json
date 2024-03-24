@@ -1,0 +1,2494 @@
+[
+    [
+        {
+            "task": "Place a mug with a knife in it in the sink.",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, DishSponge, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Knife",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Place a mug with a knife in it in the sink.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, Bread, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PutObject : Mug",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a mug with a knife in it in the sink.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Mug",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a mug with a knife in it in the sink.",
+            "predict": "Microwave, Egg, Faucet, Bowl, ButterKnife, Book, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Vase, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, WineBottle, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Statue, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Sink",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a mug with a knife in it in the sink.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, PaperTowelRoll, WineBottle, HousePlant, Lettuce, Ladle, SoapBottle, DiningTable, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "examine an alarm clock by the light of the lamp on the dresser",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "examine an alarm clock by the light of the lamp on the dresser",
+            "predict": "Pen, Dresser, Mirror, Bowl, BaseballBat, Book, CellPhone, Window, Boots, BasketBall, Pillow, GarbageCan, CD, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "examine an alarm clock by the light of the lamp on the dresser",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: Stop"
+        }
+    ],
+    [
+        {
+            "task": "Move a candle from the top of a toilet to a cabinet.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, Painting, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, Toilet, Cabinet, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PickupObject : Candle",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Move a candle from the top of a toilet to a cabinet.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, Bathtub, Toilet, Cabinet, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: OpenObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move a candle from the top of a toilet to a cabinet.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, Bathtub, Toilet, Cabinet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PutObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move a candle from the top of a toilet to a cabinet.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, Bathtub, Toilet, Cabinet, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: CloseObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move a candle from the top of a toilet to a cabinet.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, ShowerDoor, SprayBottle, Window, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, FloorLamp, Toilet, Cabinet, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "To put a sponge in a pan and set it to the right of the sink on the counter.",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : DishSponge",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "To put a sponge in a pan and set it to the right of the sink on the counter.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Pan",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "To put a sponge in a pan and set it to the right of the sink on the counter.",
+            "predict": "Microwave, Egg, Faucet, Bowl, CoffeeMachine, Kettle, Fridge, Window, SideTable, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, PaperTowelRoll, WineBottle, HousePlant, Lettuce, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Pan",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "To put a sponge in a pan and set it to the right of the sink on the counter.",
+            "predict": "Microwave, Egg, Faucet, Bowl, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : CounterTop",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "To put a sponge in a pan and set it to the right of the sink on the counter.",
+            "predict": "Microwave, Pen, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Move the plunger from next to the toilet to the cupboard under the sink",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, BathtubBasin, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, PaperTowelRoll, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Bathtub, Toilet, Cabinet, SinkBasin, Shelf, LightSwitch, Plunger",
+            "subgoal": "HLA: PickupObject : Plunger",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Move the plunger from next to the toilet to the cupboard under the sink",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, BathtubBasin, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, PaperTowelRoll, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: OpenObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move the plunger from next to the toilet to the cupboard under the sink",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, BathtubBasin, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, PaperTowelRoll, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Bathtub, Toilet, Cabinet, SinkBasin, PaperTowel, ToiletPaper, FloorLamp, ShowerGlass, ShowerGlass, ToiletPaperHanger, PaperTowel, Cloth, ShowerGlass, ShowerGlass, Towel, ShowerGlass, ToiletPaper, HandTowel, SoapBar, ShowerGlass, ToiletPaperHanger, PaperTowel, SoapBottle, ScrubBrush, Bathtub, ToiletPaper, Cabinet, Sink, ShowerGlass, ShowerGlass, Toilet, FloorLamp, ShowerDoor, ShowerGlass, ToiletPaper, PaperTowel, Candle, SoapBar, HandTowel, ShowerGlass, BathtubBasin, TowelHolder, GarbageCan, Cloth, ShowerDoor, ShowerGlass, ToiletPaper, SoapBottle, ScrubBrush, ShowerGlass, ShowerGlass, ShowerGlass",
+            "subgoal": "HLA: PutObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move the plunger from next to the toilet to the cupboard under the sink",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, BathtubBasin, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, PaperTowelRoll, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, Bathtub, Toilet, Cabinet, Drawer, SinkBasin, LightSwitch, Plunger, Potato, Tomato, PepperShaker, StoveKnob, Spoon, Spatula, CoffeeMachine",
+            "subgoal": "HLA: CloseObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move the plunger from next to the toilet to the cupboard under the sink",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, BathtubBasin, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, PaperTowelRoll, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Bathtub, Toilet, Cabinet, SinkBasin, PaperTowel, ToiletPaper, FloorLamp, Cloth, ShowerGlass, ToiletPaperHanger, ShowerGlass, ShowerDoor, ToiletPaperHanger, FloorLamp, Candle, Towel, SoapBar, ToiletPaper, Sink, ShowerDoor, ToiletPaperHanger, ShowerGlass, HandTowelHolder, FloorLamp, Towel, ShowerDoor, ShowerGlass, ToiletPaper, Toilet, Cabinet, Drawer, Sink, LightSwitch, Plunger",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Move an alarm clock to the dresser. ",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Footstool, BasketBall, Pillow, GarbageCan, CD, HousePlant, Laptop, DeskLamp, AlarmClock, Pencil, Statue, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Move an alarm clock to the dresser. ",
+            "predict": "Pen, Dresser, Mirror, Cloth, Bowl, Book, CellPhone, Painting, Window, Boots, SideTable, Pillow, Vase, ArmChair, GarbageCan, CD, HousePlant, Laptop, AlarmClock, Pencil, Statue, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Dresser",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move an alarm clock to the dresser. ",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Footstool, BasketBall, Pillow, GarbageCan, CD, HousePlant, Laptop, DeskLamp, AlarmClock, Pencil, Statue, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Place statue on top of small coffee table.",
+            "predict": "Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Statue, KeyChain, FloorLamp, CreditCard, Box, Curtains, Drawer, TVStand, Television, Watch, LightSwitch",
+            "subgoal": "HLA: PickupObject : Statue",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Place statue on top of small coffee table.",
+            "predict": "LightSwitch, Newspaper, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Shelf, Statue",
+            "subgoal": "HLA: PutObject : CoffeeTable",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place statue on top of small coffee table.",
+            "predict": "LightSwitch, Pen, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Statue",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put a credit card on the shelf under the desk.",
+            "predict": "Pen, Mirror, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, RemoteControl, LaundryHamperLid, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : CreditCard",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Put a credit card on the shelf under the desk.",
+            "predict": "Pen, Mirror, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, RemoteControl, LaundryHamperLid, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Shelf",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a credit card on the shelf under the desk.",
+            "predict": "Pen, Mirror, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, RemoteControl, LaundryHamperLid, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "move box from floor to coffee table",
+            "predict": "LightSwitch, Bowl, Painting, Window, CoffeeTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, KeyChain, FloorLamp, CreditCard, Box, Television, TVStand, Shelf, Statue",
+            "subgoal": "HLA: PickupObject : Box",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "move box from floor to coffee table",
+            "predict": "LightSwitch, Bowl, Painting, Window, CoffeeTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, KeyChain, FloorLamp, CreditCard, Box, Television, TVStand, Shelf, Statue",
+            "subgoal": "HLA: PutObject : CoffeeTable",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "move box from floor to coffee table",
+            "predict": "LightSwitch, Bowl, Painting, Window, CoffeeTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, KeyChain, FloorLamp, CreditCard, Box, Television, TVStand, Shelf, Statue",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Examine an alarm clock by the light of a lamp on a night stand.",
+            "predict": "Pen, Mirror, Dresser, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Examine an alarm clock by the light of a lamp on a night stand.",
+            "predict": "Mirror, Pen, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Examine an alarm clock by the light of a lamp on a night stand.",
+            "predict": "Pen, Mirror, Dresser, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Turn on the light on the desk",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Pillow",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Turn on the light on the desk",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Turn on the light on the desk",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Curtains, Shelf, TeddyBear, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Look at a clock by a lit lamp.",
+            "predict": "Mirror, Pen, Book, CellPhone, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, RemoteControl, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Look at a clock by a lit lamp.",
+            "predict": "Pen, Mirror, TissueBox, Book, CellPhone, Window, SideTable, Pillow, Mug, GarbageCan, CD, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Look at a clock by a lit lamp.",
+            "predict": "Pen, Dresser, Mirror, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, TissueBox, RemoteControl, LaundryHamper, ToiletPaper, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "To move the toilet paper from the tub to the back of the toilet.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, TissueBox, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PickupObject : ToiletPaper",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "To move the toilet paper from the tub to the back of the toilet.",
+            "predict": "ToiletPaper, Dresser, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, ShowerDoor, Bathtub, Toilet, Cabinet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PutObject : Toilet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "To move the toilet paper from the tub to the back of the toilet.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, Bathtub, Toilet, Cabinet, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookDown"
+        }
+    ],
+    [
+        {
+            "task": "place a plate with a sliced piece of lettuce on it inside of the fridge",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : ButterKnife",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "place a plate with a sliced piece of lettuce on it inside of the fridge",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, Ladle, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: SliceObject : Lettuce",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "place a plate with a sliced piece of lettuce on it inside of the fridge",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : DiningTable",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "place a plate with a sliced piece of lettuce on it inside of the fridge",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, CellPhone, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, HousePlant, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Lettuce",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "place a plate with a sliced piece of lettuce on it inside of the fridge",
+            "predict": "Microwave, LightSwitch, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Plate, SaltShaker, Vase, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, PaperTowelRoll, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, Spatula, Bread",
+            "subgoal": "HLA: OpenObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "place a plate with a sliced piece of lettuce on it inside of the fridge",
+            "predict": "Microwave, Pen, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, Bread, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PutObject : Plate",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "place a plate with a sliced piece of lettuce on it inside of the fridge",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, WineBottle, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Curtains, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Plate",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "place a plate with a sliced piece of lettuce on it inside of the fridge",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: CloseObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "place a plate with a sliced piece of lettuce on it inside of the fridge",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Plate, SaltShaker, Vase, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Statue, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: OpenObject : Fridge",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "place a plate with a sliced piece of lettuce on it inside of the fridge",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Fridge",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "place a plate with a sliced piece of lettuce on it inside of the fridge",
+            "predict": "Microwave, Egg, Faucet, Bowl, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, WineBottle, HousePlant, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: CloseObject : Fridge",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "place a plate with a sliced piece of lettuce on it inside of the fridge",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, WineBottle, HousePlant, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Pick up an object and turn on a lamp",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Footstool, BasketBall, Pillow, GarbageCan, CD, HousePlant, Laptop, DeskLamp, AlarmClock, Pencil, Statue, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Pick up an object and turn on a lamp",
+            "predict": "Pen, TissueBox, Newspaper, Painting, Window, CoffeeTable, SideTable, Boots, Sofa, WateringCan, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Pencil, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Pick up an object and turn on a lamp",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put the keys on the counter.",
+            "predict": "Dresser, Cloth, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, Pencil, Statue, KeyChain, FloorLamp, CreditCard, Box, Curtains, Cabinet, Drawer, Television, Watch, LightSwitch",
+            "subgoal": "HLA: PickupObject : KeyChain",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Put the keys on the counter.",
+            "predict": "Dresser, Cloth, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Curtains, Cabinet, Drawer, Television, Watch, LightSwitch",
+            "subgoal": "HLA: PutObject : Dresser",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the keys on the counter.",
+            "predict": "LightSwitch, Dresser, Cloth, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Curtains, Cabinet, Drawer, Television, Watch, Statue",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Move the tennis racket to the dresser. ",
+            "predict": "Mirror, Dresser, Pen, TissueBox, Book, CellPhone, Painting, Window, Pillow, Mug, GarbageCan, CD, TennisRacket, Laptop, Desk, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : TennisRacket",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Move the tennis racket to the dresser. ",
+            "predict": "Mirror, Dresser, Pen, TissueBox, Shelf, ShowerGlass, ToiletPaper, TennisRacket, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, FloorLamp, Toilet, Drawer, SinkBasin, Plunger, Bathtub, ToiletPaperHanger, ShowerGlass, ShowerDoor, ToiletPaper, Towel, GarbageCan, Cloth, SoapBottle, ToiletPaper, HandTowel, SoapBar, ScrubBrush, BathtubBasin, Drawer, Sink, Shelf, Plunger, ToiletPaper, SoapBottle, ShowerGlass, ToiletPaper, HandTowel, ScrubBrush, SoapBar",
+            "subgoal": "HLA: PutObject : Dresser",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move the tennis racket to the dresser. ",
+            "predict": "Mirror, Dresser, Pen, BaseballBat, Book, CellPhone, Painting, Window, Pillow, Mug, GarbageCan, CD, TennisRacket, Laptop, Desk, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Move a candle to the toilet",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PickupObject : Candle",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Move a candle to the toilet",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PutObject : Toilet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move a candle to the toilet",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, Painting, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, ShowerDoor, Toilet, Cabinet, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookDown"
+        }
+    ],
+    [
+        {
+            "task": "Put a book on a desk.",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Book",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Put a book on a desk.",
+            "predict": "Pen, Mirror, Cloth, BaseballBat, TissueBox, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, DiningTable, Laptop, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Desk",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a book on a desk.",
+            "predict": "Pen, Mirror, Cloth, BaseballBat, TissueBox, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, DiningTable, Laptop, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "To put a cup plus fork combo on the counter to the right of the sink.",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, Ladle, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Fork",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "To put a cup plus fork combo on the counter to the right of the sink.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, Ladle, SoapBottle, DiningTable, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Cup",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "To put a cup plus fork combo on the counter to the right of the sink.",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, CellPhone, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Cup",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "To put a cup plus fork combo on the counter to the right of the sink.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, Book, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : CounterTop",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "To put a cup plus fork combo on the counter to the right of the sink.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put a bottle in a trash can.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Toilet, Cabinet, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: OpenObject : Cabinet",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Put a bottle in a trash can.",
+            "predict": "ToiletPaper, Dresser, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PickupObject : SoapBottle",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a bottle in a trash can.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: CloseObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a bottle in a trash can.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, TissueBox, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaper, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PutObject : GarbageCan",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a bottle in a trash can.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, TissueBox, SprayBottle, Window, BathtubBasin, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, PaperTowelRoll, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Carry a clock while turning on a lamp",
+            "predict": "Dresser, Pen, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Carry a clock while turning on a lamp",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Curtains, Shelf, TeddyBear, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Carry a clock while turning on a lamp",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Curtains, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: Stop"
+        }
+    ],
+    [
+        {
+            "task": "put a cup and knife into a sink",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : ButterKnife",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "put a cup and knife into a sink",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Cup",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "put a cup and knife into a sink",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Kettle, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Cup",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "put a cup and knife into a sink",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CellPhone, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, Bread, CounterTop, HousePlant, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PutObject : Sink",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "put a cup and knife into a sink",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put a frying pan with an ice cream scoop in it in the sink,",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, CellPhone, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, Bread, CounterTop, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Ladle",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Put a frying pan with an ice cream scoop in it in the sink,",
+            "predict": "Microwave, Egg, Faucet, Bowl, ButterKnife, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, Bread, CounterTop, PaperTowelRoll, WineBottle, Lettuce, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Toaster, Pencil, Cabinet, Curtains, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PutObject : Pan",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a frying pan with an ice cream scoop in it in the sink,",
+            "predict": "Microwave, Pen, Egg, Bowl, Faucet, CoffeeMachine, Fridge, ButterKnife, CellPhone, Kettle, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, Bread, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Pan",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a frying pan with an ice cream scoop in it in the sink,",
+            "predict": "Microwave, LightSwitch, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Plate, SaltShaker, Vase, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Sink",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a frying pan with an ice cream scoop in it in the sink,",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, Lettuce, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "examine a computer with a lamp",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, SideTable, Pillow, GarbageCan, CD, LaundryHamper, LaundryHamperLid, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: CloseObject : Laptop",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "examine a computer with a lamp",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, SideTable, Pillow, GarbageCan, CD, LaundryHamper, LaundryHamperLid, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Laptop",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "examine a computer with a lamp",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Footstool, BasketBall, Pillow, GarbageCan, CD, HousePlant, Laptop, Desk, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : StandardWallSize",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "examine a computer with a lamp",
+            "predict": "Pen, Dresser, Mirror, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Place a glass bowl with a pen in it on top of the top shelf of the wooden desk.",
+            "predict": "Mirror, Dresser, Pen, Bowl, BaseballBat, Book, CellPhone, Poster, Window, BasketBall, Pillow, Mug, GarbageCan, CD, LaundryHamper, LaundryHamperLid, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Pen",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Place a glass bowl with a pen in it on top of the top shelf of the wooden desk.",
+            "predict": "Pen, Mirror, Dresser, Bowl, BaseballBat, Book, CellPhone, Poster, Window, BasketBall, Pillow, Mug, GarbageCan, CD, LaundryHamper, LaundryHamperLid, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Bowl",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a glass bowl with a pen in it on top of the top shelf of the wooden desk.",
+            "predict": "Pen, Dresser, Mirror, Cloth, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, CounterTop, RemoteControl, LaundryHamperLid, DiningTable, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Television, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Bowl",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a glass bowl with a pen in it on top of the top shelf of the wooden desk.",
+            "predict": "Pen, Mirror, Dresser, Bowl, BaseballBat, Book, CellPhone, Poster, Window, BasketBall, Pillow, Mug, GarbageCan, CD, LaundryHamper, LaundryHamperLid, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Shelf",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a glass bowl with a pen in it on top of the top shelf of the wooden desk.",
+            "predict": "Pen, Mirror, Dresser, Bowl, BaseballBat, Book, CellPhone, Poster, Window, BasketBall, Pillow, Mug, GarbageCan, CD, LaundryHamper, LaundryHamperLid, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: Stop"
+        }
+    ],
+    [
+        {
+            "task": "Move a towel to the counter.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, TissueBox, SprayBottle, BathtubBasin, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, PaperTowelRoll, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PickupObject : HandTowel",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Move a towel to the counter.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, TissueBox, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PutObject : CounterTop",
+            "action": "AA: LookDown"
+        },
+        {
+            "task": "Move a towel to the counter.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, TissueBox, SprayBottle, BathtubBasin, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, PaperTowelRoll, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Look at the alarm clock by lamp light.",
+            "predict": "Dresser, Mirror, Pen, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, LaundryHamperLid, Safe, Laptop, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Look at the alarm clock by lamp light.",
+            "predict": "Pen, Dresser, Mirror, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, LaundryHamperLid, Safe, Laptop, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Television, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Look at the alarm clock by lamp light.",
+            "predict": "Cloth, CellPhone, Painting, Window, CoffeeTable, Sofa, WateringCan, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Cabinet, Drawer, Television, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: Stop"
+        }
+    ],
+    [
+        {
+            "task": "Turn a lamp on with a clock in hand.",
+            "predict": "Pen, Mirror, Bowl, Book, CellPhone, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Turn a lamp on with a clock in hand.",
+            "predict": "Pen, Mirror, Dresser, Bowl, BaseballBat, Book, CellPhone, Window, Boots, BasketBall, Pillow, GarbageCan, CD, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Turn a lamp on with a clock in hand.",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, RemoteControl, LaundryHamperLid, HousePlant, DiningTable, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Television, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookDown"
+        }
+    ],
+    [
+        {
+            "task": "To put a piece of apple in the pot on the stove and set the pot on the counter to the right of the fridge.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, WineBottle, HousePlant, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : ButterKnife",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "To put a piece of apple in the pot on the stove and set the pot on the counter to the right of the fridge.",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, SideTable, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, Bread, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: SliceObject : Apple",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "To put a piece of apple in the pot on the stove and set the pot on the counter to the right of the fridge.",
+            "predict": "Microwave, Pen, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, Bread, CounterTop, PaperTowelRoll, WineBottle, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PutObject : CounterTop",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "To put a piece of apple in the pot on the stove and set the pot on the counter to the right of the fridge.",
+            "predict": "Microwave, Pen, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Pencil, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Apple",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "To put a piece of apple in the pot on the stove and set the pot on the counter to the right of the fridge.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Plate, SaltShaker, Vase, Mug, GarbageCan, Cup, Sink, Knife, CounterTop, PaperTowelRoll, HousePlant, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Statue, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Pot",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "To put a piece of apple in the pot on the stove and set the pot on the counter to the right of the fridge.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Pot",
+            "action": "AA: PickupObject"
+        },
+        {
+            "task": "To put a piece of apple in the pot on the stove and set the pot on the counter to the right of the fridge.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CellPhone, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, Bread, CounterTop, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PutObject : CounterTop",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "To put a piece of apple in the pot on the stove and set the pot on the counter to the right of the fridge.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Turn on the lamp with a basketball in hand.",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, BasketBall, Pillow, GarbageCan, CD, LaundryHamper, LaundryHamperLid, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : BasketBall",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Turn on the lamp with a basketball in hand.",
+            "predict": "Dresser, Pen, Mirror, Book, CellPhone, Painting, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Turn on the lamp with a basketball in hand.",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Pick up a clock and turn on the lamp.",
+            "predict": "Mirror, Dresser, Pen, Bowl, BaseballBat, Book, CellPhone, Window, BasketBall, Pillow, Mug, GarbageCan, CD, LaundryHamper, LaundryHamperLid, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Pick up a clock and turn on the lamp.",
+            "predict": "Cloth, CellPhone, Painting, Window, CoffeeTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Cabinet, Drawer, Television, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Pick up a clock and turn on the lamp.",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: Stop"
+        }
+    ],
+    [
+        {
+            "task": "Examine a silver disc by the light of a small lamp.",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Footstool, BasketBall, Pillow, GarbageCan, CD, HousePlant, Laptop, Desk, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : CD",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Examine a silver disc by the light of a small lamp.",
+            "predict": "Pen, Mirror, Dresser, Book, CellPhone, Painting, Window, Footstool, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Laptop, Desk, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Examine a silver disc by the light of a small lamp.",
+            "predict": "Pen, Mirror, Dresser, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Place a bar of soap in a drawer.",
+            "predict": "ToiletPaper, Dresser, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PickupObject : SoapBar",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Place a bar of soap in a drawer.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: OpenObject : Drawer",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Place a bar of soap in a drawer.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, ToiletPaperHanger, Candle, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PutObject : Drawer",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a bar of soap in a drawer.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, ShowerDoor, ToiletPaperHanger, Drawer, SoapBottle, SoapBar, Toilet, Sink, LightSwitch, HandTowel, BathtubBasin, ToiletPaper, HandTowel, Faucet, SprayBottle, SoapBottle, SoapBar, ShowerDoor, Bathtub, ToiletPaperHanger, SinkBasin, LightSwitch, HandTowel, ShowerDoor, SoapBottle, SoapBar, ToiletPaper, Drawer, Toilet, HandTowelHolder, Sink, SprayBottle, SoapBottle, SoapBar, ShowerDoor, Bathtub, ToiletPaper, HandTowel, Faucet, ShowerDoor, SprayBottle, SoapBottle, SoapBar, ToiletPaperHanger, Drawer, SinkBasin, LightSwitch, Mirror, HandTowel, ToiletPaper, ShowerDoor, SprayBottle, SoapBottle, SoapBar, Bathtub, ToiletPaperHanger, HandTowel, Sink, SprayBottle, SoapBottle, SoapBar, ToiletPaper, Drawer, HandTowel, Faucet, ShowerDoor, SprayBottle, SoapBottle, SoapBar, BathtubBasin, Toilet, HandTowelHolder",
+            "subgoal": "HLA: CloseObject : Drawer",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a bar of soap in a drawer.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put the red rag under the sink into the sink basin.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, Bathtub, Toilet, Cabinet, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: OpenObject : Cabinet",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Put the red rag under the sink into the sink basin.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, BathtubBasin, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, PaperTowelRoll, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PickupObject : Cloth",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the red rag under the sink into the sink basin.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, BathtubBasin, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, PaperTowelRoll, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Bathtub, Toilet, Cabinet, SinkBasin, Shelf, LightSwitch, Plunger",
+            "subgoal": "HLA: CloseObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the red rag under the sink into the sink basin.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, BathtubBasin, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, PaperTowelRoll, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PutObject : Sink",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the red rag under the sink into the sink basin.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, BathtubBasin, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, PaperTowelRoll, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Examine an alarm clock by the light of a lamp on a night stand.",
+            "predict": "Pen, Mirror, Dresser, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Examine an alarm clock by the light of a lamp on a night stand.",
+            "predict": "Pen, Mirror, Dresser, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Examine an alarm clock by the light of a lamp on a night stand.",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, RemoteControl, LaundryHamper, Safe, HousePlant, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Cabinet, Drawer, Television, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put a watch on the coffee table.",
+            "predict": "Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Statue, KeyChain, FloorLamp, CreditCard, Box, Curtains, Drawer, TVStand, Television, Watch, LightSwitch",
+            "subgoal": "HLA: PickupObject : Watch",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Put a watch on the coffee table.",
+            "predict": "Painting, Window, CoffeeTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: PutObject : CoffeeTable",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a watch on the coffee table.",
+            "predict": "Painting, Window, CoffeeTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Place a pot with a knife in it on a table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : ButterKnife",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Place a pot with a knife in it on a table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Pot",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a pot with a knife in it on a table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Pot",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a pot with a knife in it on a table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, CellPhone, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : DiningTable",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a pot with a knife in it on a table.",
+            "predict": "Microwave, Egg, Faucet, Bowl, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Pick up a credit card and turn a lamp on.",
+            "predict": "Dresser, Mirror, Pen, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, RemoteControl, LaundryHamperLid, HousePlant, DiningTable, Laptop, Chair, Pencil, KeyChain, CreditCard, Drawer, Television, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : CreditCard",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Pick up a credit card and turn a lamp on.",
+            "predict": "LightSwitch, Pen, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Pencil, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Statue",
+            "subgoal": "HLA: ToggleObjectOn : FloorLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Pick up a credit card and turn a lamp on.",
+            "predict": "Dresser, Mirror, Pen, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, CounterTop, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Cabinet, Drawer, Television, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookDown"
+        }
+    ],
+    [
+        {
+            "task": "Pick up the alarm clock.",
+            "predict": "Pen, Dresser, Mirror, Cloth, BaseballBat, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, DiningTable, Laptop, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Pick up the alarm clock.",
+            "predict": "Mirror, Pen, Bowl, Book, CellPhone, Window, BasketBall, Pillow, Mug, GarbageCan, CD, LaundryHamper, LaundryHamper, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Pick up the alarm clock.",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put the tomato into the microwave",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, CellPhone, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, HousePlant, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Tomato",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Put the tomato into the microwave",
+            "predict": "Microwave, LightSwitch, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Plate, SaltShaker, Vase, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, PaperTowelRoll, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, Statue, Spatula, Bread",
+            "subgoal": "HLA: OpenObject : Microwave",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the tomato into the microwave",
+            "predict": "Microwave, Egg, Faucet, Bowl, ButterKnife, CoffeeMachine, Fridge, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Microwave",
+            "action": "AA: PutObject"
+        },
+        {
+            "task": "Put the tomato into the microwave",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, PaperTowelRoll, WineBottle, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: CloseObject : Microwave",
+            "action": "AA: CloseObject"
+        },
+        {
+            "task": "Put the tomato into the microwave",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, Bread, CounterTop, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: Stop"
+        }
+    ],
+    [
+        {
+            "task": "Place the vase inside the cabinet.",
+            "predict": "Dresser, Newspaper, Book, CellPhone, Painting, Window, SideTable, Sofa, WateringCan, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Cabinet, Drawer, Television, LightSwitch",
+            "subgoal": "HLA: PickupObject : Glassbottle",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Place the vase inside the cabinet.",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CellPhone, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, Bread, CounterTop, HousePlant, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: OpenObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place the vase inside the cabinet.",
+            "predict": "Microwave, Egg, Faucet, Bowl, CoffeeMachine, Fridge, Kettle, Window, SideTable, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, PaperTowelRoll, WineBottle, HousePlant, Lettuce, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place the vase inside the cabinet.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: CloseObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place the vase inside the cabinet.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Place a phone on a bed.",
+            "predict": "Pen, Mirror, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : CellPhone",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Place a phone on a bed.",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Curtains, Shelf, TeddyBear, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Bed",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a phone on a bed.",
+            "predict": "Pen, Mirror, Cloth, BaseballBat, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, DiningTable, Laptop, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "move a CD from a desk to a table",
+            "predict": "Pen, Mirror, Cloth, TissueBox, Book, CellPhone, Painting, Window, SideTable, Pillow, ArmChair, GarbageCan, CD, DiningTable, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : CD",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "move a CD from a desk to a table",
+            "predict": "Pen, Mirror, Cloth, TissueBox, Book, CellPhone, Painting, Window, SideTable, Pillow, ArmChair, GarbageCan, CD, DiningTable, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Dresser",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "move a CD from a desk to a table",
+            "predict": "Pen, Mirror, Cloth, TissueBox, Book, CellPhone, Painting, Window, SideTable, Pillow, ArmChair, GarbageCan, CD, DiningTable, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "To move a tea pot from the kitchen table to a cabinet at the left end of the stove.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Curtains, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Kettle",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "To move a tea pot from the kitchen table to a cabinet at the left end of the stove.",
+            "predict": "Microwave, LightSwitch, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Plate, SaltShaker, Vase, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, Statue, Spatula, Bread",
+            "subgoal": "HLA: OpenObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "To move a tea pot from the kitchen table to a cabinet at the left end of the stove.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "To move a tea pot from the kitchen table to a cabinet at the left end of the stove.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: CloseObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "To move a tea pot from the kitchen table to a cabinet at the left end of the stove.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, CellPhone, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Examine the statue under the light of the floor lamp",
+            "predict": "LightSwitch, Window, CoffeeTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, KeyChain, FloorLamp, CreditCard, Box, Television, TVStand, Shelf, Statue",
+            "subgoal": "HLA: PickupObject : Statue",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Examine the statue under the light of the floor lamp",
+            "predict": "LightSwitch, Pen, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Pencil, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Statue",
+            "subgoal": "HLA: ToggleObjectOn : FloorLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Examine the statue under the light of the floor lamp",
+            "predict": "Cloth, CellPhone, Painting, Window, CoffeeTable, Sofa, WateringCan, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, Safe, HousePlant, DiningTable, Desk, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookDown"
+        }
+    ],
+    [
+        {
+            "task": "Put the white cell phone in the safe",
+            "predict": "Pen, Dresser, Mirror, Bowl, Book, CellPhone, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : CellPhone",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Put the white cell phone in the safe",
+            "predict": "Pen, Mirror, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: OpenObject : Safe",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the white cell phone in the safe",
+            "predict": "Dresser, Pen, Mirror, Bowl, Book, CellPhone, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, HousePlant, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Safe",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the white cell phone in the safe",
+            "predict": "Pen, Dresser, Mirror, Bowl, Book, CellPhone, Window, BasketBall, Pillow, Mug, GarbageCan, CD, LaundryHamper, LaundryHamper, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: CloseObject : Safe",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the white cell phone in the safe",
+            "predict": "Dresser, Pen, Mirror, Bowl, Book, CellPhone, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, HousePlant, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "take the white box from under the TV, turn on the lamp",
+            "predict": "Dresser, Newspaper, CellPhone, Painting, Window, SideTable, Sofa, WateringCan, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Cabinet, Drawer, Television, LightSwitch",
+            "subgoal": "HLA: PickupObject : Box",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "take the white box from under the TV, turn on the lamp",
+            "predict": "TissueBox, Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, Watch, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "take the white box from under the TV, turn on the lamp",
+            "predict": "LightSwitch, Dresser, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Watch, Statue",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Move a remote and box to a chair.",
+            "predict": "Book, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Television, Watch, LightSwitch",
+            "subgoal": "HLA: PickupObject : RemoteControl",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Move a remote and box to a chair.",
+            "predict": "Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: PutObject : Box",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move a remote and box to a chair.",
+            "predict": "Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, Watch, LightSwitch",
+            "subgoal": "HLA: PickupObject : Box",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move a remote and box to a chair.",
+            "predict": "Book, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Statue, KeyChain, FloorLamp, CreditCard, Box, Curtains, Television, TVStand, Watch, Drawer, LightSwitch",
+            "subgoal": "HLA: PutObject : ArmChair",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move a remote and box to a chair.",
+            "predict": "Book, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Television, Watch, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Inspect a clock near a lit lamp.",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: LookDown"
+        },
+        {
+            "task": "Inspect a clock near a lit lamp.",
+            "predict": "Pen, Dresser, Mirror, Bowl, BaseballBat, TissueBox, Book, CellPhone, Window, Boots, BasketBall, Pillow, Mug, GarbageCan, CD, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, Statue, KeyChain, CreditCard, Box, Drawer, Shelf, Watch, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Inspect a clock near a lit lamp.",
+            "predict": "Pen, Mirror, Dresser, Bowl, BaseballBat, Book, CellPhone, Poster, Window, BasketBall, Pillow, Mug, GarbageCan, CD, LaundryHamper, LaundryHamperLid, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put a soap dispenser on top of the toilet tank.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, SideTable, TowelHolder, GarbageCan, Sink, Cloth, Candle, ToiletPaperHanger, HousePlant, SoapBottle, SoapBar, Towel, HandTowel, FloorLamp, ScrubBrush, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PickupObject : SoapBottle",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Put a soap dispenser on top of the toilet tank.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, Painting, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, Toilet, Cabinet, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PutObject : Toilet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a soap dispenser on top of the toilet tank.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, ShowerDoor, SprayBottle, Window, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, Towel, SoapBar, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, FloorLamp, Toilet, Cabinet, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookDown"
+        }
+    ],
+    [
+        {
+            "task": "Turn a lamp on with a clock in hand.",
+            "predict": "Pen, Mirror, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Turn a lamp on with a clock in hand.",
+            "predict": "Pen, Mirror, Dresser, Bowl, BaseballBat, Book, CellPhone, Poster, Window, BasketBall, Pillow, Mug, GarbageCan, CD, LaundryHamper, TennisRacket, Laptop, Desk, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Turn a lamp on with a clock in hand.",
+            "predict": "Dresser, Mirror, Pen, Bowl, BaseballBat, TissueBox, Book, CellPhone, Window, Boots, BasketBall, Pillow, Mug, GarbageCan, CD, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, Statue, KeyChain, CreditCard, Box, Drawer, Shelf, Watch, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: Stop"
+        }
+    ],
+    [
+        {
+            "task": "Move a pot and sponge to a table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, SideTable, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : DishSponge",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Move a pot and sponge to a table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, SprayBottle, CellPhone, Fridge, Kettle, Window, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Pot",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move a pot and sponge to a table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, SideTable, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Pot",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move a pot and sponge to a table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, Bread, CounterTop, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PutObject : DiningTable",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move a pot and sponge to a table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Turn on the desk lamp.",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Curtains, Shelf, TeddyBear, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Pillow",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Turn on the desk lamp.",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Turn on the desk lamp.",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Place the box with the credit card to the left of the pillow on the sofa.",
+            "predict": "Dresser, Cloth, Painting, Window, CoffeeTable, SideTable, Sofa, WateringCan, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Curtains, Cabinet, Drawer, Television, Watch, LightSwitch",
+            "subgoal": "HLA: PickupObject : CreditCard",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Place the box with the credit card to the left of the pillow on the sofa.",
+            "predict": "LightSwitch, Dresser, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Watch, Statue",
+            "subgoal": "HLA: PutObject : Box",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place the box with the credit card to the left of the pillow on the sofa.",
+            "predict": "LightSwitch, Dresser, Cloth, Painting, Window, CoffeeTable, SideTable, Sofa, WateringCan, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Curtains, Drawer, Television, Watch, Statue",
+            "subgoal": "HLA: PickupObject : Box",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place the box with the credit card to the left of the pillow on the sofa.",
+            "predict": "LightSwitch, Dresser, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Watch, Statue",
+            "subgoal": "HLA: PutObject : Sofa",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place the box with the credit card to the left of the pillow on the sofa.",
+            "predict": "LightSwitch, Dresser, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Watch, Statue",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Turn on the lamp on the chest of drawers by the door. ",
+            "predict": "Pen, Dresser, Mirror, Bowl, Book, CellPhone, Painting, Window, Footstool, BasketBall, Pillow, GarbageCan, CD, LaundryHamper, LaundryHamperLid, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Turn on the lamp on the chest of drawers by the door. ",
+            "predict": "Pen, Dresser, Mirror, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Turn on the lamp on the chest of drawers by the door. ",
+            "predict": "Pen, Mirror, Dresser, BaseballBat, Book, CellPhone, Painting, Window, Pillow, Mug, GarbageCan, CD, TennisRacket, Laptop, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Pick a clock up and turn a lamp on.",
+            "predict": "Dresser, Pen, Mirror, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Pick a clock up and turn a lamp on.",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Pick a clock up and turn a lamp on.",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, CounterTop, RemoteControl, LaundryHamperLid, DiningTable, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Television, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "examine a clock with a lamp",
+            "predict": "Mirror, Pen, Book, CellPhone, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, RemoteControl, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "examine a clock with a lamp",
+            "predict": "Mirror, Pen, Bowl, Book, CellPhone, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "examine a clock with a lamp",
+            "predict": "Mirror, Dresser, Pen, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, LaundryHamperLid, Safe, Laptop, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put the knife and pot on the table.",
+            "predict": "Microwave, Egg, Faucet, Bowl, ButterKnife, Book, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Knife",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Put the knife and pot on the table.",
+            "predict": "Microwave, Egg, Faucet, Bowl, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, WineBottle, HousePlant, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Pot",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the knife and pot on the table.",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, SideTable, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, Bread, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PickupObject : Pot",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the knife and pot on the table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : DiningTable",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the knife and pot on the table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put a mug containing a knife in the sink.",
+            "predict": "Microwave, LightSwitch, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Plate, SaltShaker, Vase, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, Statue, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : ButterKnife",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Put a mug containing a knife in the sink.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, Bread, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PutObject : Mug",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a mug containing a knife in the sink.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, Bread, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PickupObject : Mug",
+            "action": "AA: PickupObject"
+        },
+        {
+            "task": "Put a mug containing a knife in the sink.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Kettle, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Sink",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Put a mug containing a knife in the sink.",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, SideTable, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, Bread, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "While holding the newspaper turn on the light on the table.",
+            "predict": "Dresser, Newspaper, CellPhone, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, WateringCan, Pillow, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Curtains, Drawer, Television, LightSwitch",
+            "subgoal": "HLA: PickupObject : Newspaper",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "While holding the newspaper turn on the light on the table.",
+            "predict": "Dresser, Newspaper, CellPhone, Painting, Window, SideTable, Sofa, WateringCan, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Cabinet, Drawer, Television, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "While holding the newspaper turn on the light on the table.",
+            "predict": "Dresser, Newspaper, Painting, Window, CoffeeTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Curtains, Drawer, Television, Shelf, Watch, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put a cup with a pen on a shelf.",
+            "predict": "Mirror, Pen, Book, CellPhone, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Curtains, Shelf, TeddyBear, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Pen",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Put a cup with a pen on a shelf.",
+            "predict": "Pen, Dresser, Mirror, Cloth, BaseballBat, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, DiningTable, Laptop, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Mug",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a cup with a pen on a shelf.",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Laptop, Desk, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Curtains, Shelf, TeddyBear, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Mug",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a cup with a pen on a shelf.",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Shelf",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a cup with a pen on a shelf.",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Turn on the lamp.",
+            "predict": "LightSwitch, Dresser, Newspaper, CellPhone, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, WateringCan, Pillow, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, DeskLamp, KeyChain, FloorLamp, CreditCard, Box, Curtains, Drawer, Television, Statue",
+            "subgoal": "HLA: PickupObject : RemoteControl",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Turn on the lamp.",
+            "predict": "Pen, Mirror, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : FloorLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Turn on the lamp.",
+            "predict": "Painting, Window, CoffeeTable, Plate, Sofa, WateringCan, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Television, TVStand, Shelf, Drawer, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookDown"
+        }
+    ],
+    [
+        {
+            "task": "Examine the tissue box by the light of the lamp on the table. ",
+            "predict": "Pen, TissueBox, Newspaper, Book, CellPhone, Painting, Window, CoffeeTable, SideTable, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, Pencil, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: PickupObject : TissueBox",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Examine the tissue box by the light of the lamp on the table. ",
+            "predict": "TissueBox, Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, Watch, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Examine the tissue box by the light of the lamp on the table. ",
+            "predict": "Pen, TissueBox, Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "examine the alarm clock with a lamp",
+            "predict": "Dresser, Pen, Mirror, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, CounterTop, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Cabinet, Drawer, Television, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "examine the alarm clock with a lamp",
+            "predict": "Dresser, Mirror, Pen, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, LaundryHamperLid, Safe, Laptop, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "examine the alarm clock with a lamp",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: Stop"
+        }
+    ],
+    [
+        {
+            "task": "Put the mug with fork on the counter",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, Sink, Knife, Bread, CounterTop, PaperTowelRoll, WineBottle, Lettuce, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Toaster, Pencil, Cabinet, Curtains, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PickupObject : Fork",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Put the mug with fork on the counter",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, SideTable, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Mug",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the mug with fork on the counter",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, Lettuce, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, CreditCard, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Mug",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the mug with fork on the counter",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, SideTable, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : CounterTop",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the mug with fork on the counter",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, Bread, CounterTop, HousePlant, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: Stop"
+        }
+    ],
+    [
+        {
+            "task": "Put a smartphone in a cardboard box to put on the armchair.",
+            "predict": "Cloth, CellPhone, Painting, Window, CoffeeTable, Sofa, WateringCan, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, Safe, HousePlant, DiningTable, Desk, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: PickupObject : CellPhone",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Put a smartphone in a cardboard box to put on the armchair.",
+            "predict": "Cloth, CellPhone, Painting, Window, CoffeeTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, Safe, HousePlant, DiningTable, Desk, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: PutObject : Box",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a smartphone in a cardboard box to put on the armchair.",
+            "predict": "Cloth, CellPhone, Painting, Window, CoffeeTable, Sofa, WateringCan, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, Pencil, Statue, KeyChain, FloorLamp, CreditCard, Box, Cabinet, Drawer, Television, LightSwitch",
+            "subgoal": "HLA: PickupObject : Box",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a smartphone in a cardboard box to put on the armchair.",
+            "predict": "Cloth, CellPhone, Painting, Window, CoffeeTable, Sofa, WateringCan, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, Safe, HousePlant, DiningTable, Desk, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: PutObject : ArmChair",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a smartphone in a cardboard box to put on the armchair.",
+            "predict": "Dresser, Newspaper, CellPhone, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, WateringCan, Pillow, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Curtains, Drawer, Television, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put a fry pan containing an apple, on the table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Pan",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Put a fry pan containing an apple, on the table.",
+            "predict": "Microwave, Pen, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : DiningTable",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a fry pan containing an apple, on the table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, Bread, CounterTop, PaperTowelRoll, WineBottle, HousePlant, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PickupObject : DiningTable",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a fry pan containing an apple, on the table.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Pan",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a fry pan containing an apple, on the table.",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, SideTable, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, Bread, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "turn on a lamp while holding a pen",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Pen",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "turn on a lamp while holding a pen",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "turn on a lamp while holding a pen",
+            "predict": "Dresser, Mirror, Pen, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, RemoteControl, Safe, HousePlant, DiningTable, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Television, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Carry an alarm clock while turning on a lamp",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, LaundryHamper, RemoteControl, HousePlant, DiningTable, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Television, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Carry an alarm clock while turning on a lamp",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Carry an alarm clock while turning on a lamp",
+            "predict": "Pen, Dresser, Mirror, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, RemoteControl, LaundryHamperLid, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Television, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: Stop"
+        }
+    ],
+    [
+        {
+            "task": "Place a pencil into a bowl.",
+            "predict": "Pen, Dresser, Mirror, Cloth, Pen, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Bowl",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Place a pencil into a bowl.",
+            "predict": "Pen, Dresser, Mirror, Bowl, BaseballBat, Book, CellPhone, Window, Boots, BasketBall, Pillow, GarbageCan, CD, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : CounterTop",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a pencil into a bowl.",
+            "predict": "Pen, Dresser, Mirror, Cloth, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, CounterTop, RemoteControl, LaundryHamperLid, DiningTable, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Television, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Pencil",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a pencil into a bowl.",
+            "predict": "Dresser, Mirror, Pen, Bowl, BaseballBat, Book, CellPhone, Window, BasketBall, Pillow, Mug, GarbageCan, CD, LaundryHamper, LaundryHamperLid, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Bowl",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a pencil into a bowl.",
+            "predict": "Pen, Dresser, Mirror, Cloth, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Place a closed laptop onto the seat of a couch.",
+            "predict": "TissueBox, Newspaper, Painting, Window, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Shelf, LightSwitch",
+            "subgoal": "HLA: CloseObject : Laptop",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Place a closed laptop onto the seat of a couch.",
+            "predict": "TissueBox, Newspaper, Painting, Window, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Shelf, LightSwitch",
+            "subgoal": "HLA: PickupObject : Laptop",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a closed laptop onto the seat of a couch.",
+            "predict": "TissueBox, Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, Watch, LightSwitch",
+            "subgoal": "HLA: PutObject : Sofa",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a closed laptop onto the seat of a couch.",
+            "predict": "TissueBox, Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, Watch, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Examine a clock by the light of a small lamp.",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Examine a clock by the light of a small lamp.",
+            "predict": "Pen, Mirror, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Examine a clock by the light of a small lamp.",
+            "predict": "Pen, Dresser, Mirror, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, RemoteControl, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, Cloth",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put a credit card in a bowl before setting it on a dresser.",
+            "predict": "Pen, Dresser, Mirror, Cloth, Bowl, Book, CellPhone, Painting, Window, Boots, SideTable, Pillow, Vase, ArmChair, GarbageCan, CD, HousePlant, Laptop, AlarmClock, Pencil, Statue, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : CreditCard",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Put a credit card in a bowl before setting it on a dresser.",
+            "predict": "Pen, Dresser, Mirror, Cloth, Bowl, Book, CellPhone, Painting, Window, Boots, SideTable, Pillow, Vase, ArmChair, GarbageCan, CD, HousePlant, Laptop, AlarmClock, Pencil, Statue, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Bowl",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a credit card in a bowl before setting it on a dresser.",
+            "predict": "Pen, Dresser, Mirror, Cloth, Bowl, Book, CellPhone, Painting, Window, Boots, SideTable, Pillow, Vase, ArmChair, GarbageCan, CD, HousePlant, Laptop, AlarmClock, Pencil, Statue, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Bowl",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a credit card in a bowl before setting it on a dresser.",
+            "predict": "Pen, Dresser, Mirror, Cloth, Bowl, Book, CellPhone, Painting, Window, Boots, SideTable, Pillow, Vase, ArmChair, GarbageCan, CD, HousePlant, Laptop, AlarmClock, Pencil, Statue, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Dresser",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a credit card in a bowl before setting it on a dresser.",
+            "predict": "Pen, Dresser, Mirror, Cloth, Bowl, Book, CellPhone, Painting, Window, Boots, SideTable, Pillow, Vase, ArmChair, GarbageCan, CD, HousePlant, Laptop, AlarmClock, Pencil, Statue, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Turn on the floor lamp with a candle in hand.",
+            "predict": "Pen, TissueBox, Newspaper, Painting, Window, CoffeeTable, SideTable, Boots, Sofa, WateringCan, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, Pencil, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: PickupObject : Candle",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Turn on the floor lamp with a candle in hand.",
+            "predict": "LightSwitch, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : FloorLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Turn on the floor lamp with a candle in hand.",
+            "predict": "LightSwitch, Painting, Window, CoffeeTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Television, TVStand, Statue",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookDown"
+        }
+    ],
+    [
+        {
+            "task": "Examine a vase by the light of a floor lamp.",
+            "predict": "LightSwitch, Pen, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Pencil, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Statue",
+            "subgoal": "HLA: PickupObject : Vase",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Examine a vase by the light of a floor lamp.",
+            "predict": "Painting, Window, CoffeeTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Television, TVStand, Shelf, Drawer, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : FloorLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Examine a vase by the light of a floor lamp.",
+            "predict": "Painting, Window, CoffeeTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Television, TVStand, Shelf, Drawer, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookDown"
+        }
+    ],
+    [
+        {
+            "task": "Pick up the spray bottle and put it in the silver trash can.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PickupObject : SprayBottle",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Pick up the spray bottle and put it in the silver trash can.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PutObject : GarbageCan",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Pick up the spray bottle and put it in the silver trash can.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Toilet, Cabinet, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "To move a remote to the chair. ",
+            "predict": "Painting, Window, CoffeeTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Curtains, Drawer, Television, TVStand, Shelf, Watch, LightSwitch",
+            "subgoal": "HLA: PickupObject : RemoteControl",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "To move a remote to the chair. ",
+            "predict": "Painting, Window, CoffeeTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, TVStand, Shelf, Watch, LightSwitch",
+            "subgoal": "HLA: PutObject : ArmChair",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "To move a remote to the chair. ",
+            "predict": "Painting, Window, CoffeeTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Place a mug with two pencils onto the desk",
+            "predict": "Pen, Dresser, Mirror, BaseballBat, Book, CellPhone, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, LaundryHamperLid, Safe, Laptop, Desk, Chair, TeddyBear, KeyChain, FloorLamp, CreditCard, Box, Drawer, Desk, Laptop, Chair, Desk, Safe, TeddyBear, Pen, Book, Window, SideTable, Cloth, BaseballBat, Pillow, CD, Cloth, LaundryHamper, TeddyBear, Drawer, Laptop, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Pencil",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Place a mug with two pencils onto the desk",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, RemoteControl, WineBottle, HousePlant, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Television, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Mug",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a mug with two pencils onto the desk",
+            "predict": "Dresser, Pen, Mirror, Bowl, Book, CellPhone, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Mug",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a mug with two pencils onto the desk",
+            "predict": "Pen, Dresser, Mirror, Bowl, Book, CellPhone, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Desk",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Place a mug with two pencils onto the desk",
+            "predict": "Pen, Mirror, Cloth, BaseballBat, TissueBox, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, HousePlant, TennisRacket, Desk, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Examine the round container by the light of the lamp on the desk",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Examine the round container by the light of the lamp on the desk",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Laptop, Desk, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Examine the round container by the light of the lamp on the desk",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, BasketBall, Pillow, GarbageCan, CD, LaundryHamper, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "put a cushion on a chair",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, Pillow, Mug, ArmChair, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Cabinet, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Pillow",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "put a cushion on a chair",
+            "predict": "TissueBox, Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, Watch, LightSwitch",
+            "subgoal": "HLA: PutObject : ArmChair",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "put a cushion on a chair",
+            "predict": "Pen, Dresser, Mirror, Cloth, TissueBox, Book, CellPhone, Painting, Window, SideTable, Pillow, ArmChair, GarbageCan, CD, LaundryHamper, Candle, RemoteControl, HousePlant, Pencil, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Examine a clock using the light of a lamp. ",
+            "predict": "Pen, Mirror, TissueBox, Newspaper, Painting, Window, CoffeeTable, SideTable, Boots, Sofa, WateringCan, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Pencil, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Examine a clock using the light of a lamp. ",
+            "predict": "Mirror, Dresser, Pen, Book, CellPhone, Painting, Window, Pillow, Mug, GarbageCan, CD, TennisRacket, Laptop, Desk, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Examine a clock using the light of a lamp. ",
+            "predict": "Pen, Mirror, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Move a basketball from underneath the white desk to on top of it.",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Curtains, Shelf, TeddyBear, Box, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : BasketBall",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Move a basketball from underneath the white desk to on top of it.",
+            "predict": "Mirror, Pen, Cloth, BaseballBat, Book, CellPhone, Poster, Window, SideTable, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Desk",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Move a basketball from underneath the white desk to on top of it.",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Curtains, Shelf, TeddyBear, Box, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Take out the pan from cabinet and put it on the counter.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, Lettuce, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: OpenObject : Cabinet",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Take out the pan from cabinet and put it on the counter.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, Ladle, SoapBottle, DiningTable, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Pan",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Take out the pan from cabinet and put it on the counter.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: CloseObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Take out the pan from cabinet and put it on the counter.",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CellPhone, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, Bread, CounterTop, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PutObject : CounterTop",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Take out the pan from cabinet and put it on the counter.",
+            "predict": "Microwave, LightSwitch, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Plate, SaltShaker, Vase, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, PaperTowelRoll, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, Statue, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "turn on the lamp while holding a card",
+            "predict": "Painting, Window, CoffeeTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Television, TVStand, Shelf, Drawer, LightSwitch",
+            "subgoal": "HLA: PickupObject : CreditCard",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "turn on the lamp while holding a card",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, BasketBall, Pillow, GarbageCan, CD, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : FloorLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "turn on the lamp while holding a card",
+            "predict": "TissueBox, Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, Watch, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookDown"
+        }
+    ],
+    [
+        {
+            "task": "Taking items in and out of the sink",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CellPhone, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, Bread, CounterTop, HousePlant, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine",
+            "subgoal": "HLA: PickupObject : ButterKnife",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Taking items in and out of the sink",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, Ladle, SoapBottle, DiningTable, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Cup",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Taking items in and out of the sink",
+            "predict": "Microwave, Pen, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Pencil, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Cup",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Taking items in and out of the sink",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, Lettuce, Ladle, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PutObject : CounterTop",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Taking items in and out of the sink",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: Stop"
+        }
+    ],
+    [
+        {
+            "task": "Retrieve a cloth and bring it to a lit desk. ",
+            "predict": "Pen, Mirror, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, LaundryHamperLid, Safe, Laptop, Desk, Chair, Pencil, KeyChain, CreditCard, Box, Drawer, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Cloth",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Retrieve a cloth and bring it to a lit desk. ",
+            "predict": "Pen, Mirror, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Retrieve a cloth and bring it to a lit desk. ",
+            "predict": "Pen, Mirror, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, LaundryHamperLid, Safe, Laptop, Desk, Chair, Pencil, KeyChain, CreditCard, Box, Drawer, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "grab the clock from white table, turn on the lamp on cabinet by window",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, CounterTop, RemoteControl, LaundryHamperLid, DiningTable, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Television, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "grab the clock from white table, turn on the lamp on cabinet by window",
+            "predict": "Dresser, Pen, Mirror, Bowl, BaseballBat, Book, CellPhone, Window, Boots, BasketBall, Pillow, GarbageCan, CD, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "grab the clock from white table, turn on the lamp on cabinet by window",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, RemoteControl, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, LaundryHamper, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: Stop"
+        }
+    ],
+    [
+        {
+            "task": "put a pencil on the desk",
+            "predict": "Pen, Mirror, Cloth, BaseballBat, TissueBox, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, HousePlant, TennisRacket, Desk, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : Pencil",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "put a pencil on the desk",
+            "predict": "Pen, Mirror, Book, CellPhone, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, RemoteControl, Safe, HousePlant, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Cabinet, Drawer, Television, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PutObject : Desk",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "put a pencil on the desk",
+            "predict": "Pen, Mirror, Cloth, BaseballBat, TissueBox, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, HousePlant, TennisRacket, Desk, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: Stop"
+        }
+    ],
+    [
+        {
+            "task": "Examine a clock by the light of a small lamp.",
+            "predict": "Dresser, Mirror, Pen, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, CounterTop, RemoteControl, DiningTable, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Television, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Examine a clock by the light of a small lamp.",
+            "predict": "Pen, Dresser, Mirror, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, LaundryHamperLid, Safe, Laptop, DeskLamp, TeddyBear, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Examine a clock by the light of a small lamp.",
+            "predict": "Mirror, Dresser, Pen, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, RemoteControl, LaundryHamperLid, HousePlant, DiningTable, Laptop, Chair, Pencil, KeyChain, CreditCard, Drawer, Television, Statue",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Turn a lamp on. ",
+            "predict": "Dresser, Newspaper, CellPhone, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, WateringCan, Pillow, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Curtains, Drawer, Television, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Turn a lamp on. ",
+            "predict": "Pen, TissueBox, Newspaper, Painting, Window, Boots, CoffeeTable, SideTable, Sofa, WateringCan, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Pencil, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Turn a lamp on. ",
+            "predict": "Cloth, CellPhone, Painting, Window, CoffeeTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, Pencil, Statue, KeyChain, FloorLamp, CreditCard, Box, Cabinet, Drawer, Television, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "get a stamp and turn on a lamp",
+            "predict": "Pen, Dresser, Mirror, Book, CellPhone, Painting, Window, SideTable, Pillow, Vase, Mug, GarbageCan, CD, HousePlant, TennisRacket, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "get a stamp and turn on a lamp",
+            "predict": "Pen, Dresser, Mirror, Bowl, Book, CellPhone, Painting, Poster, Window, SideTable, Pillow, GarbageCan, CD, Cloth, LaundryHamper, LaundryHamperLid, Safe, Laptop, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, TeddyBear, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "get a stamp and turn on a lamp",
+            "predict": "Pen, TissueBox, Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Shelf, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put the keys on the couch.",
+            "predict": "Dresser, Newspaper, Book, CellPhone, Painting, Window, SideTable, Sofa, WateringCan, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Cabinet, Drawer, Television, LightSwitch",
+            "subgoal": "HLA: PickupObject : KeyChain",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Put the keys on the couch.",
+            "predict": "Dresser, Newspaper, Book, CellPhone, Painting, Window, SideTable, Sofa, WateringCan, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Cabinet, Drawer, Television, LightSwitch",
+            "subgoal": "HLA: PutObject : Sofa",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put the keys on the couch.",
+            "predict": "Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Statue, KeyChain, FloorLamp, CreditCard, Box, Curtains, Television, TVStand, Watch, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Curtains, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Fork",
+            "action": "AA: RotateRight"
+        },
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, WineBottle, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Curtains, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: OpenObject : Cabinet",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": "Microwave, LightSwitch, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Plate, SaltShaker, Vase, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, PaperTowelRoll, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, Spatula, Bread",
+            "subgoal": "HLA: PutObject : Plate",
+            "action": "AA: LookDown"
+        },
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": "Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: PickupObject : Plate",
+            "action": "AA: LookDown"
+        },
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, CounterTop, WineBottle, Lettuce, Ladle, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Curtains, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: CloseObject : Cabinet",
+            "action": "AA: LookDown"
+        },
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": "Microwave, LightSwitch, Egg, Bowl, Faucet, ButterKnife, Book, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Vase, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, WineBottle, HousePlant, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, Shelf, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, Statue, Spatula, Bread",
+            "subgoal": "HLA: PutObject : CounterTop",
+            "action": "AA: LookDown"
+        },
+        {
+            "task": "Put a plate with a fork on the counter by the toaster.",
+            "predict": "Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, DishSponge, Cup, GarbageCan, Sink, Knife, CounterTop, PaperTowelRoll, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Put a cardboard roll on a toilet paper roll holder.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, SprayBottle, Window, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Toilet, BasketBall, ToiletPaper, Cabinet, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PickupObject : ToiletPaper",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Put a cardboard roll on a toilet paper roll holder.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, Window, BathtubBasin, TowelHolder, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, Bathtub, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: PutObject : ToiletPaperHanger",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a cardboard roll on a toilet paper roll holder.",
+            "predict": "ToiletPaper, Mirror, HandTowelHolder, Faucet, ShowerDoor, SprayBottle, TowelHolder, DishSponge, GarbageCan, Sink, Cloth, CounterTop, Candle, ToiletPaperHanger, SoapBottle, SoapBar, Towel, HandTowel, ScrubBrush, ShowerDoor, ShowerGlass, Toilet, Drawer, SinkBasin, LightSwitch, Plunger",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Pick up keys, turn on lamp",
+            "predict": "Bowl, TissueBox, Newspaper, Book, CellPhone, Painting, Window, CoffeeTable, SideTable, Boots, Plate, Sofa, WateringCan, Pillow, Vase, Ottoman, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Pencil, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Watch, LightSwitch",
+            "subgoal": "HLA: PickupObject : KeyChain",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Pick up keys, turn on lamp",
+            "predict": "LightSwitch, Dresser, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Watch, Statue",
+            "subgoal": "HLA: ToggleObjectOn : FloorLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Pick up keys, turn on lamp",
+            "predict": "LightSwitch, Book, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Watch, Statue",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookDown"
+        }
+    ],
+    [
+        {
+            "task": "Inspect a clock by lamp light.",
+            "predict": "Pen, Dresser, Mirror, Bowl, BaseballBat, Book, CellPhone, Window, Boots, BasketBall, Pillow, GarbageCan, CD, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: PickupObject : AlarmClock",
+            "action": "AA: MoveAhead"
+        },
+        {
+            "task": "Inspect a clock by lamp light.",
+            "predict": "Dresser, Mirror, Pen, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, ArmChair, GarbageCan, CD, LaundryHamper, CounterTop, RemoteControl, LaundryHamperLid, DiningTable, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Television, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : DeskLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Inspect a clock by lamp light.",
+            "predict": "LightSwitch, Dresser, Mirror, Pen, Book, CellPhone, Painting, Window, Footstool, BasketBall, Pillow, GarbageCan, CD, HousePlant, Laptop, Desk, Chair, DeskLamp, AlarmClock, Pencil, KeyChain, CreditCard, Box, Drawer, Shelf, Blinds, Bed, Statue",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Examine a remote in lamp light.",
+            "predict": "Painting, Window, CoffeeTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Television, TVStand, Shelf, Drawer, LightSwitch",
+            "subgoal": "HLA: PickupObject : RemoteControl",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Examine a remote in lamp light.",
+            "predict": "Dresser, Newspaper, CellPhone, Painting, Window, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Cabinet, Drawer, Television, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : FloorLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Examine a remote in lamp light.",
+            "predict": "LightSwitch, Mirror, Cloth, TissueBox, Newspaper, Painting, Window, CoffeeTable, SideTable, Boots, Plate, Sofa, WateringCan, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Pencil, KeyChain, FloorLamp, CreditCard, Box, Curtains, Television, Vase, Drawer, TVStand, Watch, Statue",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookDown"
+        }
+    ],
+    [
+        {
+            "task": "Put a box with keys in it on the sofa",
+            "predict": "LightSwitch, Newspaper, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Statue",
+            "subgoal": "HLA: PickupObject : KeyChain",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Put a box with keys in it on the sofa",
+            "predict": "Newspaper, Painting, Window, CoffeeTable, SideTable, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, Watch, LightSwitch",
+            "subgoal": "HLA: PutObject : Box",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a box with keys in it on the sofa",
+            "predict": "Newspaper, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Statue, KeyChain, FloorLamp, CreditCard, Box, Drawer, TVStand, Shelf, Television, Watch, LightSwitch",
+            "subgoal": "HLA: PickupObject : Box",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a box with keys in it on the sofa",
+            "predict": "LightSwitch, Newspaper, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Watch, Statue",
+            "subgoal": "HLA: PutObject : Sofa",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Put a box with keys in it on the sofa",
+            "predict": "Painting, LightSwitch, Newspaper, Pillow, Vase, Mug, HousePlant, DiningTable, Laptop, Chair, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Shelf, Statue, Watch, Sink, LightSwitch",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookUp"
+        }
+    ],
+    [
+        {
+            "task": "Turn a lamp on with a watch in hand.",
+            "predict": "Dresser, Newspaper, Painting, Window, CoffeeTable, Sofa, WateringCan, Pillow, ArmChair, GarbageCan, RemoteControl, HousePlant, Laptop, Chair, DeskLamp, Statue, KeyChain, FloorLamp, CreditCard, Box, Curtains, Drawer, Television, Watch, LightSwitch",
+            "subgoal": "HLA: PickupObject : Watch",
+            "action": "AA: RotateLeft"
+        },
+        {
+            "task": "Turn a lamp on with a watch in hand.",
+            "predict": "Dresser, Mirror, Pen, Bowl, BaseballBat, TissueBox, Book, CellPhone, Window, Boots, BasketBall, Pillow, Mug, GarbageCan, CD, Desk, Laptop, Chair, DeskLamp, AlarmClock, Pencil, Statue, KeyChain, CreditCard, Box, Drawer, Shelf, Watch, Blinds, Bed, LightSwitch",
+            "subgoal": "HLA: ToggleObjectOn : FloorLamp",
+            "action": "AA: LookUp"
+        },
+        {
+            "task": "Turn a lamp on with a watch in hand.",
+            "predict": "LightSwitch, Newspaper, Painting, Window, CoffeeTable, SideTable, Plate, Sofa, Pillow, Vase, ArmChair, GarbageCan, RemoteControl, HousePlant, DiningTable, Laptop, Chair, Pencil, KeyChain, FloorLamp, CreditCard, Box, Drawer, Television, Shelf, Statue",
+            "subgoal": "HLA: Stop : NIL",
+            "action": "AA: LookDown"
+        }
+    ]
+]
