@@ -1,9 +1,10 @@
 from typing import Dict, List, Type, Union
 import sys
-from evaluate_value import LLM_critic
-from action_proposal import action_proposal
-from adapt_model import adap_model
-from predict import predict_model
+from .evaluate_value import LLM_critic
+from .action_proposal import action_proposal
+from .adapt_model import adap_model
+from .predict import predict_model
+from .llm_hlsm_subgoal import LLMHlsmSubgoalModel
 import torch
 import os
 sys.path.append('/mnt/sda/yuxiao_code/hlsm')
@@ -18,11 +19,16 @@ from lgp.abcd.skill import Skill
 from lgp.env.alfred.alfred_subgoal import AlfredSubgoal
 from lgp.env.alfred.alfred_action import AlfredAction
 from lgp.env.alfred.segmentation_definitions import object_string_to_intid
-from process_predict import predict_processor
+from lgp.models.alfred.hlsm.hlsm_task_repr import HlsmTaskRepr
+from lgp.agents.agent_state import AgentState
+from lgp.models.alfred.hlsm.hlsm_model_factory import HlsmModelFactory
+from .process_predict import predict_processor
 import re
 import copy
 class LlmAgent(Agent):
     def __init__(self,
+        proposal,
+        obs_func,
         device ='cuda',
         gamma=0.9,
         adaptation_model=adap_model(),
@@ -39,9 +45,11 @@ class LlmAgent(Agent):
         self.value= value_model
         self.action_proposal=action_propsal_model
         self.predict=predict_model
-
+        self.proposal=proposal
+        self.obs_func = obs_func
         self.device = device
         self.task=None
+        self.TaskReprCls = HlsmTaskRepr
         # for debugging 
         self.trace = {}
         # handle failed action
@@ -53,10 +61,13 @@ class LlmAgent(Agent):
         return {k: v.to(device) if v is not None else v for k, v in self.trace.items()}
     def clear_trace(self):
         self.trace={}
+        self.proposal.clear_trace()
     def action_execution_failed(self):
         self.log_action_failed=True
-        self.failed_action=self.action_history[-1]
-        self.action_history=self.action_history[:-1]
+        if(len(self.action_history)>0):
+            self.failed_action=self.action_history[-1]
+            self.action_history=self.action_history[:-1]
+        self.proposal.action_execution_failed()
     def _reset(self):
         self.trace = {}
         self.action_proposal.reset()
@@ -66,11 +77,14 @@ class LlmAgent(Agent):
         self.failed_action=None
         self.action_history=[]
         self.task=None
+        self.proposal.reset_state()
 
         
     def start_new_rollout(self, task: Task, state_repr: StateRepr = None):
         #here we only need to use the language description of the task
         self._reset()
+        task_repr = self.TaskReprCls.from_task([task], device=self.device)
+        self.agent_state = AgentState(task_repr)
         self.task=str(task)
     
     def finalize(self, total_reward: float):
@@ -80,7 +94,7 @@ class LlmAgent(Agent):
         self.log_action_failed =False
         self.failed_action=None
         self.action_history.append({'metadata':meta_info,'action':action,'critic':critic})
-        
+        print('logged action:',str(action))
         self.trace['metadata']=meta_info
         self.trace['action']=action
         self.trace['critic']=critic
@@ -115,6 +129,8 @@ class LlmAgent(Agent):
         if(obj_id==125):
             print('object name error:',action_obj)
         obj_tensor[0][obj_id]=1.0
+        print('here is the subgoal')
+        print(obj_tensor.shape)
         return AlfredSubgoal.from_type_str_and_arg_vector(acion_type, obj_tensor),critic
 
         
@@ -125,7 +141,7 @@ class LlmAgent(Agent):
         return 0 if depth == 0 else  int((sample_pernode**depth -1)/(sample_pernode-1))
     
     def _RAFA(self,metadata,
-              depth=2,
+              depth=1,
               sample_pernode=2):
         valid_idx =0
         #convert the action into str form,as we only need it 
@@ -182,23 +198,51 @@ class LlmAgent(Agent):
         #AlfredSubgoal.from_type_str_and_arg_vector(act_type_str, arg_vector_out)
         if isinstance(observation_or_state_repr, Observation):
             observation = observation_or_state_repr
+            observation = observation.to(self.device)
+            s_0 = self.obs_func(observation, self.agent_state.prev_state,goal=None)
         else:
-            observation = observation_or_state_repr
+            observation = observation_or_state_repr.observation
+            s_0 = observation_or_state_repr
+
         #the meta data estimated by adaptation_model
         meta_info = self.adaptation_model.act(observation,self.task)
         meta_info =self.predict_processor.process(meta_info)
         proposed_action,critic= self._RAFA(meta_info)
+        proposed_action=proposed_action.to(self.device)
+        # to get mask
+        proposed_action =self.proposal.forward_inference(proposed_action,
+        s_0,
+        self.agent_state.task_repr,
+        self.proposal.get_state())
+
+
+        self.proposal.log_action(proposed_action)
+        self.agent_state.prev_state = s_0
+
         self._log_action(meta_info,proposed_action,critic)
         return proposed_action
 
 import compress_pickle as pickle
 if __name__ == "__main__":   
     predict =adap_model()
+    from lgp.parameters import Hyperparams, load_experiment_definition
+    exp_def = Hyperparams(load_experiment_definition('alfred/eval/hlsm_full/eval_hlsm_valid_unseen'))
+    model_factory = HlsmModelFactory(exp_def.Hyperparams)
     read_path = "/mnt/sda/yuxiao_code/hlsm/data/rollouts/alfred_subgoal_rollouts/"
     load_path = "/mnt/sda/yuxiao_code/hlsm/data/rollouts/subgoal_metadata/"
-    agent=LlmAgent()
- 
-    file_path=os.path.join(read_path,f'rollout_{7600}.gz')
+    actprop =  LLMHlsmSubgoalModel(exp_def.Hyperparams)
+    from lgp.models.alfred.hlsm.hlsm_observation_function import HlsmObservationFunction
+    obs_func =HlsmObservationFunction(exp_def.Hyperparams)
+    subgoal_model_path = "/mnt/sda/yuxiao_code/hlsm/models/alfred_hlsm_subgoal_model_e5.pytorch"
+    if subgoal_model_path:
+        sd = torch.load(subgoal_model_path)
+        actprop.load_state_dict(sd, strict=False)    
+    actprop.eval()
+    actprop.to("cuda")
+    obs_func.eval()
+    agent=LlmAgent(actprop,obs_func)
+
+    file_path=os.path.join(read_path,f'rollout_{5400}.gz')
     
     roll=pickle.load(file_path)
     # acion_type="PickupObject"
@@ -219,7 +263,7 @@ if __name__ == "__main__":
     # print(action_obj)
 
     nw_ls = []
-    for sg in roll:
+    for i,sg in enumerate(roll):
         task =sg['task']
         agent.start_new_rollout(task)
         obs = sg['observation']

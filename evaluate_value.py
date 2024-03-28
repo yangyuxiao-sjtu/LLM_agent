@@ -12,7 +12,7 @@ import math
 from statistics import mean
 import json
 import re
-from utils.LLM_utils import his_to_str,choose_examples,call_openai
+from LLM_subgoal.utils.LLM_utils import his_to_str,choose_examples,call_openai
 sys.path.append('/mnt/sda/yuxiao_code/hlsm')
 from lgp.abcd.observation import Observation
 from lgp.abcd.functions.observation_function import ObservationFunction
@@ -37,7 +37,7 @@ class LLM_critic():
                 model ="gpt-4",
                 max_tokens=100,
                 top_p=0.8,
-                prompt_path='./prompts/value_prompts.json',
+                prompt_path='prompts/value_prompts.json',
                 stop='\n'):
         self.model=model
         self.max_tokens = max_tokens
@@ -48,7 +48,8 @@ class LLM_critic():
         You are a value critic of states in a household task. You would be given a task description, some observations and actions, you need to give a critic about them.  
         Here are two examples:
         """
-        with open(prompt_path,"r",encoding="utf-8") as f:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        with open(os.path.join(base_dir,prompt_path),"r",encoding="utf-8") as f:
             data = json.load(f)
         example_prompts= get_critic_example(data)
         self.sys_prompt= self.base_prompt+example_prompts

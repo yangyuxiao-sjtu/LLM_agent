@@ -12,7 +12,7 @@ import math
 from statistics import mean
 import json
 import re
-from utils.LLM_utils import his_to_str,choose_examples,call_openai
+from LLM_subgoal.utils.LLM_utils import his_to_str,choose_examples,call_openai
 sys.path.append('/mnt/sda/yuxiao_code/hlsm')
 from lgp.abcd.observation import Observation
 from lgp.abcd.functions.observation_function import ObservationFunction
@@ -22,7 +22,7 @@ class predict_model():
                 model ="gpt-4",
                 max_tokens=100,
                 top_p=0.8,
-                prompt_path='./prompts/action_prompts.json',
+                prompt_path='prompts/action_prompts.json',
                 example_num=1,
                 stop='\n'):
         self.model = model
@@ -32,7 +32,8 @@ class predict_model():
         self.base_prompt=f"""
 You are a predict model, given previous observation,action pair, you should predict next observation,here are {2*example_num} examples
 """
-        short_examples,long_examples=choose_examples(prompt_path,example_num)
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        short_examples,long_examples=choose_examples(os.path.join(base_dir,prompt_path),example_num)
         self.sys_prompt=self.base_prompt+''.join(short_examples)+''.join(long_examples)
     def reset(self):
         ...
