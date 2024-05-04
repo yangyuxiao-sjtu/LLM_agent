@@ -13,7 +13,7 @@ from statistics import mean
 import json
 import re
 from LLM_subgoal.utils.LLM_utils import his_to_str,choose_examples,call_openai
-sys.path.append('/mnt/sda/yuxiao_code/hlsm')
+# sys.path.append('/mnt/sda/yuxiao_code/hlsm')
 from lgp.abcd.observation import Observation
 from lgp.abcd.functions.observation_function import ObservationFunction
 import openai
@@ -22,25 +22,29 @@ class predict_model():
                 model ="gpt-4",
                 max_tokens=100,
                 top_p=0.8,
-                prompt_path='prompts/action_prompts.json',
-                example_num=1,
+            
+                example_num=2,
                 stop='\n'):
         self.model = model
         self.max_tokens=max_tokens
+        self.example_num=example_num
         self.top_p=top_p
         self.stop = stop
+        self.task = None
         self.base_prompt=f"""
-You are a predict model, given previous observation,action pair, you should predict next observation,here are {2*example_num} examples
+You are a predict model, given previous observation,action pair, you should predict next observation,here are {example_num} examples
 """
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        short_examples,long_examples=choose_examples(os.path.join(base_dir,prompt_path),example_num)
-        self.sys_prompt=self.base_prompt+''.join(short_examples)+''.join(long_examples)
+
+        self.sys_prompt=self.base_prompt 
     def reset(self):
-        ...
-    def act(self,task,history):
+        self.task = None
+    def act(self,task,history,predict_processor):
+        if self.task !=task:
+            self.task=task
+            task_prompt=self.base_prompt + predict_processor.knn_retrieval(self.task,self.example_num,use_predict = False)
         str_history = his_to_str(history)
         task_prompt ="Your task is: "+ task+'\n'
-        task_prompt+=str_history+'\n'+'The objects that might help you to solve the task are:'
+        task_prompt+=str_history+'\n'+'The objects you have seen are:'
         response = call_openai(model=self.model,
                           max_token=self.max_tokens,
                           top_p=self.top_p,
@@ -64,4 +68,4 @@ if __name__ == "__main__":
     # print(history)
     actions = proposal.act(task,history)
     print(actions)
-
+#Countertop Desk

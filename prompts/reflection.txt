@@ -1,0 +1,31 @@
+Your task is: Place a pencil into a bowl.
+The objects might be useful in the tasks are: Bowl, Pencil
+The objects you have seen are: Pen, Dresser, Mirror, Lamp, Pen, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch
+PickupObject : Bowl
+The objects you have seen are: Pen, Dresser, Mirror, Lamp, Bowl, Book, CellPhone, Painting, Window, SideTable, Pillow, Mug, GarbageCan, CD, Safe, HousePlant, TennisRacket, Desk, Laptop, Chair, AlarmClock, Pencil, KeyChain, CreditCard, Drawer, Shelf, TeddyBear, Blinds, Bed, LightSwitch
+PickupObject : Pencil
+Critic: My task requires three sub-goals in order: pickup the pencil, pickup the bowl, put the pencil into the bowl. My current state satisfies one of the three sub-goals:  pickup the pencil, pickup the bowl. The value is 2/3=0.67
+Status: Fail
+Failure feedback: In this task, I can not pickup the pencil and then pickup the bowl. I noticed that there is a Desk, so I should put the bowl on the Desk before I pickup pencil. In the next trail, I should try to pickup the bowl and put it down and then pickup the pencil.
+ 
+Your task is: To put a piece of apple in the pot on the stove and set the pot on the counter to the right of the fridge.
+The objects might be useful in the tasks are: ButterKnife, Apple
+The objects you have seen are: Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, PaperTowelRoll, WineBottle, HousePlant, Lettuce, DiningTable, SoapBottle, Ladle, Apple, Fork, StoveKnob, Glassbottle, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread
+PickupObject : ButterKnife
+The objects you have seen are: Microwave, Mirror, Egg, Bowl, Faucet, ButterKnife, Fridge, Window, SideTable, Plate, SaltShaker, Mug, DishSponge, GarbageCan, Cup, Sink, Knife, Bread, CounterTop, Lettuce, PotatoSliced, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, Blinds, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, CoffeeMachine
+SliceObject : Apple
+The objects you have seen are: Microwave, Egg, Bowl, Faucet, ButterKnife, CoffeeMachine, Kettle, Fridge, Window, Plate, SaltShaker, Mug, Cup, GarbageCan, DishSponge, Sink, Knife, CounterTop, Lettuce, DiningTable, SoapBottle, Apple, Fork, StoveKnob, Pan, Pot, Chair, Toaster, Cabinet, Drawer, SinkBasin, Potato, Tomato, PepperShaker, StoveBurner, Spoon, LightSwitch, Spatula, Bread
+PickupObject : AppleSliced
+Critic: My task requires five sub-goals in order: pickup the butterknife, slice the apple, pickup the sliced apple, put the sliced apple in the pot, move the pot to the counter. My current state satisfies three of the five sub-goals: pickup the butterknife, slice the apple, pickup the sliced apple. The value is 3/5=0.6.
+Status: Fail
+Failure feedback: In this task, I can't pickup butterknife and then pickup apple. I noticed that there is a CounterTop, so I should put the butterknife on the CounterTop before I pickup the apple. Next trail, I should try to pickup the knife, slice the apple, put down the knife and then pick up the apple.
+
+Your task is:  Put a cup with a butter knife in it on the counter.
+The objects might be useful in the tasks are: ButterKnife, Cup, CounterTop.
+The objects you have seen are: Bowl,ButterKnife,Cabinet,CoffeeMachine,CounterTop,DishSponge,Drawer,Egg,Fork,Fridge,GarbageCan,Knife,Ladle,Lettuce,LightSwitch,Microwave,Mug,Plate,Pot,Sink,SoapBottle,Spatula,StoveBurner,DiningTable,Window.
+PickupObject : ButterKnife
+The objects you have seen are: Bowl,Cabinet,CoffeeMachine,CounterTop,DishSponge,Drawer,Egg,Fork,Fridge,GarbageCan,Knife,Ladle,Lettuce,LightSwitch,Microwave,Mug,Plate,Pot,Sink,SoapBottle,Spatula,StoveBurner,DiningTable,Window.
+PutObject : Cup
+Critic:  My task requires sub-goals in order: pickup the butterknife, put the butterknife on the cup, pickup the cup and put the cup on the countertop. My current state satisfies two of the four sub-goal: pickup the butterknife, put the knife on the cup. The value is 2/4=0.5.
+Status: Fail
+Failure feedback: In this task, I haven't seen the cup. I noticed a cabinet, so I should open the cabinet and try to find the cup. Next trail, I should try to pickup the butterknife, open the cabinet. if there I can see the cup, then I should put down the knife.
