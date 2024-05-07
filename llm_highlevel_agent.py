@@ -10,6 +10,7 @@ import torch
 import os
 import datetime
 import json
+from .utils.LLM_utils import his_to_str
 
 # sys.path.append('/mnt/sda/yuxiao_code/hlsm')
 
@@ -100,11 +101,14 @@ class LlmAgent(Agent):
 
     def clear_trace(self):
         self.trace = {}
-        self.proposal.clear_trace()
+        if self.proposal:
+            self.proposal.clear_trace()
         self.keep_act = False
 
     def action_execution_failed(self, md=None):
         self._log("action failed", self.action_history)
+        if md != None and "message" in md:
+            self._log("fail_info", md["message"])
         if self.reflect_model != None and len(self.action_history) > 0:
 
             self.reflection = self.reflect_model.generate_reflection(
@@ -114,8 +118,7 @@ class LlmAgent(Agent):
                 failure_info=md,
             )
             self._log("reflection:", self.reflection)
-            if md != None and "message" in md:
-                self._log("fail_info", md["message"])
+
             if (
                 "The errors were not caused by the agent, and it is advised to continue previous actions."
                 in self.reflection
@@ -130,8 +133,8 @@ class LlmAgent(Agent):
         if len(self.action_history) > 0:
             self.failed_action = self.action_history[-1]
             self.action_history = self.action_history[:-1]
-
-        self.proposal.action_execution_failed()
+        if self.proposal:
+            self.proposal.action_execution_failed()
 
     def _reset(self):
         self.trace = {}
@@ -144,7 +147,8 @@ class LlmAgent(Agent):
         self.task = None
         self.failure_times = 0
         self.prev_failed = False
-        self.proposal.reset_state()
+        if self.proposal:
+            self.proposal.reset_state()
         self.reflection = None
         self.keep_act = False
 
@@ -161,16 +165,17 @@ class LlmAgent(Agent):
         task_repr = self.TaskReprCls.from_task([task], device=self.device)
         self.agent_state = AgentState(task_repr)
         self.task = str(task)
-        traj = task.get_task_id()
-        traj_path = os.path.join("/mnt/sda/yuxiao_code/subgoal_gt", traj + ".json")
-        if os.path.exists(traj_path):
-            with open(traj_path, "r") as f:
-                sg_data = json.load(f)
-                gt_sg = "\n".join(sg_data)
-                self._log("ground truth subgoal", gt_sg)
+        if isinstance(task, str) == False:
+            traj = task.get_task_id()
+            traj_path = os.path.join("/mnt/sda/yuxiao_code/subgoal_gt", traj + ".json")
+            if os.path.exists(traj_path):
+                with open(traj_path, "r") as f:
+                    sg_data = json.load(f)
+                    gt_sg = "\n".join(sg_data)
+                    self._log("ground truth subgoal", gt_sg)
+            self._log("task id", task.get_task_id())
 
         self._log("task", self.task)
-        self._log("task id", task.get_task_id())
 
     def finalize(self, total_reward: float):
         # nothing todo
@@ -221,8 +226,8 @@ class LlmAgent(Agent):
             self._log("obj name error", action_obj)
 
         obj_tensor[0][obj_id] = 1.0
-        if self.failure_times >= self.max_fail_times:
-            action_type = "Stop"
+        # if self.failure_times >= self.max_fail_times:
+        #     action_type = "Stop"
         return AlfredSubgoal.from_type_str_and_arg_vector(action_type, obj_tensor)
 
     def _choose_action(self, action_history_list, length):
@@ -247,7 +252,7 @@ class LlmAgent(Agent):
             0 if depth == 0 else int((sample_pernode**depth - 1) / (sample_pernode - 1))
         )
 
-    def _RAFA(self, metadata: str, predict=None, depth=3, sample_pernode=2):
+    def _RAFA(self, metadata: str, predict=None, depth=2, sample_pernode=4):
         valid_idx = 0
         # convert the action into str form,as we only need it
         root_act_his = [
@@ -365,7 +370,9 @@ class LlmAgent(Agent):
         meta_info = ", ".join(meta_info)
         predict = None
         if self.use_predict:
+            self._log("predict_task", self.task)
             predict = self.adaptation_model.act(meta_info, self.task)
+            self._log("orin prid", predict)
             predict = self.predict_processor.process(predict)
         if self.keep_act == False:
             proposed_action, critic = self._RAFA(meta_info, predict)
@@ -386,6 +393,51 @@ class LlmAgent(Agent):
             meta_info, str(proposed_action).replace("HLA:", ""), critic, predict
         )
         return proposed_action
+
+    def get_prompt(self, predict):
+
+        prompt = "Your task is: " + self.task + "\n"
+        if predict != None:
+            prompt += "The objects might be useful in the tasks are:" + predict + "\n"
+        prompt += his_to_str(self.action_history)
+        return prompt
+
+    def act_debug(self, meta_info, md=None):
+        # call below function to create a action, where act_type_str can be create through AlfredSubgoal.action_type_intid_to_str
+        # and arg_vector_out is a   torch.Size([1, 125]) one hot vector where 1 indicate which object to interact with
+        # more detail could be view   /hlsm/lgp/models/alfred/hlsm/hlsm_subgoal_model.py:in _sample_subgoal
+        # AlfredSubgoal.from_type_str_and_arg_vector(act_type_str, arg_vector_out)
+
+        # the meta data estimated by adaptation_model
+
+        predict = None
+        if self.use_predict:
+            predict = self.adaptation_model.act(meta_info, self.task)
+            predict = self.predict_processor.process(predict)
+        if self.keep_act == False:
+            proposed_action, critic = self._RAFA(meta_info, predict)
+        else:
+            proposed_action = self._convert_straction(self.failed_action["action"])
+            critic = self.failed_action["critic"]
+            self.keep_act = False
+        proposed_action = proposed_action.to(self.device)
+        # to get mask
+
+        self._log_action(
+            meta_info, str(proposed_action).replace("HLA:", ""), critic, predict
+        )
+        return str(proposed_action), self.get_prompt(predict)
+        # proposed_action = self.proposal.forward_inference(
+        #     proposed_action, s_0, self.agent_state.task_repr, self.proposal.get_state()
+        # )
+
+        # self.proposal.log_action(proposed_action)
+        # self.agent_state.prev_state = s_0
+
+        # self._log_action(
+        #     meta_info, str(proposed_action).replace("HLA:", ""), critic, predict
+        # )
+        # return proposed_action
 
 
 import compress_pickle as pickle

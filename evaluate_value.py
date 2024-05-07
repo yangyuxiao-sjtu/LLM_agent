@@ -20,8 +20,8 @@ from LLM_subgoal.utils.LLM_utils import (
 )
 
 # sys.path.append('/mnt/sda/yuxiao_code/hlsm')
-from lgp.abcd.observation import Observation
-from lgp.abcd.functions.observation_function import ObservationFunction
+# from lgp.abcd.observation import Observation
+# from lgp.abcd.functions.observation_function import ObservationFunction
 import openai
 
 ACTION_TYPES = [
@@ -104,7 +104,7 @@ class LLM_critic:
         max_tokens=150,
         top_p=0.8,
         prompt_path="prompts/value_prompts.json",
-        use_predict=True,
+        use_predict=False,
         stop="\n",
     ):
         self.model = model
@@ -144,6 +144,7 @@ class LLM_critic:
             task_prompt += (
                 "Your previous memory about this task are:" + reflection + "\n"
             )
+
         sys_prompt_ls = []
         user_prompt_ls = []
         tags = []

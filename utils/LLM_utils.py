@@ -6,7 +6,7 @@ import json
 import threading
 import torch
 
-openai.api_key = "sk-proj-z00cvJiNdf1MSR42cteMT3BlbkFJr8dXMSFeUA3focwoWeyN"
+openai.api_key = "sk-proj-jxew31rgcBtYjchHn8ziT3BlbkFJf3H5tds737YtWMTz4RS3"
 import queue
 
 

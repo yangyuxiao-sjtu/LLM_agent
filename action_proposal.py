@@ -20,8 +20,8 @@ from LLM_subgoal.utils.LLM_utils import (
 )
 
 
-from lgp.abcd.observation import Observation
-from lgp.abcd.functions.observation_function import ObservationFunction
+# from lgp.abcd.observation import Observation
+# from lgp.abcd.functions.observation_function import ObservationFunction
 import openai
 
 ACTION_TYPES = [
@@ -68,9 +68,17 @@ class action_proposal:
 
     def reset(self):
         self.task = None
+        self.sys_prompt = self.baseprompt
 
     def set_log(self, log):
         self.log = log
+
+    def _log(self, name, obj=None):
+        with open(self.log, "a") as f:
+            if obj != None:
+                f.write(f"{name}: {obj}\n")
+            else:
+                f.write(f"{name}\n")
 
     # here we not use the failed_info, but it might be used someday
 
@@ -87,21 +95,19 @@ class action_proposal:
     ):
         if self.task != task:
             self.task = task
-            sys_prompt = self.baseprompt + predict_processor.knn_retrieval(
+            self.sys_prompt = self.baseprompt + predict_processor.knn_retrieval(
                 task, self.example_num
             )
         if len(his_list) != len(metadata_list):
             print("len of his_list should equal to metadata!!")
             return None
-        task_prompt = (
-            "Your task is: "
-            + task
-            + "\n"
-            + "Note that you need to put down one object before you can pick up another."
-        )
+        task_prompt = "Your task is: " + task + "\n"
         if self.use_predict == True and predict != None:
             task_prompt += (
-                "The objects might be useful in the tasks are:" + predict + "\n"
+                "The objects might be useful in the tasks are:"
+                + predict
+                + "\n"
+                + "Note that these predict might be wrong, you should consider carefully.\n"
             )
         if reflection != None:
 
@@ -115,8 +121,10 @@ class action_proposal:
             user_prompt_ls.append(
                 task_prompt + his_to_str(his_list[i], metadata_list[i])
             )
-            sys_prompt_ls.append(sys_prompt)
+            sys_prompt_ls.append(self.sys_prompt)
             tags.append(i)
+        print(sys_prompt_ls[0] + user_prompt_ls[0])
+        sys.exit()
         response_list = call_openai_thread(
             model=self.model,
             max_token=self.max_tokens,
@@ -127,20 +135,26 @@ class action_proposal:
             stop=self.stop,
             n=n,
         )
-        print(response_list)
+        # print(response_list)
         acts_ls = [None] * len(his_list)
         for response, tag in response_list:
-            acts = response.choices[0].message["content"]
+            acts = [ch.message["content"] for ch in response.choices]
             acts = list(set(acts))
+
             acts = predict_processor.regular_actions(acts)
+            print(acts)
             if len(acts) < n:
                 acts = acts + predict_processor.gen_actions(
-                    sys_prompt_ls[tag], user_prompt_ls[tag], n - len(acts)
+                    response.choices[0].logprobs.content,
+                    sys_prompt_ls[tag],
+                    user_prompt_ls[tag],
+                    n - len(acts),
                 )
             while len(acts) < n:
                 # to ensure we would have n actions
                 acts.append(acts[0])
             acts_ls[tag] = acts
+        self._log("acts", acts_ls)
         return acts_ls
 
     def get_actions(self, task: str, history, metadata, n, failed_info=None):

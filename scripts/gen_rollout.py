@@ -162,6 +162,7 @@ if __name__ == "__main__":
             file_path = os.path.join(read_path, f"rollout_{i}.gz")
             save_path = os.path.join(load_path, f"rollout_{i}.json")
             roll = load(file_path)
+            continue
 
             nw_ls = []
 
@@ -193,3 +194,5 @@ if __name__ == "__main__":
                 save(nw_ls, save_path)
         except Exception as e:
             print("errpr", e)
+            if os.path.isfile(file_path):
+                os.remove(file_path)

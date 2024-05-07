@@ -88,13 +88,11 @@ class predict_processor:
     def regular_input(self, input, allowed_set: Union[str, List[str]], threshold=0):
         if isinstance(allowed_set, str):
             if allowed_set == "PickupObject":
-                allowed_set = _INTERACTIVE_OBJECTS
+                allowed_set = _PICKABLES
             elif allowed_set == "OpenObject" or allowed_set == "CloseObject":
                 allowed_set = _OPENABLES
             elif allowed_set == "ToggleObjectOn" or allowed_set == "ToggleObjectOff":
                 allowed_set = _TOGGLABLES
-            elif allowed_set == "PickupObject":
-                allowed_set = _PICKABLES
             elif allowed_set == "PutObject":
                 allowed_set = _RECEPTACLE_OBJECTS
             else:
@@ -166,6 +164,7 @@ class predict_processor:
                     "The objects might be useful in the tasks are:"
                     + task[0]["predict"]
                     + "\n"
+                    + "Note that these predict might be wrong, you should consider carefully.\n"
                 )
             for item in task:
                 prompt += "The objects you have seen are:" + item["object"] + "\n"
@@ -264,7 +263,10 @@ class predict_processor:
                 actions.items(), key=lambda item: item[1], reverse=True
             )
             top_N_actions = sorted_actions[:N]
-            return [k for k, v in top_N_actions]
+            ret = [k for k, v in top_N_actions]
+            if ret == None:
+                ret = []
+            return ret
 
 
 if __name__ == "__main__":
@@ -366,5 +368,5 @@ if __name__ == "__main__":
         },
     ]
     ps = predict_processor()
-    res = ps.regular_input("rag", _INTERACTIVE_OBJECTS, 0.5)
+    res = ps.regular_input("TableLamp", _INTERACTIVE_OBJECTS, 0.5)
     print(res)
