@@ -16,7 +16,7 @@ import numpy as np
 from scipy.spatial.distance import cosine
 import torch
 
-from .utils.LLM_utils import call_openai, call_openai_thread
+from .utils.LLM_utils import call_llm, call_llm_thread
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from sentence_transformers import SentenceTransformer
@@ -66,6 +66,11 @@ class predict_processor:
         if isinstance(input_text, str):
             return_str = True
             input_words = input_text.replace(" ", "").split(",")
+        elif isinstance(input_text, list):
+            input_words = input_text
+        else:
+            assert "input of process should be str or list!"
+            return
         results = []
 
         for word in input_words:
@@ -155,10 +160,10 @@ class predict_processor:
         topK = sorted(topK, key=lambda x: x[1])
         topK = topK[:k]
         relvant_task = [entry[0] for entry in topK]
-        prompt = None
+        prompt = ""
         for task in relvant_task:
-            if prompt == None:
-                prompt = "Your task is" + task[0]["task"] + "\n"
+
+            prompt += "Your task is: " + task[0]["task"] + "\n"
             if use_predict:
                 prompt += (
                     "The objects might be useful in the tasks are:"
@@ -209,7 +214,7 @@ class predict_processor:
                 # elif tk['token'] == 'Explore':
                 #     adm_actions_dict['Explore'] =  {'prob':tk['logprob']}
                 elif tk["token"] == "Toggle":
-                    res = call_openai(
+                    res = call_llm(
                         model="gpt-4",
                         sys_prompt=sys_prompt,
                         user_prompt=task_prompt + "Toggle",
@@ -233,7 +238,7 @@ class predict_processor:
                 user_prompts.append(task_prompt + k + " :")
                 tags.append((k, v))
             # as we can't know which thread stop first, so add tag to identify it
-            results = call_openai_thread(
+            results = call_llm_thread(
                 model="gpt-4",
                 max_token=100,
                 top_p=0.8,

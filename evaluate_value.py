@@ -15,8 +15,8 @@ import re
 from LLM_subgoal.utils.LLM_utils import (
     his_to_str,
     choose_examples,
-    call_openai,
-    call_openai_thread,
+    call_llm,
+    call_llm_thread,
 )
 
 # sys.path.append('/mnt/sda/yuxiao_code/hlsm')
@@ -100,7 +100,7 @@ def get_critic_example(data, use_predict):
 class LLM_critic:
     def __init__(
         self,
-        model="gpt-4",
+        model="llama",
         max_tokens=150,
         top_p=0.8,
         prompt_path="prompts/value_prompts.json",
@@ -153,7 +153,9 @@ class LLM_critic:
 
             sys_prompt_ls.append(self.sys_prompt)
             tags.append(i)
-        response_list = call_openai_thread(
+        print(sys_prompt_ls[0] + user_prompt_ls[0])
+
+        response_list = call_llm_thread(
             model=self.model,
             max_token=self.max_tokens,
             top_p=self.top_p,
@@ -163,10 +165,14 @@ class LLM_critic:
             stop=self.stop,
             n=1,
         )
-        val_ls = [None] * len(his_list)
-        for response, tag in response_list:
 
-            val_ls[tag] = response.choices[0].message["content"]
+        val_ls = [None] * len(his_list)
+        print(response_list)
+        for response, tag in response_list:
+            if self.model == "GPT-4":
+                val_ls[tag] = response.choices[0].message["content"]
+            elif self.model == "llama":
+                val_ls[tag] = response[0]
         return val_ls
 
     def set_log(self, log):
@@ -186,7 +192,7 @@ class LLM_critic:
         str_his = his_to_str(history)
         task_prompt += str_his
 
-        response = call_openai(
+        response = call_llm(
             self.model,
             self.max_tokens,
             self.top_p,

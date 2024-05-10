@@ -252,7 +252,7 @@ class LlmAgent(Agent):
             0 if depth == 0 else int((sample_pernode**depth - 1) / (sample_pernode - 1))
         )
 
-    def _RAFA(self, metadata: str, predict=None, depth=2, sample_pernode=4):
+    def _RAFA(self, metadata: str, predict=None, depth=2, sample_pernode=2):
         valid_idx = 0
         # convert the action into str form,as we only need it
         root_act_his = [
@@ -370,7 +370,7 @@ class LlmAgent(Agent):
         meta_info = ", ".join(meta_info)
         predict = None
         if self.use_predict:
-            self._log("predict_task", self.task)
+
             predict = self.adaptation_model.act(meta_info, self.task)
             self._log("orin prid", predict)
             predict = self.predict_processor.process(predict)

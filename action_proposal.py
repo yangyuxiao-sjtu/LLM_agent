@@ -15,8 +15,8 @@ import re
 from LLM_subgoal.utils.LLM_utils import (
     his_to_str,
     choose_examples,
-    call_openai,
-    call_openai_thread,
+    call_llm,
+    call_llm_thread,
 )
 
 
@@ -44,10 +44,10 @@ Stop should end with NIL.Note if all requirements are satisfied, you just need t
 class action_proposal:
     def __init__(
         self,
-        model="gpt-4",
+        model="llama",
         max_tokens=100,
         top_p=0.8,
-        example_num=2,
+        example_num=4,
         use_predict=True,
         stop=["\n", "."],
     ):
@@ -123,9 +123,9 @@ class action_proposal:
             )
             sys_prompt_ls.append(self.sys_prompt)
             tags.append(i)
-        print(sys_prompt_ls[0] + user_prompt_ls[0])
-        sys.exit()
-        response_list = call_openai_thread(
+        # print(sys_prompt_ls[0] + user_prompt_ls[0])
+
+        response_list = call_llm_thread(
             model=self.model,
             max_token=self.max_tokens,
             top_p=self.top_p,
@@ -138,30 +138,35 @@ class action_proposal:
         # print(response_list)
         acts_ls = [None] * len(his_list)
         for response, tag in response_list:
-            acts = [ch.message["content"] for ch in response.choices]
+            if self.model == "GPT-4":
+                acts = [ch.message["content"] for ch in response.choices]
+            elif self.model == "llama":
+                acts = response
+                print(acts)
             acts = list(set(acts))
 
             acts = predict_processor.regular_actions(acts)
-            print(acts)
-            if len(acts) < n:
-                acts = acts + predict_processor.gen_actions(
-                    response.choices[0].logprobs.content,
-                    sys_prompt_ls[tag],
-                    user_prompt_ls[tag],
-                    n - len(acts),
-                )
+
+            # if len(acts) < n:
+            #     acts = acts + predict_processor.gen_actions(
+            #         response.choices[0].logprobs.content,
+            #         sys_prompt_ls[tag],
+            #         user_prompt_ls[tag],
+            #         n - len(acts),
+            #     )
             while len(acts) < n:
                 # to ensure we would have n actions
                 acts.append(acts[0])
             acts_ls[tag] = acts
         self._log("acts", acts_ls)
+
         return acts_ls
 
     def get_actions(self, task: str, history, metadata, n, failed_info=None):
         task_prompt = "Your task is: " + task + "\n"
         str_history = his_to_str(history, metadata)
         task_prompt += str_history
-        response = call_openai(
+        response = call_llm(
             model=self.model,
             max_token=self.max_tokens,
             top_p=self.top_p,
