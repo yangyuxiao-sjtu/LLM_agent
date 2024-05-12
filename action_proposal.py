@@ -147,6 +147,12 @@ class action_proposal:
 
             acts = predict_processor.regular_actions(acts)
 
+            if len(acts) < n:
+                acts = predict_processor.gen_actions_from_predict(
+                    acts, predict, his_list[tag], n
+                )
+
+            ##this is for GPT-4
             # if len(acts) < n:
             #     acts = acts + predict_processor.gen_actions(
             #         response.choices[0].logprobs.content,

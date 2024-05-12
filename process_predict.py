@@ -32,6 +32,7 @@ _ACTIONS = [
     "CloseObject",
     "ToggleObjectOn",
     "ToggleObjectOff",
+    "SliceObject",
     "Stop",
 ]
 
@@ -92,7 +93,7 @@ class predict_processor:
 
     def regular_input(self, input, allowed_set: Union[str, List[str]], threshold=0):
         if isinstance(allowed_set, str):
-            if allowed_set == "PickupObject":
+            if allowed_set == "PickupObject" or allowed_set == "SliceObject":
                 allowed_set = _PICKABLES
             elif allowed_set == "OpenObject" or allowed_set == "CloseObject":
                 allowed_set = _OPENABLES
@@ -133,7 +134,7 @@ class predict_processor:
 
     def process_prefix(self, word, k, threshold):
         OBJ_lS = _INTERACTIVE_OBJECTS
-        if k == "PickupObject":
+        if k == "PickupObject" or k == "SliceObject":
             OBJ_lS = _PICKABLES
         elif k == "PutObject":
             OBJ_lS = _RECEPTACLE_OBJECTS
@@ -177,6 +178,39 @@ class predict_processor:
         return prompt
 
     ## generate possbile action from top_logprobs of LLM's response
+    def gen_actions_from_predict(self, ori_acts, predict, his, n):
+        is_picked = False
+        past_actions = []
+        if predict == [] or predict == None or predict == "":
+            return ori_acts
+        if isinstance(predict, str):
+            predict = predict.split(",")
+        for item in his:
+            regulared_act = self.regular_actions([item["action"]])[0]
+            if "PickupObject" in regulared_act:
+                is_picked = True
+            if "PutObject" in regulared_act:
+                is_picked = False
+            past_actions.append(regulared_act)
+        for obj in predict:
+            if obj in _PICKABLES and is_picked == False:
+                new_act = "PickupObject: " + obj
+                ori_acts.append(new_act)
+            elif obj in _RECEPTACLE_OBJECTS and is_picked == True:
+                new_act = "PutObject: " + obj
+                ori_acts.append(new_act)
+            elif obj in _OPENABLES:
+                new_act = "OpenPbject: " + obj
+                if new_act in past_actions:
+                    new_act = "CloseObject: " + obj
+                ori_acts.append(new_act)
+            elif obj in _TOGGLABLES:
+                new_act = "ToggleObjectOn: " + obj
+                ori_acts.append(new_act)
+            if len(ori_acts) == n:
+                return ori_acts
+        return ori_acts
+
     def gen_actions(self, data, sys_prompt, task_prompt, N):
         possible_actions = []
         possible_obj = []

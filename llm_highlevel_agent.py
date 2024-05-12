@@ -85,6 +85,7 @@ class LlmAgent(Agent):
         self.TaskReprCls = HlsmTaskRepr
         self.failure_times = 0
         self.prev_failed = False
+
         ##/the origin max_fail_times in hlsm/lgp/experiment_definitions/alfred/eval/hlsm_full/eval_hlsm_full_base.json  10 . since LLM inference is quite slow we change it into 5 for fair compete
         self.max_fail_times = 5
         self.keep_act = False
@@ -106,6 +107,9 @@ class LlmAgent(Agent):
         self.keep_act = False
 
     def action_execution_failed(self, md=None):
+        # the action has been logged fail, we don't need to it again
+        if self.log_action_failed == True:
+            return
         self._log("action failed", self.action_history)
         if md != None and "message" in md:
             self._log("fail_info", md["message"])
@@ -131,8 +135,14 @@ class LlmAgent(Agent):
             self.failure_times = 1
         self.log_action_failed = True
         if len(self.action_history) > 0:
+            self._log(
+                "action his before fail:",
+                [act["action"] for act in self.action_history],
+            )
             self.failed_action = self.action_history[-1]
             self.action_history = self.action_history[:-1]
+            self._log("failed action", self.failed_action["action"])
+
         if self.proposal:
             self.proposal.action_execution_failed()
 
@@ -146,6 +156,7 @@ class LlmAgent(Agent):
         self.action_history = []
         self.task = None
         self.failure_times = 0
+
         self.prev_failed = False
         if self.proposal:
             self.proposal.reset_state()
@@ -173,7 +184,7 @@ class LlmAgent(Agent):
                     sg_data = json.load(f)
                     gt_sg = "\n".join(sg_data)
                     self._log("ground truth subgoal", gt_sg)
-            self._log("task id", task.get_task_id())
+            self._log("\n\n\nnew task id", task.get_task_id())
 
         self._log("task", self.task)
 
@@ -348,6 +359,10 @@ class LlmAgent(Agent):
         # and arg_vector_out is a   torch.Size([1, 125]) one hot vector where 1 indicate which object to interact with
         # more detail could be view   /hlsm/lgp/models/alfred/hlsm/hlsm_subgoal_model.py:in _sample_subgoal
         # AlfredSubgoal.from_type_str_and_arg_vector(act_type_str, arg_vector_out)
+        self._log(
+            "action his  at begin:",
+            [act["action"] for act in self.action_history],
+        )
         if isinstance(observation_or_state_repr, Observation):
             observation = observation_or_state_repr
             observation = observation.to(self.device)

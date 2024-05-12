@@ -153,7 +153,7 @@ class LLM_critic:
 
             sys_prompt_ls.append(self.sys_prompt)
             tags.append(i)
-        print(sys_prompt_ls[0] + user_prompt_ls[0])
+        # print(sys_prompt_ls[0] + user_prompt_ls[0])
 
         response_list = call_llm_thread(
             model=self.model,
@@ -167,7 +167,7 @@ class LLM_critic:
         )
 
         val_ls = [None] * len(his_list)
-        print(response_list)
+        print("critic_ls:", response_list)
         for response, tag in response_list:
             if self.model == "GPT-4":
                 val_ls[tag] = response.choices[0].message["content"]
