@@ -41,6 +41,16 @@ The target of OpenObject,CloseObject,PickupObject,ToggleObjectOn,ToggleObjectOff
 Explore and Stop should be fllowed with NIL.Note if all requirements are satisfied, you just need to output Stop. You might need to OpenObject so you can see the object you need to interact with\n
 """
 
+from sentence_transformers.util import cos_sim
+from LLM_subgoal import sentence_embedder
+
+knn_data_path = "prompts/value.json"
+base_path = os.path.abspath(__file__)
+
+base_directory = os.path.dirname(base_path)
+
+knn_data_path = os.path.join(base_directory, knn_data_path)
+
 
 def get_critic_example(data, use_predict):
     tmp_prompt = "Your task is: " + data[0][0]["task"] + "\n"
@@ -97,6 +107,32 @@ def get_critic_example(data, use_predict):
     return tmp_prompt
 
 
+def get_knn_example(task, use_predict=True, n=2):
+    traj_emb = sentence_embedder.encode(task)
+    topK = []
+    with open(knn_data_path, "r") as f:
+        knn_set = json.load(f)
+    for trainItem in knn_set:
+        train_emb = sentence_embedder.encode(trainItem["task"])
+        dist = -1 * cos_sim(traj_emb, train_emb)
+        topK.append((trainItem, dist))
+
+    topK = sorted(topK, key=lambda x: x[1])
+    topK = topK[:n]
+    relvant_task = [entry[0] for entry in topK]
+    prompt = ""
+    for task in relvant_task:
+        prompt += "Your task is:" + task["task"] + "\n"
+        if use_predict:
+            prompt += (
+                "The objects might be useful in the tasks are:" + task["predict"] + "\n"
+            )
+        prompt += task["prompts"]
+        prompt += "Critic:" + task["Critic"] + "\n"
+
+    return prompt
+
+
 class LLM_critic:
     def __init__(
         self,
@@ -113,23 +149,32 @@ class LLM_critic:
         self.prompt_path = prompt_path
         self.top_p = top_p
         self.stop = stop
+        self.task = None
+        self.example_num = 2
         self.base_prompt = f"""
         You are a value critic of states in a household task. You would be given a task description, some observations and actions, you need to give a critic about them.  
         {action_instr}
-        Here are two examples:
+        Here are {self.example_num} examples:
         """
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        with open(os.path.join(base_dir, prompt_path), "r", encoding="utf-8") as f:
-            data = json.load(f)
-        example_prompts = get_critic_example(data, self.use_predict)
-        self.sys_prompt = self.base_prompt + example_prompts
+
+        self.sys_prompt = self.base_prompt
         self.log = None
 
     # now we don't use failed_info
-    def reset(self): ...
+    def reset(self):
+        self.sys_prompt = None
+        self.task = None
+
     def act_threads(
         self, task, his_list, failed_info=None, reflection=None, predict=None
     ):
+
+        if task != self.task:
+            self.sys_prompt = self.base_prompt + get_knn_example(
+                task, self.use_predict, self.example_num
+            )
+            self.task = task
+
         task_prompt = (
             "Your task is: "
             + task
@@ -148,12 +193,13 @@ class LLM_critic:
         sys_prompt_ls = []
         user_prompt_ls = []
         tags = []
+
         for i in range(len(his_list)):
             user_prompt_ls.append(task_prompt + his_to_str(his_list[i]) + "Critic:")
 
             sys_prompt_ls.append(self.sys_prompt)
             tags.append(i)
-        # print(sys_prompt_ls[0] + user_prompt_ls[0])
+        print(sys_prompt_ls[0] + user_prompt_ls[0])
 
         response_list = call_llm_thread(
             model=self.model,

@@ -45,7 +45,6 @@ class LlmAgent(Agent):
         device="cuda",
         use_predict=True,
         gamma=0.9,
-        adaptation_model=adap_model(),
         value_model=LLM_critic(),
         action_propsal_model=action_proposal(),
         predict_model=predict_model(),
@@ -55,7 +54,9 @@ class LlmAgent(Agent):
         self.use_predict = use_predict
         self.gamma = gamma
         # the trined LLaVa model
-        self.adaptation_model = adaptation_model
+
+        if use_predict == True:
+            self.adaptation_model = adap_model()
         # the llm used in RAFA
         self.reflect_model = None
         self.reflection = None
@@ -176,6 +177,7 @@ class LlmAgent(Agent):
         task_repr = self.TaskReprCls.from_task([task], device=self.device)
         self.agent_state = AgentState(task_repr)
         self.task = str(task)
+        self._log("\n\n\n new task", self.task)
         if isinstance(task, str) == False:
             traj = task.get_task_id()
             traj_path = os.path.join("/mnt/sda/yuxiao_code/subgoal_gt", traj + ".json")
@@ -184,9 +186,7 @@ class LlmAgent(Agent):
                     sg_data = json.load(f)
                     gt_sg = "\n".join(sg_data)
                     self._log("ground truth subgoal", gt_sg)
-            self._log("\n\n\nnew task id", task.get_task_id())
-
-        self._log("task", self.task)
+            self._log(" new task id", task.get_task_id())
 
     def finalize(self, total_reward: float):
         # nothing todo
@@ -388,7 +388,7 @@ class LlmAgent(Agent):
 
             predict = self.adaptation_model.act(meta_info, self.task)
             self._log("orin prid", predict)
-            predict = self.predict_processor.process(predict)
+            predict = self.predict_processor.process_with_metadata(predict, meta_info)
         if self.keep_act == False:
             proposed_action, critic = self._RAFA(meta_info, predict)
         else:
@@ -417,7 +417,7 @@ class LlmAgent(Agent):
         prompt += his_to_str(self.action_history)
         return prompt
 
-    def act_debug(self, meta_info, md=None):
+    def act_debug(self, meta_info, predict=None, md=None):
         # call below function to create a action, where act_type_str can be create through AlfredSubgoal.action_type_intid_to_str
         # and arg_vector_out is a   torch.Size([1, 125]) one hot vector where 1 indicate which object to interact with
         # more detail could be view   /hlsm/lgp/models/alfred/hlsm/hlsm_subgoal_model.py:in _sample_subgoal
@@ -425,17 +425,16 @@ class LlmAgent(Agent):
 
         # the meta data estimated by adaptation_model
 
-        predict = None
-        if self.use_predict:
+        if predict == None:
             predict = self.adaptation_model.act(meta_info, self.task)
-            predict = self.predict_processor.process(predict)
+        predict = self.predict_processor.process(predict)
         if self.keep_act == False:
             proposed_action, critic = self._RAFA(meta_info, predict)
         else:
             proposed_action = self._convert_straction(self.failed_action["action"])
             critic = self.failed_action["critic"]
             self.keep_act = False
-        proposed_action = proposed_action.to(self.device)
+
         # to get mask
 
         self._log_action(

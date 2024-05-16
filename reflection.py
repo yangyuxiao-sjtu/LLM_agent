@@ -1,4 +1,4 @@
-from .utils.LLM_utils import his_to_str, call_openai_api
+from .utils.LLM_utils import his_to_str, call_openai_api, call_llm
 import os
 import sys
 
@@ -6,7 +6,7 @@ import sys
 class reflection:
     def __init__(
         self,
-        model="gpt-4",
+        model="llama",
         max_tokens=100,
         top_p=0.8,
         prompt_path="prompts/reflection.txt",
@@ -48,7 +48,7 @@ critics that you should have generated. You will need this later when you are so
             task_prompt += """If, after your analysis, you determine that the errors were not a result of agent's actions, please output the following statement: "The errors were not caused by the agent, and it is advised to continue previous actions."
         """
         task_prompt += "Failure feedback:"
-        response = call_openai_api(
+        response = call_llm(
             model=self.model,
             max_token=self.max_tokens,
             top_p=self.top_p,
@@ -57,4 +57,11 @@ critics that you should have generated. You will need this later when you are so
             user_prompt=task_prompt,
             n=1,
         )
-        return response.choices[0].message["content"]
+        res = ""
+        if self.model == "GPT-4":
+            res = response.choices[0].message["content"]
+        elif self.model == "llama":
+            res = response[0]
+        else:
+            assert "currently model should be GPT or llama!"
+        return res

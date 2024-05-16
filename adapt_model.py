@@ -63,7 +63,7 @@ class adap_model:
             do_sample=False,
             num_return_sequences=1,
             eos_token_id=self.tokenizer.eos_token_id,
-            max_length=500,
+            max_new_tokens=100,
             truncation=True,
         )
         ans = sequences[0]["generated_text"].replace(text, "")
@@ -86,11 +86,21 @@ class adap_model:
 
 
 # a simple test
+import json
 
 if __name__ == "__main__":
-    obs = "AlarmClock, ArmChair, BaseballBat, Bed, Book, Boots, Box, CD, CellPhone, Chair, Desk, DeskLamp, Drawer, Dresser, FloorLamp, Fridge, GarbageCan, KeyChain, Laptop, Mirror, Mug, Pen, Pencil, Pillow, Shelf, Sofa, Statue, DiningTable, TennisRacket, Watch, Window"
-
-    task = "Look at a bowl by the light of a lamp."
-    predict = adap_model()
-    res = predict.act(obs, task)
-    print(res)
+    adp = adap_model()
+    with open("/mnt/sda/yuxiao_code/LLM_subgoal/prompts/llm_samples.json", "r") as f:
+        data = json.load(f)
+    new_data = []
+    for rollout in data:
+        new_rollout = []
+        task = rollout[0]["task"]
+        for item in rollout:
+            obs = item["object"]
+            ret = adp.act_llm(obs, task)
+            item["predict"] = ret
+            new_rollout.append(item)
+        new_data.append(new_rollout)
+    with open("/mnt/sda/yuxiao_code/LLM_subgoal/prompts/llm_samples_n.json", "w") as f:
+        json.dump(new_data, f, indent=4)

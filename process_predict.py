@@ -1,4 +1,5 @@
 import sys
+from LLM_subgoal import sentence_embedder
 
 sys.path.append("/mnt/sda/yuxiao_code/hlsm")
 from lgp.env.alfred.segmentation_definitions import (
@@ -16,7 +17,7 @@ import numpy as np
 from scipy.spatial.distance import cosine
 import torch
 
-from .utils.LLM_utils import call_llm, call_llm_thread
+# from .utils.LLM_utils import call_llm, call_llm_thread
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from sentence_transformers import SentenceTransformer
@@ -44,7 +45,7 @@ class predict_processor:
         device=torch.device("cuda" if torch.cuda.is_available() else "cpu"),
         threshold=0.8,
     ):
-        self.sentence_embedder = SentenceTransformer("paraphrase-MiniLM-L6-v2")
+
         self.word_embedding = []
         knn_data_path = "prompts/llm_samples.json"
         base_path = os.path.abspath(__file__)
@@ -56,9 +57,15 @@ class predict_processor:
         with open(knn_data_path, "r", encoding="utf-8") as f:
             self.knn_set = json.load(f)
         for obj in OBJECT_CLASSES:
-            self.word_embedding.append(self.sentence_embedder.encode(obj))
+            self.word_embedding.append(sentence_embedder.encode(obj))
 
         self.threshold = threshold
+
+    def get_similarity(self, x, y):
+        emb_x = sentence_embedder.encode(x)
+        emb_y = sentence_embedder.encode(y)
+        sim = cos_sim(emb_x, emb_y)
+        return sim
 
     def process(self, input_text, threshold=None):
         return_str = False
@@ -75,7 +82,7 @@ class predict_processor:
         results = []
 
         for word in input_words:
-            single_input = self.sentence_embedder.encode(word)
+            single_input = sentence_embedder.encode(word)
             similarity = 0
             idx = None
             for i, obj_emb in enumerate(self.word_embedding):
@@ -102,13 +109,15 @@ class predict_processor:
             elif allowed_set == "PutObject":
                 allowed_set = _RECEPTACLE_OBJECTS
             else:
-                allowed_set = ",".split(allowed_set)
-        word_emb = self.sentence_embedder.encode(input)
+                allowed_set = allowed_set.split(",")
+
+        word_emb = sentence_embedder.encode(input)
         similarity = 0
         idx = None
         for i, allowed_word in enumerate(allowed_set):
-            emb = self.sentence_embedder.encode(allowed_word)
+            emb = sentence_embedder.encode(allowed_word)
             dist = cos_sim(word_emb, emb)
+
             if dist > similarity and dist > threshold:
                 similarity = dist
                 idx = i
@@ -118,19 +127,49 @@ class predict_processor:
         else:
             return None
 
-    def regular_actions(self, actions):
+    def regular_actions(self, actions, threshold=0.8):
         new_actions = []
         for act_pair in actions:
             act_pair = act_pair.strip()
             act_pair = act_pair.split(":")
+            if len(act_pair) != 2:
+                continue
             act = self.regular_input(act_pair[0], _ACTIONS)
             if act == "Stop":
                 new_actions.append("Stop: NIL")
             else:
-                obj = self.regular_input(act_pair[1], act, 0.8)
+                obj = self.regular_input(act_pair[1], act, threshold)
                 if obj != None:
                     new_actions.append(f"{act}: {obj}")
         return new_actions
+
+    def process_with_metadata(
+        self, inputs, metadata=None, threshold=None, meta_threshold=0.3
+    ):
+        results = []
+        if threshold == None:
+            threshold = self.threshold
+        return_str = False
+        if isinstance(inputs, str):
+            return_str = True
+            input_words = inputs.replace(" ", "").split(",")
+        elif isinstance(inputs, list):
+            input_words = inputs
+        else:
+            assert "input of process should be str or list!"
+            return
+        for obj in input_words:
+            ret = self.process(obj)
+
+            if ret == "" or ret == [] or ret == []:
+                ret = self.regular_input(obj, metadata, meta_threshold)
+                if ret != "":
+                    results.append(ret)
+            else:
+                results.append(ret)
+        if return_str == True:
+            return ", ".join(results)
+        return results
 
     def process_prefix(self, word, k, threshold):
         OBJ_lS = _INTERACTIVE_OBJECTS
@@ -151,10 +190,10 @@ class predict_processor:
     def knn_retrieval(self, curr_task, k, use_predict=True):
         # Find K train examples with closest sentence embeddings to test example
 
-        traj_emb = self.sentence_embedder.encode(curr_task)
+        traj_emb = sentence_embedder.encode(curr_task)
         topK = []
         for trainItem in self.knn_set:
-            train_emb = self.sentence_embedder.encode(trainItem[0]["task"])
+            train_emb = sentence_embedder.encode(trainItem[0]["task"])
             dist = -1 * cos_sim(traj_emb, train_emb)
             topK.append((trainItem, dist))
 
@@ -200,7 +239,7 @@ class predict_processor:
                 new_act = "PutObject: " + obj
                 ori_acts.append(new_act)
             elif obj in _OPENABLES:
-                new_act = "OpenPbject: " + obj
+                new_act = "OpenObject: " + obj
                 if new_act in past_actions:
                     new_act = "CloseObject: " + obj
                 ori_acts.append(new_act)
@@ -407,5 +446,8 @@ if __name__ == "__main__":
         },
     ]
     ps = predict_processor()
-    res = ps.regular_input("TableLamp", _INTERACTIVE_OBJECTS, 0.5)
+    res = ps.process_with_metadata(
+        "Lamp",
+        "AlarmClock, BaseballBat, Bed, Book, Boots, Box, CD, CellPhone, Chair, Desk, DeskLamp, Drawer, Dresser, GarbageCan, Laptop, Mirror, Mug, Pen, Pillow, Shelf, Statue, StoveBurner, TennisRacket, Window",
+    )
     print(res)

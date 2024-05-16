@@ -142,15 +142,22 @@ class action_proposal:
                 acts = [ch.message["content"] for ch in response.choices]
             elif self.model == "llama":
                 acts = response
-                print(acts)
-            acts = list(set(acts))
+                print("llama_act:", acts)
+            ori_acts = list(set(acts))
 
-            acts = predict_processor.regular_actions(acts)
+            acts = predict_processor.regular_actions(ori_acts)
 
             if len(acts) < n:
                 acts = predict_processor.gen_actions_from_predict(
                     acts, predict, his_list[tag], n
                 )
+            if len(acts) == 0:
+                # here no feasible action is provided, we must gets some
+                self._log("prompt", user_prompt_ls[tag])
+                self._log("ori_acts", ori_acts)
+                acts = predict_processor.regular_actions(ori_acts, 0)
+                if len(acts) == 0:
+                    acts = ["Stop : NIL"]
 
             ##this is for GPT-4
             # if len(acts) < n:
