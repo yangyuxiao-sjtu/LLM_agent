@@ -33,6 +33,7 @@ from lgp.agents.agent_state import AgentState
 from lgp.models.alfred.hlsm.hlsm_model_factory import HlsmModelFactory
 from lgp.env.alfred.segmentation_definitions import _INTERACTIVE_OBJECTS
 from .process_predict import predict_processor
+from .BeamSearch import Beam_Node, Beam
 import re
 import copy
 
@@ -352,6 +353,95 @@ class LlmAgent(Agent):
         # tmp_act_his[0] is the root action history, so we choose the highest cumulative reward start from 1
         return self._choose_action(tmp_act_his[1 : valid_idx + 1], len(root_act_his))
 
+    def _beam_search(self, metadata: str, predict=None, depth=2, sample_per_node=2):
+        root_act_his = [
+            {
+                "metadata": action["metadata"],
+                "action": str(action["action"]).replace("HLA: ", ""),
+                "critic": action["critic"],
+            }
+            for action in self.action_history
+        ]
+        root_node = Beam_Node(root_act_his, 0)
+        beam = Beam(sample_per_node)
+        if self.log_action_failed:
+            failed_info = self.failed_action
+        else:
+            failed_info = None
+        tmp_act_his_list = []
+        tmp_metadata_list = []
+        ##the first layer
+        actions_list = self.action_proposal.get_actions_threads(
+            self.task,
+            [root_act_his],
+            [metadata],
+            sample_per_node,
+            self.predict_processor,
+            failed_info,
+            self.reflection,
+            predict,
+        )
+        actions_list = list(set(actions_list[0]))
+        for act in actions_list:
+            tmp_act = copy.deepcopy(root_act_his)
+            tmp_act.append({"metadata": metadata, "action": act})
+            tmp_act_his_list.append(tmp_act)
+        child_critic_ls = self.value.act_threads(
+            self.task, tmp_act_his_list, failed_info, self.reflection, predict
+        )
+        for i in range(len(child_critic_ls)):
+            acts = tmp_act_his_list[i][-1]
+            acts["critic"] = child_critic_ls[i]
+            score = self._get_critic_value(acts["critic"])
+            beam.add(root_node, acts, score)
+
+        for dep in range(depth - 1):
+            new_beam = Beam(sample_per_node)
+            for node in beam.get():
+
+                new_metadata = self.predict.act(
+                    self.task, node.action_history, self.predict_processor
+                )
+                acts = self.action_proposal.get_actions_threads(
+                    self.task,
+                    [node.action_history],
+                    [new_metadata],
+                    sample_per_node,
+                    self.predict_processor,
+                    failed_info,
+                    self.reflection,
+                    predict,
+                )
+                acts = list(set(acts[0]))
+                tmp_act_his_list = []
+                for act in acts:
+                    tmp_act = node.get_history()
+                    tmp_act.append({"action": act, "metadata": new_metadata})
+                    tmp_act_his_list.append(tmp_act)
+                critics = self.value.act_threads(
+                    self.task, tmp_act_his_list, failed_info, self.reflection, predict
+                )
+                for i in range(len(critics)):
+                    act = tmp_act_his_list[i][-1]
+                    act["critic"] = critics[i]
+                    score = self._get_critic_value(critics[i])
+                    new_beam.add(node, act, score)
+            beam = new_beam
+        max_score = -1
+        max_node = None
+        for i, node in enumerate(beam.get()):
+
+            if node.get_score() > max_score:
+                max_score = node.get_score()
+                max_node = node
+
+        self._log("max_trail_critic:", max_node.action_history[-1]["critic"])
+        length = len(root_act_his)
+        action = max_node.action_history[length]["action"]
+        critic = max_node.action_history[length]["critic"]
+        Alfred_action = self._convert_straction(action)
+        return (Alfred_action, critic)
+
     def act(
         self, observation_or_state_repr: Union[Observation, StateRepr], md=None
     ) -> Action:
@@ -390,7 +480,7 @@ class LlmAgent(Agent):
             self._log("orin prid", predict)
             predict = self.predict_processor.process_with_metadata(predict, meta_info)
         if self.keep_act == False:
-            proposed_action, critic = self._RAFA(meta_info, predict)
+            proposed_action, critic = self._beam_search(meta_info, predict)
         else:
             proposed_action = self._convert_straction(self.failed_action["action"])
             critic = self.failed_action["critic"]

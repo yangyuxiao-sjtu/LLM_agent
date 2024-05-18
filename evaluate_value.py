@@ -128,7 +128,7 @@ def get_knn_example(task, use_predict=True, n=2):
                 "The objects might be useful in the tasks are:" + task["predict"] + "\n"
             )
         prompt += task["prompts"]
-        prompt += "Critic:" + task["Critic"] + "\n"
+        prompt += "Critic:" + task["Critic"] + "\n\n"
 
     return prompt
 
@@ -154,7 +154,7 @@ class LLM_critic:
         self.base_prompt = f"""
         You are a value critic of states in a household task. You would be given a task description, some observations and actions, you need to give a critic about them.  
         {action_instr}
-        Here are {self.example_num} examples:
+        Here are {self.example_num} examples:\n
         """
 
         self.sys_prompt = self.base_prompt
@@ -176,11 +176,8 @@ class LLM_critic:
             self.task = task
 
         task_prompt = (
-            "Your task is: "
-            + task
-            + "\n"
-            + "Note that you need to put down one object before you can pick up another."
-        )
+            "Your task is: " + task + "\n"
+        )  # + "Note that you need to put down one object before you can pick up another.\n"
         if self.use_predict == True and predict != None:
             task_prompt += (
                 "The objects might be useful in the tasks are:" + predict + "\n"
@@ -199,7 +196,6 @@ class LLM_critic:
 
             sys_prompt_ls.append(self.sys_prompt)
             tags.append(i)
-        print(sys_prompt_ls[0] + user_prompt_ls[0])
 
         response_list = call_llm_thread(
             model=self.model,

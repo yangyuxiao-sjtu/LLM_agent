@@ -161,13 +161,15 @@ class predict_processor:
         for obj in input_words:
             ret = self.process(obj)
 
-            if ret == "" or ret == [] or ret == []:
+            if ret == "" or ret == [] or ret == None:
                 ret = self.regular_input(obj, metadata, meta_threshold)
-                if ret != "":
+                if ret != "" and ret != None:
                     results.append(ret)
             else:
                 results.append(ret)
         if return_str == True:
+            if results == []:
+                return ""
             return ", ".join(results)
         return results
 
