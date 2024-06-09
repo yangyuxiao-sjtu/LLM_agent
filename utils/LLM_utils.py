@@ -7,17 +7,22 @@ import threading
 import torch
 from transformers import AutoTokenizer
 import transformers
+from vllm import LLM, SamplingParams
 
 openai.api_key = "sk-proj-jxew31rgcBtYjchHn8ziT3BlbkFJf3H5tds737YtWMTz4RS3"
 import queue
 
 Llama_model = None
 tokenizer = None
+token_used = 0
+
+use_vllm = False
 
 
 def his_to_str(history, metadata=None):
     prompt = ""
-    for action in history:
+    l = len(history)
+    for i, action in enumerate(history):
         if isinstance(action["metadata"], str) and isinstance(action["action"], str):
             prompt += (
                 "The objects you have seen are:"
@@ -73,15 +78,75 @@ def load_llama():
     return pipline, tokenizer
 
 
+def load_vllm():
+
+    # Create an LLM.
+    llm = LLM(
+        model="/mnt/sda/yuxiao_code/meta-llama4b/Meta-Llama-3-8Bawq",
+        quantization="AWQ",
+        gpu_memory_utilization=0.9,
+    )
+    return llm
+
+
+def call_vllm_llama(max_token, stop, sys_prompt, user_prompt, n):
+    global Llama_model
+    one_line = False
+    if "\n" in stop:
+        one_line = True
+    if Llama_model == None:
+        Llama_model = load_vllm()
+    sampling_params = SamplingParams(
+        temperature=0.8, top_p=0.95, max_tokens=max_token, n=n
+    )
+    prompts = sys_prompt + user_prompt
+    outputs = Llama_model.generate(prompts, sampling_params)
+    res = []
+    for output in outputs:
+        tmp = output.outputs[0].text
+        if one_line:
+            tmp = tmp.split("\n")[0]
+        res.append(tmp)
+    return res
+
+
+def increase_token(num):
+    global token_used
+    token_used += num
+
+
+def get_used_token():
+    global token_used
+    return token_used
+
+
 # this func is try to use opensource llm(LLAMA3) instead of GPT-4
 def call_llama(max_token, stop, sys_prompt, user_prompt, n):
-    global Llama_model, tokenizer
+    if use_vllm == True:
+        return call_vllm_llama(max_token, stop, sys_prompt, user_prompt, n)
+    global Llama_model, tokenizer, token_used
+
     if Llama_model == None:
         Llama_model, tokenizer = load_llama()
+    terminators = [
+        tokenizer.eos_token_id,
+        tokenizer.convert_tokens_to_ids("<|eot_id|>"),
+    ]
     input_prompt = sys_prompt + user_prompt
     input_length = len(input_prompt.split())
+    increase_token(input_length * n)
     # different way in calculating max_token
-
+    one_line = False
+    if stop != None:
+        if isinstance(stop, list) and len(stop) == 1:
+            stop = stop[0]
+            if stop == "\n":
+                one_line = True
+        if "\n" in stop:
+            one_line = True
+        stop = terminators + tokenizer.encode(stop)
+    else:
+        stop = terminators
     return_ls = []
     for _ in range(n):
         sequences = Llama_model(
@@ -89,12 +154,13 @@ def call_llama(max_token, stop, sys_prompt, user_prompt, n):
             do_sample=True,
             top_k=5,
             num_return_sequences=1,
-            eos_token_id=tokenizer.encode(stop),
+            eos_token_id=stop,
             max_new_tokens=max_token,
             truncation=True,
         )
         output = sequences[0]["generated_text"].replace(input_prompt, "")
-        output = output.replace("\n", "")
+        if one_line:
+            output = output.split("\n")[0]
         return_ls.append(output)
     return return_ls
 

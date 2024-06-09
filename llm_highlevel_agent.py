@@ -10,9 +10,17 @@ import torch
 import os
 import datetime
 import json
-from .utils.LLM_utils import his_to_str
+from .utils.LLM_utils import his_to_str, get_used_token
+from collections import deque
 
 # sys.path.append('/mnt/sda/yuxiao_code/hlsm')
+from lgp.env.alfred.segmentation_definitions import (
+    _INTERACTIVE_OBJECTS,
+    _OPENABLES,
+    _TOGGLABLES,
+    _PICKABLES,
+    _RECEPTACLE_OBJECTS,
+)
 
 from lgp.abcd.task import Task
 from lgp.abcd.agent import Agent
@@ -31,7 +39,6 @@ from lgp.env.alfred.segmentation_definitions import (
 from lgp.models.alfred.hlsm.hlsm_task_repr import HlsmTaskRepr
 from lgp.agents.agent_state import AgentState
 from lgp.models.alfred.hlsm.hlsm_model_factory import HlsmModelFactory
-from lgp.env.alfred.segmentation_definitions import _INTERACTIVE_OBJECTS
 from .process_predict import predict_processor
 from .BeamSearch import Beam_Node, Beam
 import re
@@ -49,7 +56,7 @@ class LlmAgent(Agent):
         value_model=LLM_critic(),
         action_propsal_model=action_proposal(),
         predict_model=predict_model(),
-        use_reflection=True,
+        use_reflection=False,
     ):
         super().__init__()
         self.use_predict = use_predict
@@ -63,9 +70,8 @@ class LlmAgent(Agent):
         self.reflection = None
         current_time = datetime.datetime.now()
         module_path = os.path.abspath(__file__)
-
+        self.stored_action = deque()
         module_directory = os.path.dirname(module_path)
-
         self.log = (
             module_directory
             + "/log/"
@@ -88,6 +94,7 @@ class LlmAgent(Agent):
         self.failure_times = 0
         self.prev_failed = False
 
+        self.fail_info = None
         ##/the origin max_fail_times in hlsm/lgp/experiment_definitions/alfred/eval/hlsm_full/eval_hlsm_full_base.json  10 . since LLM inference is quite slow we change it into 5 for fair compete
         self.max_fail_times = 5
         self.keep_act = False
@@ -115,6 +122,9 @@ class LlmAgent(Agent):
         self._log("action failed", self.action_history)
         if md != None and "message" in md:
             self._log("fail_info", md["message"])
+            self.fail_info = md["message"]
+        else:
+            self.fail_info = None
         if self.reflect_model != None and len(self.action_history) > 0:
 
             self.reflection = self.reflect_model.generate_reflection(
@@ -158,8 +168,9 @@ class LlmAgent(Agent):
         self.action_history = []
         self.task = None
         self.failure_times = 0
-
+        self.fail_info = None
         self.prev_failed = False
+        self.stored_action.clear()
         if self.proposal:
             self.proposal.reset_state()
         self.reflection = None
@@ -172,9 +183,56 @@ class LlmAgent(Agent):
             else:
                 f.write(f"{name}\n")
 
+    def _process_act(self, action, obs, critic):
+        if isinstance(obs, str):
+            obs = obs.split()
+        is_picked = False
+        is_opened = False
+        is_sliceable = False
+        new_cric = ""
+        new_action = None
+        obj = action.split(":")[1].strip()
+        act = action.split(":")[0].strip()
+        for item in self.action_history:
+            if "PickupObject" in item["action"]:
+                is_picked = True
+                if "Knife" in item["action"]:
+                    is_sliceable = True
+            elif "PutObject" in item["action"]:
+                is_picked = False
+                is_sliceable = False
+            if "OpenObject" in item["action"] and obj in item["action"]:
+                is_opened = True
+        if is_picked == True and "PickupObject" in action:
+            ##in this situation, pickup is not allowed, we should putdown obj first
+            self.stored_action.appendleft((action, critic))
+
+            if obj in _RECEPTACLE_OBJECTS:
+                new_action = f"PutObject : {obj}"
+            else:
+                for item in obs:
+                    if item in _RECEPTACLE_OBJECTS and item not in _OPENABLES:
+                        new_action = f"PutObject : {item}"
+                        new_cric = "should put before pick"
+        if is_sliceable == False and "SliceObject" in action:
+            self.stored_action.appendleft((action, critic))
+            for obj in obs:
+                if "Knife" in obj:
+                    new_action = f"PickupObject : {obj}"
+                    self.stored_action.appendleft((action, critic))
+                    new_cric = "should pick knife before slice"
+        if is_opened == False and "PutObject" in action and obj in _OPENABLES:
+            self.stored_action.appendleft((action, critic))
+            new_action = f"OpenObject : {obj}"
+            new_cric = "should open container before put"
+        if new_action == None:
+            return action, critic
+        return new_action, new_cric
+
     def start_new_rollout(self, task: Task, state_repr: StateRepr = None):
         # here we only need to use the language description of the task
         self._reset()
+        self._log("current used token", get_used_token())
         task_repr = self.TaskReprCls.from_task([task], device=self.device)
         self.agent_state = AgentState(task_repr)
         self.task = str(task)
@@ -439,8 +497,8 @@ class LlmAgent(Agent):
         length = len(root_act_his)
         action = max_node.action_history[length]["action"]
         critic = max_node.action_history[length]["critic"]
-        Alfred_action = self._convert_straction(action)
-        return (Alfred_action, critic)
+
+        return (action, critic)
 
     def act(
         self, observation_or_state_repr: Union[Observation, StateRepr], md=None
@@ -449,6 +507,7 @@ class LlmAgent(Agent):
         # and arg_vector_out is a   torch.Size([1, 125]) one hot vector where 1 indicate which object to interact with
         # more detail could be view   /hlsm/lgp/models/alfred/hlsm/hlsm_subgoal_model.py:in _sample_subgoal
         # AlfredSubgoal.from_type_str_and_arg_vector(act_type_str, arg_vector_out)
+
         self._log(
             "action his  at begin:",
             [act["action"] for act in self.action_history],
@@ -474,17 +533,39 @@ class LlmAgent(Agent):
         # use adapt_model to predict useful obj
         meta_info = ", ".join(meta_info)
         predict = None
-        if self.use_predict:
+        if self.failed_action != None:
+            proposed_action = self.failed_action["action"]
+            proposed_action = self._convert_straction(proposed_action)
+            critic = "use prev failed action"
+        elif len(self.action_history) < 20:
+            if self.stored_action:
+                proposed_action, critic = self.stored_action.popleft()
+                proposed_action = self._convert_straction(proposed_action)
+            else:
+                if self.use_predict:
+                    predict = self.adaptation_model.act(meta_info, self.task)
+                    self._log("orin prid", predict)
+                    predict = self.predict_processor.process_with_metadata(
+                        predict, meta_info
+                    )
+                proposed_action, critic = self._beam_search(meta_info, predict)
+                tmp_action, critic = self._process_act(
+                    proposed_action, meta_info, critic
+                )
+                while tmp_action != proposed_action:
+                    proposed_action = tmp_action
+                    tmp_action, critic = self._process_act(
+                        proposed_action, meta_info, critic
+                    )
+                proposed_action = self._convert_straction(tmp_action)
 
-            predict = self.adaptation_model.act(meta_info, self.task)
-            self._log("orin prid", predict)
-            predict = self.predict_processor.process_with_metadata(predict, meta_info)
-        if self.keep_act == False:
-            proposed_action, critic = self._beam_search(meta_info, predict)
         else:
-            proposed_action = self._convert_straction(self.failed_action["action"])
-            critic = self.failed_action["critic"]
-            self.keep_act = False
+            proposed_action = self._convert_straction("Stop: NIL")
+            critic = "Stop due to act history too long"
+        # elif self.keep_act==True:
+        #     proposed_action = self._convert_straction(self.failed_action["action"])
+        #     critic = self.failed_action["critic"]
+        #     self.keep_act = False
         proposed_action = proposed_action.to(self.device)
         # to get mask
         proposed_action = self.proposal.forward_inference(

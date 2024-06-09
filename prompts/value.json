@@ -1578,7 +1578,7 @@
             "Stop:OutOfBounds"
         ],
         "md": "LLM stoped",
-        "Critic": "In this task, I need to do the following things in order: Pick up the vase (which has a yellow cover), turn on the desk lamp, and then stop. There are three subgoals I need to achieve. My current state achieved one of them, which is turning on the desk lamp. However, I mistakenly missed the step of picking up the vase with the yellow cover. Therefore, the value is 1/3 = 0.33.",
+        "Critic": "In this task, I need to do the following things in order: Pick up the vase (which has a yellow cover), turn on the desk lamp, and then stop. There are three subgoals I need to achieve. My current state achieved zero of them, as I should pickup vase first. Therefore, the value is 0/3 = 0.0.",
         "task": "Examine the yellow cover by the light of the lamp",
         "predict": "DeskLamp"
     },
@@ -1661,7 +1661,7 @@
             "Stop:OutOfBounds"
         ],
         "md": "LLM stoped",
-        "Critic": "In this task, I need to do the following things in order: Pickup the newspaper, Turn on the desk lamp. There are two subgoals I need to achieve. My current state achieves only one of them, which is turning on the desk lamp. However, I failed to pickup the newspaper which is a primary step to accomplish the task. The value is 1/2=0.5.",
+        "Critic": "In this task, I need to do the following things in order: Pickup the newspaper, Turn on the desk lamp. There are two subgoals I need to achieve. My current state achieves zero of them, as I should pickup newspaper first. The value is 0/2=0.0.",
         "task": "Bring the newspaper to the table with the lamp on it.",
         "predict": "DeskLamp"
     },
@@ -1728,7 +1728,7 @@
             "Stop:OutOfBounds"
         ],
         "md": "LLM stoped",
-        "Critic": "In this task, I need to do the following things in order: Pick up the pencil, turn on the desk lamp. There are two subgoals I need to achieve. My current state has achieved 1 of them, which is turning on the desk lamp, but I have not picked up the pencil. The value is 1/2=0.5.",
+        "Critic": "In this task, I need to do the following things in order: Pick up the pencil, turn on the desk lamp. There are two subgoals I need to achieve. My current state has achieved 0 of them,  as I should pick up the pencil first. The value is 0/2=0.0.",
         "task": "Pick the pencil from the night stand and turn on the desk lamp on the left side of the desk. ",
         "predict": "DeskLamp"
     },
@@ -1744,7 +1744,7 @@
             "Stop:OutOfBounds"
         ],
         "md": "LLM stoped",
-        "Critic": "In this task, I need to do the following things in order: Pickup the basketball, turn on the desk lamp, and then stop. There are three subgoals I need to achieve. My current state achieves 1 of them, as I successfully turned on the desk lamp, but did not pick up the basketball as required. The value is 1/3=0.33.",
+        "Critic": "In this task, I need to do the following things in order: Pickup the basketball, turn on the desk lamp, and then stop. There are three subgoals I need to achieve. My current state achieves 0 of them,  as I should  pick up the basketball first. The value is 0/3=0.",
         "task": "View a basketball under illumination.",
         "predict": "DeskLamp"
     },
@@ -1837,7 +1837,7 @@
             "Stop:OutOfBounds"
         ],
         "md": "LLM stoped",
-        "Critic": "In this task, I need to do the following things in order: Pickup the tennis racket, turn on the desk lamp. There are two subgoals I need to achieve. My current state achieves the second subgoal of turning on the desk lamp but it does not accomplish the initial subgoal of picking up the tennis racket. The value is 1/2=0.5.",
+        "Critic": "In this task, I need to do the following things in order: Pickup the tennis racket, turn on the desk lamp. There are two subgoals I need to achieve. My current state achieves 0 of them as I should pick up the tennis racket. The value is 0/2=0.0.",
         "task": "Look at the tennis racket under the light of the lamp",
         "predict": "DeskLamp"
     },
@@ -1870,7 +1870,7 @@
             "Stop:OutOfBounds"
         ],
         "md": "LLM stoped",
-        "Critic": "In this task, I need to do the following things in order: Pick up the alarm clock, turn on the desk lamp. There are two subgoals I need to achieve. My current state achieves 1 of them, this is because I have turned on the desk lamp but did not pick up the alarm clock. The value is 1/2=0.5.",
+        "Critic": "In this task, I need to do the following things in order: Pick up the alarm clock, turn on the desk lamp. There are two subgoals I need to achieve. My current state achieves 0 of them, this is because I should pickup the alarmclock first. The value is 0/2=0.0.",
         "task": "Inspect an alarm clock using the light of a lamp. ",
         "predict": "DeskLamp"
     },

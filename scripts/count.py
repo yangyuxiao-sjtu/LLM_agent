@@ -1,6 +1,6 @@
 import re
 
-with open("/mnt/sda/yuxiao_code/hlsm/output.txt", "r") as f:
+with open("/mnt/sda/yuxiao_code/hlsm/results/output100.txt", "r") as f:
     text = f.read()
 
 pattern = r"'goal_conditions_met':\s*\((\d+),\s*(\d+)\)"

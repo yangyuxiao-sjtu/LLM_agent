@@ -11,8 +11,13 @@ import sys
 import re
 from transformers import AutoTokenizer
 import transformers
-
-
+from LLM_subgoal.utils.LLM_utils import (
+    his_to_str,
+    choose_examples,
+    call_llm,
+    call_llm_thread,
+)
+from LLM_subgoal import sentence_embedder
 sys.path.append("/mnt/sda/yuxiao_code/hlsm")
 from lgp.abcd.observation import Observation
 from lgp.abcd.functions.observation_function import ObservationFunction
@@ -24,8 +29,10 @@ class adap_model:
         self.process_url = "http://localhost:5000/process"
         base_dir = os.path.dirname(os.path.abspath(__file__))
         self.img_folder = os.path.join(base_dir, "tmp_img")
-        model = "/mnt/sda/yuxiao_code/models/llama2-7b-sft"
+        self.tokenizer = None
+        self.pipeline = None
 
+    def load_model(self, model="/mnt/sda/yuxiao_code/models/llama2-7b-sft"):
         self.tokenizer = AutoTokenizer.from_pretrained(model)
         self.pipeline = transformers.pipeline(
             "text-generation",
@@ -54,7 +61,9 @@ class adap_model:
         img.save(img_path)
         return img_path
 
-    def act_llm(self, obs, task):
+    def act_obj(self, obs, task):
+        if self.tokenizer == None:
+            self.load_model()
         text = "You are an AI predictor. You will be given a house task and some objects you have seen. Your goal is to predict the objects you need to interact with to finish the task.\n"
         text += f"Task:{task}\n Object:{obs}."
         print("adap_model:", text)
@@ -68,8 +77,15 @@ class adap_model:
         )
         ans = sequences[0]["generated_text"].replace(text, "")
         #  ans = ans.replace("Object:", "")
-        print("predict:", ans)
         return ans
+    def act_pddl(obs,task,file = '/mnt/sda/yuxiao_code/LLM_subgoal/prompts/plld_n.json'):
+
+
+    def act_llm(self, obs, task, method="obj"):
+        if method == "obj":
+            return self.act_obj(obs, task)
+        elif method =='pddl':
+            return self.act_pddl(obs, task)
 
     def act_vlm(self, obs, task):
         img_path = self._save_img(obs)

@@ -47,7 +47,7 @@ class action_proposal:
         model="llama",
         max_tokens=100,
         top_p=0.8,
-        example_num=4,
+        example_num=2,
         use_predict=True,
         stop=["\n", "."],
     ):

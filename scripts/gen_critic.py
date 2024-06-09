@@ -11,7 +11,8 @@ from openai import OpenAI
 
 sys_p = """
 You will be provided with a household task roll-out conducted by an agent and a ground truth roll-out. Your task is to write a critic of the agent's roll-out based on the ground truth roll-out. The critic should follow the form:In this task, I need do the follwing things in order:... There are ... subgoals I need to achieve,My current state achieve ... , The value is a/b=...\n
-Here is a example:
+Note that the critic you write should focus on the subgoal's order. That is , if the prevous subgoal didn't achieve, then subgoal behind the failed one should not count either.
+\nHere is a example:
 """
 example = """The rollout by agent is:
 Your task is: Chill a slice of bread.
@@ -69,10 +70,8 @@ for i in range(0, 140):
     with open(file_path, "r") as f:
         dt = json.load(f)
     tmp = dt["Critic"]
-    if "Bound" in tmp:
-        print(i)
-    # x += "The rollout by agent is:\n" + dt["prompts"] + "\n"
-    # x += "The ground truth rollout is: " + ", ".join(dt["gt"]) + "\n" + "Critic:"
-    # critic = call_openai(sys_prompt=sys_p + example, user_prompt=x)
-    # dt["Critic"] = critic
-    # save_json(f"/mnt/sda/yuxiao_code/critic/{i}.json", dt)
+    x += "The rollout by agent is:\n" + dt["prompts"] + "\n"
+    x += "The ground truth rollout is: " + ", ".join(dt["gt"]) + "\n" + "Critic:"
+    critic = call_openai(sys_prompt=sys_p + example, user_prompt=x)
+    dt["Critic"] = critic
+    save_json(f"/mnt/sda/yuxiao_code/critic/{i}.json", dt)

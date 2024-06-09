@@ -162,7 +162,6 @@ if __name__ == "__main__":
             file_path = os.path.join(read_path, f"rollout_{i}.gz")
             save_path = os.path.join(load_path, f"rollout_{i}.json")
             roll = load(file_path)
-            continue
 
             nw_ls = []
 
@@ -170,7 +169,9 @@ if __name__ == "__main__":
                 print(sg["task"].get_task_id())
 
                 ls = []
-                print(sg["task"])
+                print(sg["observation"])
+                print(sg["state_repr"].keys())
+                sys.exit()
                 traj_data = sg["task"].traj_data
                 task_type = traj_data.get_task_type()
 

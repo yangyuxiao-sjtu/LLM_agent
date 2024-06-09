@@ -64,4 +64,5 @@ critics that you should have generated. You will need this later when you are so
             res = response[0]
         else:
             assert "currently model should be GPT or llama!"
+
         return res

@@ -137,7 +137,7 @@ class LLM_critic:
     def __init__(
         self,
         model="llama",
-        max_tokens=150,
+        max_tokens=300,
         top_p=0.8,
         prompt_path="prompts/value_prompts.json",
         use_predict=False,
