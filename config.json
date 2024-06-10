@@ -1,0 +1,8 @@
+{
+    "use_predict": true,
+    "predict_type": "pddl",
+    "use_reflection": false,
+    "action_prompt": "prompts/pddl_n.json",
+    "value_prompt": "prompts/value_n.json",
+    "debug": "/mnt/sda/yuxiao_code/LLM_subgoal/debug.txt"
+}

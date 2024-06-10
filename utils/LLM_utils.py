@@ -9,6 +9,10 @@ from transformers import AutoTokenizer
 import transformers
 from vllm import LLM, SamplingParams
 
+from LLM_subgoal import sentence_embedder
+
+from sentence_transformers.util import cos_sim
+
 openai.api_key = "sk-proj-jxew31rgcBtYjchHn8ziT3BlbkFJf3H5tds737YtWMTz4RS3"
 import queue
 
@@ -17,6 +21,26 @@ tokenizer = None
 token_used = 0
 
 use_vllm = False
+
+
+def knn_retriver(data, key_func, get_prompt, input, n):
+    encoded = sentence_embedder.encode(input)
+    ls = []
+    for item in data:
+        cmp_list = key_func(item)
+        if isinstance(cmp_list, str):
+            cmp_list = [cmp_list]
+        dist = 0
+        for cmp in cmp_list:
+            tmp = cos_sim(sentence_embedder.encode(cmp), encoded)
+            if tmp > dist:
+                dist = tmp
+        ls.append((item, dist))
+    top_k = sorted(ls, key=lambda x: x[1], reverse=True)
+    top_k = top_k[:n]
+    ret = [item for (item, _) in top_k]
+    knn_prompt = get_prompt(ret)
+    return knn_prompt
 
 
 def his_to_str(history, metadata=None):

@@ -22,8 +22,9 @@ import openai
 
 class predict_model:
     def __init__(
-        self, model="llama", max_tokens=100, top_p=0.8, example_num=2, stop="\n"
+        self, config, model="llama", max_tokens=100, top_p=0.8, example_num=2, stop="\n"
     ):
+        self.conig = config
         self.model = model
         self.max_tokens = max_tokens
         self.example_num = example_num

@@ -14,7 +14,7 @@ import json
 import re
 from LLM_subgoal.utils.LLM_utils import (
     his_to_str,
-    choose_examples,
+    knn_retriver,
     call_llm,
     call_llm_thread,
 )
@@ -41,17 +41,52 @@ Stop should end with NIL.Note if all requirements are satisfied, you just need t
 """
 
 
+def get_predict_prompt(predict, predict_type):
+    if predict_type == "object":
+        return (
+            "The objects might be useful in the tasks are:"
+            + predict
+            + "\n"
+            + "Note that these predict might be wrong, you should consider carefully.\n"
+        )
+    elif predict_type == "pddl":
+        return "Your knowledge about this task is: " + predict + "\n"
+
+
+def get_task_desc(item):
+    return item[0]["task_desc"]
+
+
+def get_action_prompt(sample, predict_type):
+    ret = ""
+    for task in sample:
+        ret += "Task:" + task[0]["task"] + "\n"
+        if predict_type != None:
+            if predict_type == "object":
+                ret += (
+                    "The objects might be useful in the task are:"
+                    + task[0]["predict"]
+                    + "\n"
+                )
+
+        for stp in task:
+            ret += "The objects you have seen are:" + stp["object"] + "\n"
+            ret += stp["subgoal"] + "\n"
+    return ret
+
+
 class action_proposal:
     def __init__(
         self,
+        config,
         model="llama",
         max_tokens=100,
         top_p=0.8,
         example_num=2,
-        use_predict=True,
         stop=["\n", "."],
     ):
-        self.use_predict = use_predict
+        self.use_predict = config["use_predict"]
+        self.config = config
         self.model = model
         self.task = None
         self.max_tokens = max_tokens
@@ -64,7 +99,13 @@ class action_proposal:
         self.stop = stop
         self.log = None
         # return a short example and a long example
-        base_dir = os.path.dirname(os.path.abspath(__file__))
+        knn_data_path = config["action_prompt"]
+        base_path = os.path.abspath(__file__)
+
+        base_directory = os.path.dirname(base_path)
+        knn_data_path = os.path.join(base_directory, knn_data_path)
+        with open(knn_data_path, "r", encoding="utf-8") as f:
+            self.knn_set = json.load(f)
 
     def reset(self):
         self.task = None
@@ -95,28 +136,32 @@ class action_proposal:
     ):
         if self.task != task:
             self.task = task
-            self.sys_prompt = self.baseprompt + predict_processor.knn_retrieval(
-                task, self.example_num
+            prompt_func = lambda a: get_action_prompt(a, self.config["predict_type"])
+            self.sys_prompt = self.baseprompt + knn_retriver(
+                self.knn_set,
+                get_task_desc,
+                prompt_func,
+                self.task,
+                self.example_num,
             )
+        task_prompt = ""
         if len(his_list) != len(metadata_list):
             print("len of his_list should equal to metadata!!")
             return None
-        task_prompt = "Your task is: " + task + "\n"
-        if self.use_predict == True and predict != None:
-            task_prompt += (
-                "The objects might be useful in the tasks are:"
-                + predict
-                + "\n"
-                + "Note that these predict might be wrong, you should consider carefully.\n"
-            )
+
         if reflection != None:
 
             task_prompt += (
                 "Your previous memory about this task are:" + reflection + "\n"
             )
+        if self.use_predict == True and predict != None:
+            task_prompt += get_predict_prompt(predict, self.config["predict_type"])
+        task_prompt += "Task: " + task + "\n"
+
         sys_prompt_ls = []
         user_prompt_ls = []
         tags = []
+
         for i in range(len(his_list)):
             user_prompt_ls.append(
                 task_prompt + his_to_str(his_list[i], metadata_list[i])

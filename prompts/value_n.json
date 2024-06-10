@@ -33,7 +33,6 @@
     "task": "Chill a slice of bread.",
     "predict": "Bread, Fridge, SideTable, ButterKnife",
     "task_desc": [
-      "Warming up fresh sliced bread",
       "Put a slice of chilled bread on the black table.",
       "Set down a refrigerated slice of bread next to some items on a shelf.",
       "Place a chilled, slice of bread on the shelf by the kitchen counter. ",
@@ -44,7 +43,8 @@
       "object_sliced": true,
       "object_target": "Bread",
       "parent_target": "SideTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -78,7 +78,8 @@
       "object_sliced": true,
       "object_target": "Bread",
       "parent_target": "DiningTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -114,7 +115,8 @@
       "object_sliced": false,
       "object_target": "Lettuce",
       "parent_target": "SinkBasin",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -158,7 +160,8 @@
       "object_sliced": true,
       "object_target": "Bread",
       "parent_target": "Microwave",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -197,7 +200,8 @@
       "object_sliced": false,
       "object_target": "Mug",
       "parent_target": "Cabinet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -231,7 +235,8 @@
       "object_sliced": false,
       "object_target": "Bowl",
       "parent_target": "Shelf",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -267,7 +272,8 @@
       "object_sliced": false,
       "object_target": "Pot",
       "parent_target": "Cabinet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -311,7 +317,8 @@
       "object_sliced": false,
       "object_target": "Mug",
       "parent_target": "CoffeeMachine",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -351,7 +358,8 @@
       "object_sliced": false,
       "object_target": "Apple",
       "parent_target": "SinkBasin",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -390,7 +398,8 @@
       "object_sliced": true,
       "object_target": "Potato",
       "parent_target": "GarbageCan",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -433,7 +442,8 @@
       "object_sliced": true,
       "object_target": "Lettuce",
       "parent_target": "SinkBasin",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -470,7 +480,8 @@
       "object_sliced": false,
       "object_target": "Pot",
       "parent_target": "StoveBurner",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -510,7 +521,8 @@
       "object_sliced": false,
       "object_target": "Potato",
       "parent_target": "SideTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -546,7 +558,8 @@
       "object_sliced": false,
       "object_target": "Mug",
       "parent_target": "Cabinet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -589,7 +602,8 @@
       "object_sliced": true,
       "object_target": "Lettuce",
       "parent_target": "DiningTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -623,7 +637,8 @@
       "object_sliced": true,
       "object_target": "Apple",
       "parent_target": "DiningTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -659,7 +674,8 @@
       "object_sliced": false,
       "object_target": "Bowl",
       "parent_target": "Shelf",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -703,7 +719,8 @@
       "object_sliced": true,
       "object_target": "Potato",
       "parent_target": "CounterTop",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -747,7 +764,8 @@
       "object_sliced": true,
       "object_target": "Bread",
       "parent_target": "GarbageCan",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "cool"
     }
   },
   {
@@ -786,7 +804,8 @@
       "object_sliced": true,
       "object_target": "Apple",
       "parent_target": "CounterTop",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -832,7 +851,8 @@
       "object_sliced": false,
       "object_target": "Tomato",
       "parent_target": "CounterTop",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -877,7 +897,8 @@
       "object_sliced": true,
       "object_target": "Bread",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -924,7 +945,8 @@
       "object_sliced": true,
       "object_target": "Potato",
       "parent_target": "GarbageCan",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -966,7 +988,8 @@
       "object_sliced": true,
       "object_target": "Tomato",
       "parent_target": "GarbageCan",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1009,7 +1032,8 @@
       "object_sliced": true,
       "object_target": "Potato",
       "parent_target": "SinkBasin",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1047,7 +1071,8 @@
       "object_sliced": false,
       "object_target": "Mug",
       "parent_target": "CoffeeMachine",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1086,7 +1111,8 @@
       "object_sliced": false,
       "object_target": "Tomato",
       "parent_target": "GarbageCan",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1126,7 +1152,8 @@
       "object_sliced": false,
       "object_target": "Cup",
       "parent_target": "Cabinet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1178,7 +1205,8 @@
       "object_sliced": true,
       "object_target": "Apple",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1217,7 +1245,8 @@
       "object_sliced": false,
       "object_target": "Tomato",
       "parent_target": "SideTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1264,7 +1293,8 @@
       "object_sliced": false,
       "object_target": "Egg",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1307,7 +1337,8 @@
       "object_sliced": false,
       "object_target": "Cup",
       "parent_target": "Cabinet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1356,7 +1387,8 @@
       "object_sliced": true,
       "object_target": "Bread",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1398,7 +1430,8 @@
       "object_sliced": false,
       "object_target": "Apple",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1439,7 +1472,8 @@
       "object_sliced": false,
       "object_target": "Mug",
       "parent_target": "CoffeeMachine",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1487,7 +1521,8 @@
       "object_sliced": true,
       "object_target": "Apple",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1522,7 +1557,8 @@
       "object_sliced": false,
       "object_target": "Mug",
       "parent_target": "CoffeeMachine",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1564,7 +1600,8 @@
       "object_sliced": false,
       "object_target": "Tomato",
       "parent_target": "DiningTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1616,7 +1653,8 @@
       "object_sliced": true,
       "object_target": "Bread",
       "parent_target": "GarbageCan",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "heat"
     }
   },
   {
@@ -1652,7 +1690,8 @@
       "object_sliced": true,
       "object_target": "Apple",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -1684,7 +1723,8 @@
       "object_sliced": false,
       "object_target": "Knife",
       "parent_target": "DiningTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -1721,7 +1761,8 @@
       "object_sliced": false,
       "object_target": "ButterKnife",
       "parent_target": "CounterTop",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -1755,7 +1796,8 @@
       "object_sliced": false,
       "object_target": "Fork",
       "parent_target": "SinkBasin",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -1788,7 +1830,8 @@
       "object_sliced": false,
       "object_target": "CellPhone",
       "parent_target": "CoffeeTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -1825,7 +1868,8 @@
       "object_sliced": false,
       "object_target": "DishSponge",
       "parent_target": "Cabinet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -1860,7 +1904,8 @@
       "object_sliced": true,
       "object_target": "Tomato",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -1885,7 +1930,8 @@
       "object_sliced": false,
       "object_target": "Fork",
       "parent_target": "SinkBasin",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -1917,7 +1963,8 @@
       "object_sliced": false,
       "object_target": "CreditCard",
       "parent_target": "Dresser",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -1947,7 +1994,8 @@
       "object_sliced": false,
       "object_target": "Spatula",
       "parent_target": "DiningTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -1980,7 +2028,8 @@
       "object_sliced": false,
       "object_target": "Pencil",
       "parent_target": "Desk",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -2018,7 +2067,8 @@
       "object_sliced": true,
       "object_target": "Lettuce",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -2057,7 +2107,8 @@
       "object_sliced": true,
       "object_target": "Lettuce",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -2086,7 +2137,8 @@
       "object_sliced": false,
       "object_target": "Pen",
       "parent_target": "Dresser",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -2120,7 +2172,8 @@
       "object_sliced": true,
       "object_target": "Potato",
       "parent_target": "CounterTop",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -2156,7 +2209,8 @@
       "object_sliced": true,
       "object_target": "Tomato",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -2188,7 +2242,8 @@
       "object_sliced": false,
       "object_target": "CreditCard",
       "parent_target": "Dresser",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -2218,7 +2273,8 @@
       "object_sliced": false,
       "object_target": "CreditCard",
       "parent_target": "CoffeeTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -2249,7 +2305,8 @@
       "object_sliced": false,
       "object_target": "ButterKnife",
       "parent_target": "CounterTop",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -2280,7 +2337,8 @@
       "object_sliced": false,
       "object_target": "ButterKnife",
       "parent_target": "SideTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -2309,7 +2367,8 @@
       "object_sliced": false,
       "object_target": "KeyChain",
       "parent_target": "",
-      "toggle_target": "FloorLamp"
+      "toggle_target": "FloorLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2337,7 +2396,8 @@
       "object_sliced": false,
       "object_target": "Vase",
       "parent_target": "",
-      "toggle_target": "DeskLamp"
+      "toggle_target": "DeskLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2366,7 +2426,8 @@
       "object_sliced": false,
       "object_target": "TissueBox",
       "parent_target": "",
-      "toggle_target": "FloorLamp"
+      "toggle_target": "FloorLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2395,7 +2456,8 @@
       "object_sliced": false,
       "object_target": "KeyChain",
       "parent_target": "",
-      "toggle_target": "FloorLamp"
+      "toggle_target": "FloorLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2427,7 +2489,8 @@
       "object_sliced": false,
       "object_target": "AlarmClock",
       "parent_target": "",
-      "toggle_target": "DeskLamp"
+      "toggle_target": "DeskLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2455,7 +2518,8 @@
       "object_sliced": false,
       "object_target": "KeyChain",
       "parent_target": "",
-      "toggle_target": "FloorLamp"
+      "toggle_target": "FloorLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2483,7 +2547,8 @@
       "object_sliced": false,
       "object_target": "Newspaper",
       "parent_target": "",
-      "toggle_target": "DeskLamp"
+      "toggle_target": "DeskLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2512,7 +2577,8 @@
       "object_sliced": false,
       "object_target": "Pen",
       "parent_target": "",
-      "toggle_target": "DeskLamp"
+      "toggle_target": "DeskLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2542,7 +2608,8 @@
       "object_sliced": false,
       "object_target": "BasketBall",
       "parent_target": "",
-      "toggle_target": "DeskLamp"
+      "toggle_target": "DeskLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2571,7 +2638,8 @@
       "object_sliced": false,
       "object_target": "Box",
       "parent_target": "",
-      "toggle_target": "DeskLamp"
+      "toggle_target": "DeskLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2600,7 +2668,8 @@
       "object_sliced": false,
       "object_target": "Pencil",
       "parent_target": "",
-      "toggle_target": "DeskLamp"
+      "toggle_target": "DeskLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2631,7 +2700,8 @@
       "object_sliced": false,
       "object_target": "BasketBall",
       "parent_target": "",
-      "toggle_target": "DeskLamp"
+      "toggle_target": "DeskLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2657,7 +2727,8 @@
       "object_sliced": false,
       "object_target": "Laptop",
       "parent_target": "",
-      "toggle_target": "FloorLamp"
+      "toggle_target": "FloorLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2686,7 +2757,8 @@
       "object_sliced": false,
       "object_target": "Newspaper",
       "parent_target": "",
-      "toggle_target": "DeskLamp"
+      "toggle_target": "DeskLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2712,7 +2784,8 @@
       "object_sliced": false,
       "object_target": "Laptop",
       "parent_target": "",
-      "toggle_target": "DeskLamp"
+      "toggle_target": "DeskLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2743,7 +2816,8 @@
       "object_sliced": false,
       "object_target": "WateringCan",
       "parent_target": "",
-      "toggle_target": "FloorLamp"
+      "toggle_target": "FloorLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2771,7 +2845,8 @@
       "object_sliced": false,
       "object_target": "Pillow",
       "parent_target": "",
-      "toggle_target": "FloorLamp"
+      "toggle_target": "FloorLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2799,7 +2874,8 @@
       "object_sliced": false,
       "object_target": "TennisRacket",
       "parent_target": "",
-      "toggle_target": "DeskLamp"
+      "toggle_target": "DeskLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2828,7 +2904,8 @@
       "object_sliced": false,
       "object_target": "KeyChain",
       "parent_target": "",
-      "toggle_target": "FloorLamp"
+      "toggle_target": "FloorLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2856,7 +2933,8 @@
       "object_sliced": false,
       "object_target": "AlarmClock",
       "parent_target": "",
-      "toggle_target": "DeskLamp"
+      "toggle_target": "DeskLamp",
+      "object_state": "None"
     }
   },
   {
@@ -2889,7 +2967,8 @@
       "object_sliced": false,
       "object_target": "Lettuce",
       "parent_target": "CounterTop",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -2922,7 +3001,8 @@
       "object_sliced": false,
       "object_target": "Fork",
       "parent_target": "SideTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -2958,7 +3038,8 @@
       "object_sliced": false,
       "object_target": "Cloth",
       "parent_target": "Drawer",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -2999,7 +3080,8 @@
       "object_sliced": true,
       "object_target": "Apple",
       "parent_target": "DiningTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3032,7 +3114,8 @@
       "object_sliced": false,
       "object_target": "Lettuce",
       "parent_target": "CounterTop",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3068,7 +3151,8 @@
       "object_sliced": false,
       "object_target": "Ladle",
       "parent_target": "Drawer",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3101,7 +3185,8 @@
       "object_sliced": false,
       "object_target": "SoapBar",
       "parent_target": "Cabinet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3137,7 +3222,8 @@
       "object_sliced": false,
       "object_target": "Ladle",
       "parent_target": "CounterTop",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3173,7 +3259,8 @@
       "object_sliced": false,
       "object_target": "Bowl",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3204,7 +3291,8 @@
       "object_sliced": false,
       "object_target": "SoapBar",
       "parent_target": "BathtubBasin",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3237,7 +3325,8 @@
       "object_sliced": false,
       "object_target": "Pan",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3270,7 +3359,8 @@
       "object_sliced": false,
       "object_target": "Pan",
       "parent_target": "Fridge",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3307,7 +3397,8 @@
       "object_sliced": false,
       "object_target": "Potato",
       "parent_target": "Microwave",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3341,7 +3432,8 @@
       "object_sliced": true,
       "object_target": "Tomato",
       "parent_target": "CounterTop",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3374,7 +3466,8 @@
       "object_sliced": false,
       "object_target": "SoapBar",
       "parent_target": "CounterTop",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3405,7 +3498,8 @@
       "object_sliced": false,
       "object_target": "DishSponge",
       "parent_target": "BathtubBasin",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3441,7 +3535,8 @@
       "object_sliced": false,
       "object_target": "SoapBar",
       "parent_target": "Cabinet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3480,7 +3575,8 @@
       "object_sliced": true,
       "object_target": "Lettuce",
       "parent_target": "DiningTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3513,7 +3609,8 @@
       "object_sliced": false,
       "object_target": "Bowl",
       "parent_target": "Shelf",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3542,7 +3639,8 @@
       "object_sliced": false,
       "object_target": "Pan",
       "parent_target": "DiningTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "clean"
     }
   },
   {
@@ -3575,7 +3673,8 @@
       "object_sliced": false,
       "object_target": "RemoteControl",
       "parent_target": "Sofa",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -3608,7 +3707,8 @@
       "object_sliced": false,
       "object_target": "KeyChain",
       "parent_target": "Dresser",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -3641,7 +3741,8 @@
       "object_sliced": false,
       "object_target": "Newspaper",
       "parent_target": "CoffeeTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -3682,7 +3783,8 @@
       "object_sliced": false,
       "object_target": "SprayBottle",
       "parent_target": "Cabinet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -3715,7 +3817,8 @@
       "object_sliced": false,
       "object_target": "Candle",
       "parent_target": "Toilet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -3748,7 +3851,8 @@
       "object_sliced": false,
       "object_target": "SaltShaker",
       "parent_target": "SideTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -3783,7 +3887,8 @@
       "object_sliced": false,
       "object_target": "Laptop",
       "parent_target": "Ottoman",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -3810,7 +3915,8 @@
       "object_sliced": false,
       "object_target": "Vase",
       "parent_target": "DiningTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -3843,7 +3949,8 @@
       "object_sliced": false,
       "object_target": "CellPhone",
       "parent_target": "Bed",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -3872,7 +3979,8 @@
       "object_sliced": false,
       "object_target": "SoapBar",
       "parent_target": "BathtubBasin",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -3905,7 +4013,8 @@
       "object_sliced": false,
       "object_target": "SoapBottle",
       "parent_target": "Toilet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -3934,7 +4043,8 @@
       "object_sliced": false,
       "object_target": "SprayBottle",
       "parent_target": "GarbageCan",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -3967,7 +4077,8 @@
       "object_sliced": false,
       "object_target": "AlarmClock",
       "parent_target": "SideTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4000,7 +4111,8 @@
       "object_sliced": false,
       "object_target": "Newspaper",
       "parent_target": "ArmChair",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4039,7 +4151,8 @@
       "object_sliced": false,
       "object_target": "Candle",
       "parent_target": "Cabinet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4069,7 +4182,8 @@
       "object_sliced": false,
       "object_target": "Cloth",
       "parent_target": "BathtubBasin",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4102,7 +4216,8 @@
       "object_sliced": false,
       "object_target": "Newspaper",
       "parent_target": "Sofa",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4135,7 +4250,8 @@
       "object_sliced": false,
       "object_target": "Pencil",
       "parent_target": "Desk",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4173,7 +4289,8 @@
       "object_sliced": false,
       "object_target": "Candle",
       "parent_target": "Cabinet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4210,7 +4327,8 @@
       "object_sliced": false,
       "object_target": "Pen",
       "parent_target": "Drawer",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4235,7 +4353,8 @@
       "object_sliced": false,
       "object_target": "Pillow",
       "parent_target": "ArmChair",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4264,7 +4383,8 @@
       "object_sliced": false,
       "object_target": "AlarmClock",
       "parent_target": "Desk",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4293,7 +4413,8 @@
       "object_sliced": false,
       "object_target": "RemoteControl",
       "parent_target": "Dresser",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4324,7 +4445,8 @@
       "object_sliced": false,
       "object_target": "HandTowel",
       "parent_target": "Cabinet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4353,7 +4475,8 @@
       "object_sliced": false,
       "object_target": "SoapBottle",
       "parent_target": "SideTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4380,7 +4503,8 @@
       "object_sliced": false,
       "object_target": "DishSponge",
       "parent_target": "Cart",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4405,7 +4529,8 @@
       "object_sliced": false,
       "object_target": "Pen",
       "parent_target": "Shelf",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4434,7 +4559,8 @@
       "object_sliced": false,
       "object_target": "SprayBottle",
       "parent_target": "GarbageCan",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4463,7 +4589,8 @@
       "object_sliced": false,
       "object_target": "Candle",
       "parent_target": "Toilet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4492,7 +4619,8 @@
       "object_sliced": false,
       "object_target": "AlarmClock",
       "parent_target": "Shelf",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4521,7 +4649,8 @@
       "object_sliced": false,
       "object_target": "WateringCan",
       "parent_target": "CoffeeTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4550,7 +4679,8 @@
       "object_sliced": false,
       "object_target": "CreditCard",
       "parent_target": "Shelf",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4579,7 +4709,8 @@
       "object_sliced": false,
       "object_target": "TennisRacket",
       "parent_target": "Bed",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4604,7 +4735,8 @@
       "object_sliced": false,
       "object_target": "KeyChain",
       "parent_target": "Sofa",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4633,7 +4765,8 @@
       "object_sliced": false,
       "object_target": "Statue",
       "parent_target": "CoffeeTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4662,7 +4795,8 @@
       "object_sliced": false,
       "object_target": "Candle",
       "parent_target": "Toilet",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4692,7 +4826,8 @@
       "object_sliced": false,
       "object_target": "Laptop",
       "parent_target": "Ottoman",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4719,7 +4854,8 @@
       "object_sliced": false,
       "object_target": "Plate",
       "parent_target": "Dresser",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4748,7 +4884,8 @@
       "object_sliced": false,
       "object_target": "AlarmClock",
       "parent_target": "DiningTable",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   },
   {
@@ -4777,7 +4914,8 @@
       "object_sliced": false,
       "object_target": "WateringCan",
       "parent_target": "Desk",
-      "toggle_target": ""
+      "toggle_target": "",
+      "object_state": "None"
     }
   }
 ]

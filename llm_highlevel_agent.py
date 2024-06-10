@@ -51,23 +51,9 @@ class LlmAgent(Agent):
         proposal,
         obs_func,
         device="cuda",
-        use_predict=True,
         gamma=0.9,
-        value_model=LLM_critic(),
-        action_propsal_model=action_proposal(),
-        predict_model=predict_model(),
-        use_reflection=False,
     ):
         super().__init__()
-        self.use_predict = use_predict
-        self.gamma = gamma
-        # the trined LLaVa model
-
-        if use_predict == True:
-            self.adaptation_model = adap_model()
-        # the llm used in RAFA
-        self.reflect_model = None
-        self.reflection = None
         current_time = datetime.datetime.now()
         module_path = os.path.abspath(__file__)
         self.stored_action = deque()
@@ -78,14 +64,27 @@ class LlmAgent(Agent):
             + current_time.strftime("%Y-%m-%d_%H-%M-%S")
             + ".log"
         )
-        if use_reflection:
+        config_path = os.path.join(module_directory, "config.json")
+        with open(config_path, "r") as con:
+            self.config = json.load(con)
+        self.use_predict = self.config["use_predict"]
+        self.gamma = gamma
+        # the trined LLaVa model
+
+        if self.use_predict == True:
+            self.adaptation_model = adap_model(config=self.config)
+        # the llm used in RAFA
+        self.reflect_model = None
+        self.reflection = None
+
+        if self.config["use_reflection"]:
             self.reflect_model = reflection()
         self.predict_processor = predict_processor()
-        self.value = value_model
+        self.value = LLM_critic(config=self.config)
         self.value.set_log(self.log)
-        self.action_proposal = action_propsal_model
+        self.action_proposal = action_proposal(config=self.config)
         self.action_proposal.set_log(self.log)
-        self.predict = predict_model
+        self.predict = predict_model(config=self.config)
         self.proposal = proposal
         self.obs_func = obs_func
         self.device = device
@@ -545,9 +544,10 @@ class LlmAgent(Agent):
                 if self.use_predict:
                     predict = self.adaptation_model.act(meta_info, self.task)
                     self._log("orin prid", predict)
-                    predict = self.predict_processor.process_with_metadata(
-                        predict, meta_info
-                    )
+                    if self.config['predict_type']=='object':
+                        predict = self.predict_processor.process_with_metadata(
+                            predict, meta_info
+                        )
                 proposed_action, critic = self._beam_search(meta_info, predict)
                 tmp_action, critic = self._process_act(
                     proposed_action, meta_info, critic

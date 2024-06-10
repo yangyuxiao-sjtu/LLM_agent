@@ -14,7 +14,7 @@ import json
 import re
 from LLM_subgoal.utils.LLM_utils import (
     his_to_str,
-    choose_examples,
+    knn_retriver,
     call_llm,
     call_llm_thread,
 )
@@ -43,13 +43,6 @@ Explore and Stop should be fllowed with NIL.Note if all requirements are satisfi
 
 from sentence_transformers.util import cos_sim
 from LLM_subgoal import sentence_embedder
-
-knn_data_path = "prompts/value.json"
-base_path = os.path.abspath(__file__)
-
-base_directory = os.path.dirname(base_path)
-
-knn_data_path = os.path.join(base_directory, knn_data_path)
 
 
 def get_critic_example(data, use_predict):
@@ -107,6 +100,10 @@ def get_critic_example(data, use_predict):
     return tmp_prompt
 
 
+def get_task_desc(item):
+    return item["task_desc"]
+
+
 def get_knn_example(task, use_predict=True, n=2):
     traj_emb = sentence_embedder.encode(task)
     topK = []
@@ -133,20 +130,61 @@ def get_knn_example(task, use_predict=True, n=2):
     return prompt
 
 
+def get_prompt(sample, predict_type):
+    ret = ""
+    for task in sample:
+        ret += "Task:" + task["task"] + "\n"
+        if predict_type == "object":
+            ret += (
+                "The objects might be useful in the tasks are:" + task["predict"] + "\n"
+            )
+        ret += task["prompts"]
+        ret += "Critic:" + task["Critic"] + "\n\n"
+    return ret
+
+
+def get_predict_prompt(predict, predict_type):
+    if predict_type == "object":
+        return (
+            "The objects might be useful in the tasks are:"
+            + predict
+            + "\n"
+            + "Note that these predict might be wrong, you should consider carefully.\n"
+        )
+    elif predict_type == "pddl":
+        return "Your knowledge about this task is: " + predict + "\n"
+
+
+def debug(config, name, obj=None):
+    with open(config["debug"], "a") as f:
+        if obj != None:
+            f.write(f"{name}: {obj}\n")
+        else:
+            f.write(f"{name}\n")
+
+
 class LLM_critic:
     def __init__(
         self,
+        config,
         model="llama",
         max_tokens=300,
         top_p=0.8,
-        prompt_path="prompts/value_prompts.json",
-        use_predict=False,
-        stop="\n",
+        stop=["\n"],
     ):
+        self.config = config
+
+        base_path = os.path.abspath(__file__)
+
+        base_directory = os.path.dirname(base_path)
+        knn_data_path = config["value_prompt"]
+        knn_data_path = os.path.join(base_directory, knn_data_path)
+        with open(knn_data_path, "r") as knn:
+            self.knn_set = json.load(knn)
         self.model = model
-        self.use_predict = use_predict
+        self.use_predict = config["use_predict"]
         self.max_tokens = max_tokens
-        self.prompt_path = prompt_path
+        self.prompt_path = config["value_prompt"]
         self.top_p = top_p
         self.stop = stop
         self.task = None
@@ -168,24 +206,22 @@ class LLM_critic:
     def act_threads(
         self, task, his_list, failed_info=None, reflection=None, predict=None
     ):
-
+        prompt_func = lambda a: get_prompt(a, self.config["predict_type"])
         if task != self.task:
-            self.sys_prompt = self.base_prompt + get_knn_example(
-                task, self.use_predict, self.example_num
+            self.sys_prompt = self.base_prompt + knn_retriver(
+                self.knn_set, get_task_desc, prompt_func, task, self.example_num
             )
             self.task = task
-
-        task_prompt = (
-            "Your task is: " + task + "\n"
-        )  # + "Note that you need to put down one object before you can pick up another.\n"
+        task_prompt = ""
         if self.use_predict == True and predict != None:
-            task_prompt += (
-                "The objects might be useful in the tasks are:" + predict + "\n"
-            )
+            task_prompt += get_predict_prompt(predict, self.config["predict_type"])
         if reflection != None:
             task_prompt += (
                 "Your previous memory about this task are:" + reflection + "\n"
             )
+        task_prompt += (
+            "Task: " + task + "\n"
+        )  # + "Note that you need to put down one object before you can pick up another.\n"
 
         sys_prompt_ls = []
         user_prompt_ls = []
@@ -196,7 +232,7 @@ class LLM_critic:
 
             sys_prompt_ls.append(self.sys_prompt)
             tags.append(i)
-
+        debug(self.config, "value_prompt", sys_prompt_ls[0] + user_prompt_ls[0])
         response_list = call_llm_thread(
             model=self.model,
             max_token=self.max_tokens,
@@ -209,12 +245,13 @@ class LLM_critic:
         )
 
         val_ls = [None] * len(his_list)
-        print("critic_ls:", response_list)
+
         for response, tag in response_list:
             if self.model == "GPT-4":
                 val_ls[tag] = response.choices[0].message["content"]
             elif self.model == "llama":
                 val_ls[tag] = response[0]
+        debug(self.config, "critic", val_ls)
         return val_ls
 
     def set_log(self, log):
