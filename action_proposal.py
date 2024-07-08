@@ -57,8 +57,12 @@ def get_task_desc(item):
     return item[0]["task_desc"]
 
 
-def get_action_prompt(sample, predict_type):
+def get_action_prompt(sample, predict_type, multi_obs=True):
     ret = ""
+    if multi_obs == True:
+        obs_num = 100
+    else:
+        obs_num = 1
     for task in sample:
         ret += "Task:" + task[0]["task"] + "\n"
         if predict_type != None:
@@ -70,9 +74,19 @@ def get_action_prompt(sample, predict_type):
                 )
 
         for stp in task:
-            ret += "The objects you have seen are:" + stp["object"] + "\n"
-            ret += stp["subgoal"] + "\n"
+            if obs_num > 0:
+                ret += "The objects you have seen are:" + stp["object"] + "\n"
+                obs_num -= 1
+            ret += stp["subgoal"] + "\n" + ">OK\n"
     return ret
+
+
+def debug(config, name, obj=None):
+    with open(config["debug"], "a") as f:
+        if obj != None:
+            f.write(f"{name}: {obj}\n")
+        else:
+            f.write(f"{name}\n")
 
 
 class action_proposal:
@@ -136,7 +150,9 @@ class action_proposal:
     ):
         if self.task != task:
             self.task = task
-            prompt_func = lambda a: get_action_prompt(a, self.config["predict_type"])
+            prompt_func = lambda a: get_action_prompt(
+                a, self.config["predict_type"], self.config["multi_obs"]
+            )
             self.sys_prompt = self.baseprompt + knn_retriver(
                 self.knn_set,
                 get_task_desc,
@@ -164,12 +180,13 @@ class action_proposal:
 
         for i in range(len(his_list)):
             user_prompt_ls.append(
-                task_prompt + his_to_str(his_list[i], metadata_list[i])
+                task_prompt
+                + his_to_str(his_list[i], metadata_list[i], self.config["multi_obs"])
             )
             sys_prompt_ls.append(self.sys_prompt)
             tags.append(i)
         # print(sys_prompt_ls[0] + user_prompt_ls[0])
-
+        debug(self.config, "action_prompt", sys_prompt_ls[0] + user_prompt_ls[0])
         response_list = call_llm_thread(
             model=self.model,
             max_token=self.max_tokens,

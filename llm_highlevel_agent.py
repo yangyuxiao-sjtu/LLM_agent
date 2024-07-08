@@ -410,7 +410,9 @@ class LlmAgent(Agent):
         # tmp_act_his[0] is the root action history, so we choose the highest cumulative reward start from 1
         return self._choose_action(tmp_act_his[1 : valid_idx + 1], len(root_act_his))
 
-    def _beam_search(self, metadata: str, predict=None, depth=2, sample_per_node=2):
+    def _beam_search(
+        self, metadata: str, predict=None, pddl=None, depth=2, sample_per_node=2
+    ):
         root_act_his = [
             {
                 "metadata": action["metadata"],
@@ -444,7 +446,7 @@ class LlmAgent(Agent):
             tmp_act.append({"metadata": metadata, "action": act})
             tmp_act_his_list.append(tmp_act)
         child_critic_ls = self.value.act_threads(
-            self.task, tmp_act_his_list, failed_info, self.reflection, predict
+            self.task, tmp_act_his_list, failed_info, self.reflection, predict,pddl
         )
         for i in range(len(child_critic_ls)):
             acts = tmp_act_his_list[i][-1]
@@ -454,11 +456,16 @@ class LlmAgent(Agent):
 
         for dep in range(depth - 1):
             new_beam = Beam(sample_per_node)
+            if(len(beam.get())==1):
+                break
             for node in beam.get():
-
-                new_metadata = self.predict.act(
-                    self.task, node.action_history, self.predict_processor
-                )
+                if self.config['multi_obs']==True:
+                    new_metadata = self.predict.act(
+                        self.task, node.action_history, self.predict_processor
+                    )
+                else:
+                    new_metadata=metadata
+                
                 acts = self.action_proposal.get_actions_threads(
                     self.task,
                     [node.action_history],
@@ -542,13 +549,13 @@ class LlmAgent(Agent):
                 proposed_action = self._convert_straction(proposed_action)
             else:
                 if self.use_predict:
-                    predict = self.adaptation_model.act(meta_info, self.task)
+                    predict, pddl = self.adaptation_model.act(meta_info, self.task)
                     self._log("orin prid", predict)
-                    if self.config['predict_type']=='object':
+                    if self.config["predict_type"] == "object":
                         predict = self.predict_processor.process_with_metadata(
                             predict, meta_info
                         )
-                proposed_action, critic = self._beam_search(meta_info, predict)
+                proposed_action, critic = self._beam_search(meta_info, predict, pddl)
                 tmp_action, critic = self._process_act(
                     proposed_action, meta_info, critic
                 )

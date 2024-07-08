@@ -15,6 +15,11 @@ class Beam_Node:
     def get_score(self):
         return self.score
 
+    def __eq__(self, other):
+        if isinstance(other, Beam_Node):
+            return self.action_history == other.action_history
+        return False
+
     def __str__(self):
         return f"action_history:{self.action_history}\nscore{self.score}"
 
@@ -40,8 +45,12 @@ class Beam:
         new_acts = old_acts + [act]
 
         new_score = self.gamma * old_score + score
-        new_node = Beam_Node(new_acts, new_score)
 
+        new_node = Beam_Node(new_acts, new_score)
+        for item in self.beam:
+            if item == new_node:
+                item.score = (item.score + new_node.score) / 2
+                return
         if self.is_full() == False:
             self.beam.append(new_node)
         else:

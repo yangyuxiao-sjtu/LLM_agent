@@ -43,21 +43,23 @@ def knn_retriver(data, key_func, get_prompt, input, n):
     return knn_prompt
 
 
-def his_to_str(history, metadata=None):
+def his_to_str(history, metadata=None, multi_obs=True):
     prompt = ""
+    if multi_obs == True:
+        num = 100
+    else:
+        num = 1
     l = len(history)
-    for i, action in enumerate(history):
-        if isinstance(action["metadata"], str) and isinstance(action["action"], str):
-            prompt += (
-                "The objects you have seen are:"
-                + action["metadata"]
-                + "\n"
-                + action["action"]
-                + "\n"
-            )
-
-    if isinstance(metadata, str):
+    if isinstance(metadata, str) and num > 0:
         prompt += "The objects you have seen are:" + metadata + "\n"
+        num -= 1
+    for i, action in enumerate(history):
+        if isinstance(action["metadata"], str) and num > 0:
+            prompt += "The objects you have seen are:" + action["metadata"] + "\n"
+            num -= 1
+        if isinstance(action["action"], str):
+            prompt += action["action"] + "\n" + ">OK\n"
+
     return prompt
 
 

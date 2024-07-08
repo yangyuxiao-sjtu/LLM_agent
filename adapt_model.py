@@ -17,6 +17,14 @@ from LLM_subgoal.utils.LLM_utils import (
     call_llm,
     call_llm_thread,
 )
+from lgp.env.alfred.segmentation_definitions import (
+    _INTERACTIVE_OBJECTS,
+    _OPENABLES,
+    _TOGGLABLES,
+    _PICKABLES,
+    _RECEPTACLE_OBJECTS,
+    _MOVABLE_RECEPTACLES,
+)
 from LLM_subgoal import sentence_embedder
 
 sys.path.append("/mnt/sda/yuxiao_code/hlsm")
@@ -55,6 +63,15 @@ def make_desc(pddl):
         "object_state",
         "two_object",
     ]
+    ret = {
+        "mrecep_target": None,
+        "object_sliced": False,
+        "object_target": None,
+        "parent_target": None,
+        "toggle_target": None,
+        "object_state": None,
+        "two_object": False,
+    }
     dict = {}
     pddl = pddl.split("\n")[:7]
     for i, item in enumerate(pddl):
@@ -63,12 +80,24 @@ def make_desc(pddl):
             dict[ls[i]] = None
     task_desc = ""
     num = "one"
-
+    if (
+        dict["mrecep_target"] != None
+        and dict["mrecep_target"] not in _MOVABLE_RECEPTACLES
+    ):
+        dict["mrecep_target"] = None
+    if dict["toggle_target"] != None and dict["toggle_target"] not in _TOGGLABLES:
+        dict["toggle_target"] = None
+    if (
+        dict["parent_target"] != None
+        and dict["parent_target"] not in _RECEPTACLE_OBJECTS
+    ):
+        dict["parent_target"] = None
     if (
         dict["two_object"] == True
         or dict["two_object"] == "True"
         or dict["two_object"] == "true"
     ):
+        ret["two_object"] = True
         num = "two"
     target_obj = dict["object_target"]
     if (
@@ -76,26 +105,33 @@ def make_desc(pddl):
         or dict["object_sliced"] == "true"
         or dict["object_sliced"] == True
     ):
-        task_desc += f"I need to pick the knife to slice {num} {target_obj} and put down the knife first. "
+        ret["object_sliced"] = True
+        task_desc += f"I need to pick the knife to slice {num} {target_obj} and put down the knife on Sink/SinkBasin first. "
     else:
         task_desc += f"I need to pick up {num} {target_obj} first. "
     if dict["mrecep_target"] != None:
+        ret["mrecep_target"] = dict["mrecep_target"]
         task_desc += f"Then I should  put the {target_obj} on the {dict['mrecep_target']} and pickup the {dict['mrecep_target']}. "
         target_obj = dict["mrecep_target"]
     if dict["object_state"] != None:
         if "heat" in dict["object_state"]:
+            ret["object_state"] = "heat"
             task_desc += f"Then I should use  open the microwave, put the {target_obj} into microwave, close the microwave, turn on the microwave, turnoff the  microwave, open the microwave and pickup the {target_obj}, then I should close the microwave."
         elif "cool" in dict["object_state"]:
+            ret["object_state"] = "cool"
             task_desc += f"Then I should use fridge to cool the {target_obj}. "
         elif "clean" in dict["object_state"]:
-            task_desc += f"Then I should clean the {target_obj}. "
+            ret["object_state"] = "clean"
+            task_desc += f"Then I should put the {target_obj} to  Sink/SinkBasin and toggle on faucet to clean it. "
     if dict["toggle_target"] != None:
+        ret["toggle_target"] = dict["toggle_target"]
         task_desc += f"Then I should toggle on the {dict['toggle_target']}. "
     if dict["parent_target"] != None:
+        ret["parent_target"] = dict["parent_target"]
         task_desc += f"Then I should put {target_obj} on the {dict['parent_target']}. "
     if num == "two":
         task_desc += f"Note that I need to pick two {dict['object_target']}, but I can only hold one thing at a time, so I need to do this one by one. "
-    return task_desc
+    return task_desc, ret
 
 
 class adap_model:
@@ -181,7 +217,7 @@ Here is {example_num} example:
             task + "\n" + "The objects you seen are: " + obs + "\n" + "Predict:"
         )
         ans = call_llm("llama", 150, 0.8, None, prompt + example, user_prompt, 1)
-        print(ans[0])
+
         return make_desc(ans[0])
 
     def act_llm(

@@ -130,15 +130,28 @@ def get_knn_example(task, use_predict=True, n=2):
     return prompt
 
 
-def get_prompt(sample, predict_type):
+def get_prompt(sample, predict_type, multi_obs=True):
     ret = ""
+    if multi_obs == True:
+        obs_num = 100
+    else:
+        obs_num = 1
     for task in sample:
         ret += "Task:" + task["task"] + "\n"
         if predict_type == "object":
             ret += (
                 "The objects might be useful in the tasks are:" + task["predict"] + "\n"
             )
-        ret += task["prompts"]
+        prompts = task["prompts"].split("\n")
+        for item in prompts:
+            if "The objects you have seen are" in item and obs_num > 0:
+                ret += item + "\n"
+                obs_num -= 1
+            elif (
+                "The objects you have seen are" not in item and ":" in item
+            ):  # this is action
+                ret += item + "\n" + ">OK\n"
+
         ret += "Critic:" + task["Critic"] + "\n\n"
     return ret
 
@@ -161,6 +174,39 @@ def debug(config, name, obj=None):
             f.write(f"{name}: {obj}\n")
         else:
             f.write(f"{name}\n")
+
+
+def get_act_pair(item):
+    act = item["action"].split()[0]
+    act_obj = item["action"].split()[1]
+    return act, act_obj
+
+
+def obj_is_picked(his, obj):
+    obj_emb = sentence_embedder.encode(obj)
+    for item in reversed(his):
+        act, act_obj = get_act_pair(item)
+        if "Pick" in act and cos_sim(sentence_embedder.encode(act_obj), obj_emb) > 0.9:
+            return True
+        elif "Put" in act:
+            return False
+    return False
+
+
+def get_obj_position(his):
+    for item in his:
+        act, act_obj = get_act_pair(item)
+        if "Put" in act:
+            return act_obj
+    return "In hand"
+
+
+def get_obj_status(his, obj, num=1):
+    obj_emb = sentence_embedder.encode(obj)
+    for i, item in enumerate(his):
+        act, act_obj = get_act_pair(item)
+        if "Pick" in act and cos_sim(sentence_embedder.encode(act_obj), obj_emb) > 0.9:
+            position = get_obj_position(his[i:])
 
 
 class LLM_critic:
@@ -203,10 +249,20 @@ class LLM_critic:
         self.sys_prompt = None
         self.task = None
 
+    def get_value(self, task, his, pddl):
+        if pddl["two_object"] == True:
+            ...
+
     def act_threads(
-        self, task, his_list, failed_info=None, reflection=None, predict=None
+        self, task, his_list, failed_info=None, reflection=None, predict=None, pddl=None
     ):
-        prompt_func = lambda a: get_prompt(a, self.config["predict_type"])
+        # if self.config["LLM_critic"] == False:
+        #     val_ls = []
+        #     for item in his_list:
+        #         self.get_value(task, item, pddl)
+        prompt_func = lambda a: get_prompt(
+            a, self.config["predict_type"], self.config["multi_obs"]
+        )
         if task != self.task:
             self.sys_prompt = self.base_prompt + knn_retriver(
                 self.knn_set, get_task_desc, prompt_func, task, self.example_num
@@ -228,7 +284,11 @@ class LLM_critic:
         tags = []
 
         for i in range(len(his_list)):
-            user_prompt_ls.append(task_prompt + his_to_str(his_list[i]) + "Critic:")
+            user_prompt_ls.append(
+                task_prompt
+                + his_to_str(his_list[i], multi_obs=self.config["multi_obs"])
+                + "Critic:"
+            )
 
             sys_prompt_ls.append(self.sys_prompt)
             tags.append(i)
