@@ -23,7 +23,7 @@ token_used = 0
 use_vllm = False
 
 
-def knn_retriver(data, key_func, get_prompt, input, n):
+def knn_retriver(data, key_func, get_prompt, input, n, same_ICL=True):
     encoded = sentence_embedder.encode(input)
     ls = []
     for item in data:
@@ -35,6 +35,8 @@ def knn_retriver(data, key_func, get_prompt, input, n):
             tmp = cos_sim(sentence_embedder.encode(cmp), encoded)
             if tmp > dist:
                 dist = tmp
+        if same_ICL == False and dist == 1.0:
+            continue
         ls.append((item, dist))
     top_k = sorted(ls, key=lambda x: x[1], reverse=True)
     top_k = top_k[:n]
@@ -118,7 +120,7 @@ def load_vllm():
 def call_vllm_llama(max_token, stop, sys_prompt, user_prompt, n):
     global Llama_model
     one_line = False
-    if "\n" in stop:
+    if stop != None and "\n" in stop:
         one_line = True
     if Llama_model == None:
         Llama_model = load_vllm()

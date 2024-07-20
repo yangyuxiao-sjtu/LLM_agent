@@ -2,12 +2,16 @@ import copy
 
 
 class Beam_Node:
-    def __init__(self, action_history, score=0):
+    def __init__(self, action_history, score=0, state=0):
         if isinstance(action_history, list) and len(action_history) > 0:
             self.action_history = copy.deepcopy(action_history)
         else:
             self.action_history = []
         self.score = score
+        self.state = 0
+
+    def get_state(self):
+        return self.state
 
     def get_history(self):
         return copy.deepcopy(self.action_history)
@@ -29,8 +33,8 @@ class Beam:
     def __init__(self, sample_per_node=3):
         self.sample_per_node = sample_per_node
         self.beam = []
-        # this could control the weight of old score and new score
-        self.gamma = 0
+
+        self.gamma = 0.9
 
     def get(self):
         return self.beam
@@ -38,15 +42,15 @@ class Beam:
     def is_full(self):
         return len(self.beam) == self.sample_per_node
 
-    def add(self, old_node: Beam_Node, act, score):
+    def add(self, old_node: Beam_Node, act, state):
         old_acts = old_node.get_history()
         old_score = old_node.get_score()
-
+        last_state = old_node.get_state()
         new_acts = old_acts + [act]
+        reward = state - last_state
+        new_score = old_score + reward * (self.gamma ** (len(old_acts)))
 
-        new_score = self.gamma * old_score + score
-
-        new_node = Beam_Node(new_acts, new_score)
+        new_node = Beam_Node(new_acts, new_score, state)
         for item in self.beam:
             if item == new_node:
                 item.score = (item.score + new_node.score) / 2

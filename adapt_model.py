@@ -27,22 +27,22 @@ from lgp.env.alfred.segmentation_definitions import (
 )
 from LLM_subgoal import sentence_embedder
 
-sys.path.append("/mnt/sda/yuxiao_code/hlsm")
+
 from lgp.abcd.observation import Observation
 from lgp.abcd.functions.observation_function import ObservationFunction
 
 
 def key_func(item):
-    return item[0]["task_desc"]
+    return item["task_desc"]
 
 
 def get_example(sample):
     ret = ""
     for item in sample:
-        ret += item[0]["task"] + "\n"
-        ret += "The objects you seen are: " + item[0]["object"] + "\n"
+        ret += item["task"] + "\n"
+        ret += "The objects you seen are: " + item["gt"][0]["object"] + "\n"
         ret += "Predict: "
-        for k, v in item[0]["pddl"].items():
+        for k, v in item["pddl"].items():
             ret += k + ": "
             if v == "":
                 ret += "None"
@@ -53,7 +53,7 @@ def get_example(sample):
     return ret
 
 
-def make_desc(pddl):
+def trans(pddl):
     ls = [
         "mrecep_target",
         "object_sliced",
@@ -63,23 +63,14 @@ def make_desc(pddl):
         "object_state",
         "two_object",
     ]
-    ret = {
-        "mrecep_target": None,
-        "object_sliced": False,
-        "object_target": None,
-        "parent_target": None,
-        "toggle_target": None,
-        "object_state": None,
-        "two_object": False,
-    }
+
     dict = {}
     pddl = pddl.split("\n")[:7]
     for i, item in enumerate(pddl):
         dict[ls[i]] = item.split(":")[1].strip()
         if dict[ls[i]] == "" or dict[ls[i]] == "None":
             dict[ls[i]] = None
-    task_desc = ""
-    num = "one"
+
     if (
         dict["mrecep_target"] != None
         and dict["mrecep_target"] not in _MOVABLE_RECEPTACLES
@@ -92,19 +83,33 @@ def make_desc(pddl):
         and dict["parent_target"] not in _RECEPTACLE_OBJECTS
     ):
         dict["parent_target"] = None
-    if (
-        dict["two_object"] == True
-        or dict["two_object"] == "True"
-        or dict["two_object"] == "true"
-    ):
+    for k, v in dict.items():
+        if v == "True" or v == "true":
+            dict[k] = True
+        if v == "False" or v == "false":
+            dict[k] = False
+    return dict
+
+
+def make_desc(dict):
+
+    ret = {
+        "mrecep_target": None,
+        "object_sliced": False,
+        "object_target": None,
+        "parent_target": None,
+        "toggle_target": None,
+        "object_state": None,
+        "two_object": False,
+    }
+    task_desc = ""
+    num = "one"
+
+    if dict["two_object"] == True:
         ret["two_object"] = True
         num = "two"
     target_obj = dict["object_target"]
-    if (
-        dict["object_sliced"] == "True"
-        or dict["object_sliced"] == "true"
-        or dict["object_sliced"] == True
-    ):
+    if dict["object_sliced"] == True:
         ret["object_sliced"] = True
         task_desc += f"I need to pick the knife to slice {num} {target_obj} and put down the knife on Sink/SinkBasin first. "
     else:
@@ -152,7 +157,7 @@ class adap_model:
         with open(knn_data_path, "r", encoding="utf-8") as f:
             self.knn_set = json.load(f)
 
-    def load_model(self, model="/mnt/sda/yuxiao_code/models/llama2-7b-sft"):
+    def load_model(self, model):
         self.tokenizer = AutoTokenizer.from_pretrained(model)
         self.pipeline = transformers.pipeline(
             "text-generation",
@@ -212,13 +217,20 @@ class adap_model:
 Here is {example_num} example:
  """
 
-        example = knn_retriver(self.knn_set, key_func, get_example, task, example_num)
+        example = knn_retriver(
+            self.knn_set,
+            key_func,
+            get_example,
+            task,
+            example_num,
+            self.config["same_ICL"],
+        )
         user_prompt = (
             task + "\n" + "The objects you seen are: " + obs + "\n" + "Predict:"
         )
         ans = call_llm("llama", 150, 0.8, None, prompt + example, user_prompt, 1)
-
-        return make_desc(ans[0])
+        dict = trans(ans[0])
+        return make_desc(dict)
 
     def act_llm(
         self,

@@ -58,6 +58,7 @@ class LlmAgent(Agent):
         module_path = os.path.abspath(__file__)
         self.stored_action = deque()
         module_directory = os.path.dirname(module_path)
+        self.path = module_directory
         self.log = (
             module_directory
             + "/log/"
@@ -238,7 +239,9 @@ class LlmAgent(Agent):
         self._log("\n\n\n new task", self.task)
         if isinstance(task, str) == False:
             traj = task.get_task_id()
-            traj_path = os.path.join("/mnt/sda/yuxiao_code/subgoal_gt", traj + ".json")
+            traj_path = os.path.join(
+                os.path.join(self.path, "subgoal_gt"), traj + ".json"
+            )
             if os.path.exists(traj_path):
                 with open(traj_path, "r") as f:
                     sg_data = json.load(f)
@@ -446,7 +449,7 @@ class LlmAgent(Agent):
             tmp_act.append({"metadata": metadata, "action": act})
             tmp_act_his_list.append(tmp_act)
         child_critic_ls = self.value.act_threads(
-            self.task, tmp_act_his_list, failed_info, self.reflection, predict,pddl
+            self.task, tmp_act_his_list, failed_info, self.reflection, predict, pddl
         )
         for i in range(len(child_critic_ls)):
             acts = tmp_act_his_list[i][-1]
@@ -456,16 +459,16 @@ class LlmAgent(Agent):
 
         for dep in range(depth - 1):
             new_beam = Beam(sample_per_node)
-            if(len(beam.get())==1):
+            if len(beam.get()) == 1:
                 break
             for node in beam.get():
-                if self.config['multi_obs']==True:
+                if self.config["multi_obs"] == True:
                     new_metadata = self.predict.act(
                         self.task, node.action_history, self.predict_processor
                     )
                 else:
-                    new_metadata=metadata
-                
+                    new_metadata = metadata
+
                 acts = self.action_proposal.get_actions_threads(
                     self.task,
                     [node.action_history],

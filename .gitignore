@@ -1,6 +1,7 @@
 tmp_img/
 log/
 *.log
+*.txt
 utils/llama/
 utils/llama_n/
 utils/llama2-7b/

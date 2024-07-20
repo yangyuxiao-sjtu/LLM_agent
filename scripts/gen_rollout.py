@@ -185,20 +185,33 @@ if __name__ == "__main__":
     # predict =adap_model()
     read_path = "/mnt/sda/yuxiao_code/hlsm/data/rollouts/alfred_subgoal_rollouts/"
     load_path = "/mnt/sda/yuxiao_code/hlsm/data/rollouts/subgoal_metadata_n/"
-    for i in range(1167, 21025):
+    for i in range(15600, 21025):
 
         try:
             file_path = os.path.join(read_path, f"rollout_{i}.gz")
             save_path = os.path.join(load_path, f"rollout_{i}.json")
             roll = load(
-                "/mnt/sda/yuxiao_code/hlsm/data/results/eval_hlsm_valid_seen/rollouts/rollout_Task(datasplit='valid_seen', task_id='trial_T20190906_162502_940304', repeat_idx=0).gz"
+                "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/eval_hlsm_train/rollouts/rollout_Task(datasplit='train', task_id='trial_T20190906_171701_034036', repeat_idx=4).gz"
             )
 
             nw_ls = []
             pic = []
+            print(roll[-1]["task"])
+            print(roll[-1]["task"].get_task_id())
+            print(roll[-1]["md"]["goal_conditions_met"])
+            sys.exit()
             for sg in roll:
-                print(sg.items())
+                tensor = sg["subgoal"].argument_mask.data
+                non_zero_elements = tensor[tensor != 0]
+                tensor != 0
 
+                print(non_zero_elements)
+                # non_zero_count = torch.sum(
+                #     sg["subgoal"].argument_mask.data != 0, keepdim=True
+                # )
+                # non_zero_count = non_zero_count.item()
+                # print(non_zero_count)
+                print(str(sg["subgoal"]))
                 # ls = []
                 # print()
                 # obs = sg["observation"].rgb_image
@@ -206,7 +219,7 @@ if __name__ == "__main__":
                 # obs = (obs * 255).astype(np.uint8)
                 # pic.append(obs)
                 # print(obs.shape)
-            # get_mv(pic)
+                # get_mv(pic)
             sys.exit()
             # traj_data = sg["task"].traj_data
             # task_type = traj_data.get_task_type()
@@ -232,5 +245,3 @@ if __name__ == "__main__":
 
         except Exception as e:
             print("errpr", e)
-            if os.path.isfile(file_path):
-                os.remove(file_path)

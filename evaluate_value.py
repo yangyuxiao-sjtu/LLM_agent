@@ -265,7 +265,12 @@ class LLM_critic:
         )
         if task != self.task:
             self.sys_prompt = self.base_prompt + knn_retriver(
-                self.knn_set, get_task_desc, prompt_func, task, self.example_num
+                self.knn_set,
+                get_task_desc,
+                prompt_func,
+                task,
+                self.example_num,
+                self.config["same_ICL"],
             )
             self.task = task
         task_prompt = ""

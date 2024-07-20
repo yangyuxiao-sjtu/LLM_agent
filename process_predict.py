@@ -1,7 +1,6 @@
 import sys
 from LLM_subgoal import sentence_embedder
-
-sys.path.append("/mnt/sda/yuxiao_code/hlsm")
+ 
 from lgp.env.alfred.segmentation_definitions import (
     _INTERACTIVE_OBJECTS,
     _OPENABLES,

@@ -35,7 +35,6 @@ prompt = f"""Predict the necessary components for the following household task:
 Here is {n} example:
  """
 example = ""
-pddl = "/mnt/sda/yuxiao_code/LLM_subgoal/prompts/pddl_n.json"
 
 
 def knn_retriver(data, key_func, get_prompt, input, n):
@@ -132,17 +131,19 @@ def make_desc(pddl):
     return task_desc
 
 
-with open(pddl, "r") as f:
-    data = json.load(f)
+if __name__ == "__main__":
+    pddl = "/mnt/sda/yuxiao_code/LLM_subgoal/prompts/pddl_n.json"
+    with open(pddl, "r") as f:
+        data = json.load(f)
 
-task = "Examine a glass bowl using the light from a floor lamp."
-obs = "AlarmClock,BaseballBat,Bed,Book,Box,CD,CellPhone,Chair,Cloth,CreditCard,Desk,DeskLamp,Drawer,Dresser,GarbageCan,KeyChain,Laptop,Mirror,Mug,Pen,Pencil,Pillow,Poster,Shelf,SideTable,TennisRacket,Vase,Window"
-example = knn_retriver(data, key_func, get_example, task, n)
+    task = "Examine a glass bowl using the light from a floor lamp."
+    obs = "AlarmClock,BaseballBat,Bed,Book,Box,CD,CellPhone,Chair,Cloth,CreditCard,Desk,DeskLamp,Drawer,Dresser,GarbageCan,KeyChain,Laptop,Mirror,Mug,Pen,Pencil,Pillow,Poster,Shelf,SideTable,TennisRacket,Vase,Window"
+    example = knn_retriver(data, key_func, get_example, task, n)
 
-user_prompt = task + "\n" + "The objects you seen are: " + obs + "\n" + "Predict:\n"
-print(prompt + example)
-print("--" * 13)
-print(user_prompt)
-ans = call_llm("llama", 150, 0.8, None, prompt + example, user_prompt, 1)
-print(ans[0])
-print(make_desc(ans[0]))
+    user_prompt = task + "\n" + "The objects you seen are: " + obs + "\n" + "Predict:\n"
+    print(prompt + example)
+    print("--" * 13)
+    print(user_prompt)
+    ans = call_llm("llama", 150, 0.8, None, prompt + example, user_prompt, 1)
+    print(ans[0])
+    print(make_desc(ans[0]))

@@ -19,6 +19,7 @@ from LLM_subgoal.utils.LLM_utils import (
     call_llm_thread,
 )
 
+import random
 
 # from lgp.abcd.observation import Observation
 # from lgp.abcd.functions.observation_function import ObservationFunction
@@ -54,30 +55,37 @@ def get_predict_prompt(predict, predict_type):
 
 
 def get_task_desc(item):
-    return item[0]["task_desc"]
+    return item["task_desc"]
 
 
-def get_action_prompt(sample, predict_type, multi_obs=True):
+def get_action_prompt(sample, predict_type, multi_obs=True, rollout=False, p=0.2):
     ret = ""
     if multi_obs == True:
         obs_num = 100
     else:
         obs_num = 1
+    r = random.random()
     for task in sample:
-        ret += "Task:" + task[0]["task"] + "\n"
+        ret += "Task:" + task["task"] + "\n"
         if predict_type != None:
             if predict_type == "object":
                 ret += (
                     "The objects might be useful in the task are:"
-                    + task[0]["predict"]
+                    + task["gt"][0]["predict"]
                     + "\n"
                 )
-
-        for stp in task:
-            if obs_num > 0:
-                ret += "The objects you have seen are:" + stp["object"] + "\n"
-                obs_num -= 1
-            ret += stp["subgoal"] + "\n" + ">OK\n"
+        if rollout == False or r > p:
+            for stp in task["gt"]:
+                if obs_num > 0:
+                    ret += "The objects you have seen are:" + stp["object"] + "\n"
+                    obs_num -= 1
+                ret += stp["subgoal"] + "\n" + ">OK\n"
+        else:
+            for stp in task["rollout"]:
+                if obs_num > 0:
+                    ret += "The objects you have seen are:" + stp["object"] + "\n"
+                    obs_num -= 1
+                ret += stp["subgoal"] + "\n" + ">OK\n"
     return ret
 
 
@@ -151,7 +159,10 @@ class action_proposal:
         if self.task != task:
             self.task = task
             prompt_func = lambda a: get_action_prompt(
-                a, self.config["predict_type"], self.config["multi_obs"]
+                a,
+                self.config["predict_type"],
+                self.config["multi_obs"],
+                self.config["rollout"],
             )
             self.sys_prompt = self.baseprompt + knn_retriver(
                 self.knn_set,
@@ -159,6 +170,7 @@ class action_proposal:
                 prompt_func,
                 self.task,
                 self.example_num,
+                self.config["same_ICL"],
             )
         task_prompt = ""
         if len(his_list) != len(metadata_list):
