@@ -3,10 +3,8 @@ from PIL import Image
 from io import BytesIO
 import os
 import numpy as np
-import torch
-import torchvision.io as io
-from torchvision import transforms
-from torchvision.utils import save_image
+
+
 import sys
 import math
 from statistics import mean
@@ -16,14 +14,13 @@ from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import cos_sim
 
 sentence_embedder = SentenceTransformer("paraphrase-MiniLM-L6-v2")
-from utils.LLM_utils import (
-    his_to_str,
-    choose_examples,
-    call_llm,
-    call_llm_thread,
+from openai import OpenAI
+
+os.environ["OPENAI_API_KEY"] = (
+    "sk-proj-jxew31rgcBtYjchHn8ziT3BlbkFJf3H5tds737YtWMTz4RS3"
 )
 
-n = 10
+n = 5
 prompt = f"""Predict the necessary components for the following household task:
 -**Moveable Receptacle (mrecep_target)**: Identify any container or vessel required for the task. Return `None` if not applicable.
 -**Object Slicing (object_sliced)**: Determine if the object needs to be sliced. Provide a boolean value (`True` for yes, `False` for no).
@@ -58,16 +55,33 @@ def knn_retriver(data, key_func, get_prompt, input, n):
 
 
 def key_func(item):
-    return item[0]["task_desc"]
+    return item["task_desc"]
+
+
+def call_openai(sys_prompt, user_prompt):
+    client = OpenAI()
+    completion = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": sys_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+    )
+    return completion.choices[0].message.content
+
+
+def save_json(path, data):
+    with open(path, "w") as f:
+        json.dump(data, f, indent=4)
 
 
 def get_example(sample):
     ret = ""
     for item in sample:
-        ret += item[0]["task"] + "\n"
-        ret += "The objects you seen are: " + item[0]["object"] + "\n"
+        ret += item["task"] + "\n"
+        ret += "The objects you seen are: " + item["rollout"][0]["object"] + "\n"
         ret += "Predict:\n"
-        for k, v in item[0]["pddl"].items():
+        for k, v in item["pddl"].items():
             ret += k + ": "
             if v == "":
                 ret += "None"
@@ -132,18 +146,20 @@ def make_desc(pddl):
 
 
 if __name__ == "__main__":
-    pddl = "/mnt/sda/yuxiao_code/LLM_subgoal/prompts/pddl_n.json"
+    pddl = "./prompts/pddl_complete.json"
     with open(pddl, "r") as f:
         data = json.load(f)
 
-    task = "Examine a glass bowl using the light from a floor lamp."
-    obs = "AlarmClock,BaseballBat,Bed,Book,Box,CD,CellPhone,Chair,Cloth,CreditCard,Desk,DeskLamp,Drawer,Dresser,GarbageCan,KeyChain,Laptop,Mirror,Mug,Pen,Pencil,Pillow,Poster,Shelf,SideTable,TennisRacket,Vase,Window"
+    task = "Examine a set of keys by the light of a tall lamp."
+    obs = "ArmChair, Bathtub, Bed, Book, Box, Cabinet, Chair, CounterTop, CreditCard, Curtains, Desk, DeskLamp, Drawer, Dresser, Fridge, GarbageCan, KeyChain, Laptop, LightSwitch, Microwave, Painting, Pillow, RemoteControl, Safe, Shelf, ShowerDoor, ShowerGlass, Sink, Sofa, Statue, DiningTable, CoffeeTable, SideTable, Television, Toaster, Towel, TVStand, Window"
     example = knn_retriver(data, key_func, get_example, task, n)
 
     user_prompt = task + "\n" + "The objects you seen are: " + obs + "\n" + "Predict:\n"
     print(prompt + example)
-    print("--" * 13)
+    # print("--" * 13)
     print(user_prompt)
-    ans = call_llm("llama", 150, 0.8, None, prompt + example, user_prompt, 1)
-    print(ans[0])
-    print(make_desc(ans[0]))
+# ret = call_openai(sys_prompt=prompt + example, user_prompt=user_prompt)
+#  print(ret)
+# ans = call_llm("llama", 150, 0.8, None, prompt + example, user_prompt, 1)
+# print(ans[0])
+# print(make_desc(ans[0]))

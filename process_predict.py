@@ -1,20 +1,22 @@
 import sys
 from LLM_subgoal import sentence_embedder
- 
-from lgp.env.alfred.segmentation_definitions import (
+
+from hlsm.lgp.env.alfred.segmentation_definitions import (
     _INTERACTIVE_OBJECTS,
     _OPENABLES,
     _TOGGLABLES,
     _PICKABLES,
     _RECEPTACLE_OBJECTS,
+    _STRUCTURAL_OBJECTS,
 )
 
-OBJECT_CLASSES = _INTERACTIVE_OBJECTS
+OBJECT_CLASSES = _STRUCTURAL_OBJECTS + _INTERACTIVE_OBJECTS
 import re
 from transformers import BertTokenizer, BertModel
 import numpy as np
 from scipy.spatial.distance import cosine
 import torch
+import random
 
 # from .utils.LLM_utils import call_llm, call_llm_thread
 import torch
@@ -25,6 +27,7 @@ import json
 import os
 from typing import Union, List
 
+sys.path.append("/mnt/sda/yuxiao_code/hlsm")
 _ACTIONS = [
     "PickupObject",
     "PutObject",
@@ -92,21 +95,58 @@ class predict_processor:
 
             if similarity > threshold:
                 closest_word = OBJECT_CLASSES[idx]
+       
                 results.append(closest_word)
+        
         if return_str == True:
             return ", ".join(results)
         return results
+
+    def sample_action(self, action, task):
+        act = action.split(":")[0].strip()
+        obj = action.split(":")[1].strip()
+        if obj.lower() in task.lower():
+            return action
+        sammpled_obj=obj
+        if sammpled_obj == "SinkBasin":
+            sammpled_obj = "Sink"  # It seems SinkBasin tag wasn't use for training hlsm, as the origin model never output it
+        return act + " : " + sammpled_obj
+        allowed_set = []
+        prob_ls = []
+        if act == "PickupObject" or act == "SliceObject":
+            allowed_set = _PICKABLES
+        elif act == "OpenObject" or act == "CloseObject":
+            allowed_set = _OPENABLES+['Laptop']
+        elif act == "ToggleObjectOn" or act == "ToggleObjectOff":
+            allowed_set = _TOGGLABLES + ["Faucet"]
+        elif act == "PutObject":
+            allowed_set = _RECEPTACLE_OBJECTS + ["Sink"]+['Bathtub']
+        enc = sentence_embedder.encode(obj)
+        allowed_obj = []
+        for word in allowed_set:
+            word_emb = sentence_embedder.encode(word)
+            if cos_sim(word_emb, enc) > 0.6:
+                prob_ls.append(cos_sim(word_emb, enc))
+                allowed_obj.append(word)
+        x = np.array(prob_ls)
+        exp_x = np.exp(x - np.max(x))
+        softmax = exp_x / exp_x.sum()
+        idx = random.choices(range(len(x)), weights=softmax)[0]
+        sammpled_obj = allowed_obj[idx]
+        if sammpled_obj == "SinkBasin":
+            sammpled_obj = "Sink"  # It seems SinkBasin tag wasn't use for training hlsm, as the origin model never output it
+        return act + " : " + sammpled_obj
 
     def regular_input(self, input, allowed_set: Union[str, List[str]], threshold=0):
         if isinstance(allowed_set, str):
             if allowed_set == "PickupObject" or allowed_set == "SliceObject":
                 allowed_set = _PICKABLES
             elif allowed_set == "OpenObject" or allowed_set == "CloseObject":
-                allowed_set = _OPENABLES
+                allowed_set = _OPENABLES+['Laptop']
             elif allowed_set == "ToggleObjectOn" or allowed_set == "ToggleObjectOff":
-                allowed_set = _TOGGLABLES
+                allowed_set = _TOGGLABLES + ["Faucet"]
             elif allowed_set == "PutObject":
-                allowed_set = _RECEPTACLE_OBJECTS
+                allowed_set = _RECEPTACLE_OBJECTS + ["Sink"]+['Bathtub']
             else:
                 allowed_set = allowed_set.split(",")
 
@@ -138,6 +178,8 @@ class predict_processor:
                 new_actions.append("Stop: NIL")
             else:
                 obj = self.regular_input(act_pair[1], act, threshold)
+                if obj =='SinkBasin':
+                    obj = "Sink"
                 if obj != None:
                     new_actions.append(f"{act}: {obj}")
         return new_actions
@@ -447,8 +489,4 @@ if __name__ == "__main__":
         },
     ]
     ps = predict_processor()
-    res = ps.process_with_metadata(
-        "Lamp",
-        "AlarmClock, BaseballBat, Bed, Book, Boots, Box, CD, CellPhone, Chair, Desk, DeskLamp, Drawer, Dresser, GarbageCan, Laptop, Mirror, Mug, Pen, Pillow, Shelf, Statue, StoveBurner, TennisRacket, Window",
-    )
-    print(res)
+    res = ps.sample_action("PickupObject : Vase")

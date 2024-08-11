@@ -52,21 +52,31 @@ def get_predict_prompt(predict, predict_type):
         )
     elif predict_type == "pddl":
         return "Your knowledge about this task is: " + predict + "\n"
+    elif predict_type =='None':
+        return ""
 
 
 def get_task_desc(item):
     return item["task_desc"]
 
 
-def get_action_prompt(sample, predict_type, multi_obs=True, rollout=False, p=0.2):
+def get_action_prompt(
+    sample, predict_type, multi_obs=True, rollout=False, use_ablation=False, p=0.2
+):
     ret = ""
-    if multi_obs == True:
-        obs_num = 100
-    else:
-        obs_num = 1
-    r = random.random()
+    ret1 = ""
+ 
+    if use_ablation:
+        p = 0
     for task in sample:
+        if multi_obs == True:
+            obs_num = 100
+        else:
+            obs_num = 1
+        obs_num1 = obs_num
+        r = random.random()
         ret += "Task:" + task["task"] + "\n"
+        ret1 += "Task:" + task["task"] + "\n"
         if predict_type != None:
             if predict_type == "object":
                 ret += (
@@ -74,23 +84,34 @@ def get_action_prompt(sample, predict_type, multi_obs=True, rollout=False, p=0.2
                     + task["gt"][0]["predict"]
                     + "\n"
                 )
-        if rollout == False or r > p:
-            for stp in task["gt"]:
-                if obs_num > 0:
-                    ret += "The objects you have seen are:" + stp["object"] + "\n"
-                    obs_num -= 1
-                ret += stp["subgoal"] + "\n" + ">OK\n"
-        else:
+
+        for stp in task["gt"]:
+            if obs_num > 0:
+                ret += "The objects you have seen are:" + stp["object"] + "\n"
+                obs_num -= 1
+            ret += "Act: " + stp["subgoal"] + "\n" + ">OK\n"
+        if p != 0:
             for stp in task["rollout"]:
-                if obs_num > 0:
-                    ret += "The objects you have seen are:" + stp["object"] + "\n"
-                    obs_num -= 1
-                ret += stp["subgoal"] + "\n" + ">OK\n"
-    return ret
+                if obs_num1 > 0:
+                    ret1 += "The objects you have seen are:" + stp["object"] + "\n"
+                    obs_num1 -= 1
+                ret1 += "Act: " + stp["subgoal"] + "\n" + ">OK\n"
+            # p = 0
+        else:
+            for stp in task["gt"]:
+                if obs_num1 > 0:
+                    ret1 += "The objects you have seen are:" + stp["object"] + "\n"
+                    obs_num1 -= 1
+                ret1 += "Act: " + stp["subgoal"] + "\n" + ">OK\n"
+
+    return ret, ret1
 
 
-def debug(config, name, obj=None):
-    with open(config["debug"], "a") as f:
+def debug(config, task, name, obj=None):
+    if config["debug"] == None:
+        return
+    path = os.path.join(config["debug"], task.replace("/", "_") + ".txt")
+    with open(path, "a") as f:
         if obj != None:
             f.write(f"{name}: {obj}\n")
         else:
@@ -101,25 +122,28 @@ class action_proposal:
     def __init__(
         self,
         config,
-        model="llama",
         max_tokens=100,
         top_p=0.8,
         example_num=2,
         stop=["\n", "."],
     ):
         self.use_predict = config["use_predict"]
-        self.config = config
-        self.model = model
+        self.config = config.copy()
+         
+      
+       
+        self.model = config["model"]
         self.task = None
         self.max_tokens = max_tokens
         self.top_p = top_p
         self.baseprompt = f"""Interact with a household to solve a task. At each step, you will be provided with the previous observations and action pairs.
-        You need to return an action.The answer should contain two parts, the action type and a target. {action_instr}
+        You **are required** to return an action.The answer should contain two parts, the action type and a target. {action_instr}
         Here are {example_num} examples. \n
         """
         self.example_num = example_num
         self.stop = stop
         self.log = None
+        self.hind_prompt = None
         # return a short example and a long example
         knn_data_path = config["action_prompt"]
         base_path = os.path.abspath(__file__)
@@ -132,6 +156,7 @@ class action_proposal:
     def reset(self):
         self.task = None
         self.sys_prompt = self.baseprompt
+        self.hind_prompt = None
 
     def set_log(self, log):
         self.log = log
@@ -163,15 +188,19 @@ class action_proposal:
                 self.config["predict_type"],
                 self.config["multi_obs"],
                 self.config["rollout"],
+                self.config["use_ablation"],
             )
-            self.sys_prompt = self.baseprompt + knn_retriver(
-                self.knn_set,
+            knn_set = self.knn_set
+            ret0, ret1 = knn_retriver(
+                knn_set,
                 get_task_desc,
                 prompt_func,
                 self.task,
                 self.example_num,
                 self.config["same_ICL"],
             )
+            self.sys_prompt = self.baseprompt + ret0
+            self.hind_prompt = self.baseprompt + ret1
         task_prompt = ""
         if len(his_list) != len(metadata_list):
             print("len of his_list should equal to metadata!!")
@@ -188,43 +217,93 @@ class action_proposal:
 
         sys_prompt_ls = []
         user_prompt_ls = []
+        hind_prompt_ls = []
         tags = []
 
         for i in range(len(his_list)):
             user_prompt_ls.append(
                 task_prompt
-                + his_to_str(his_list[i], metadata_list[i], self.config["multi_obs"])
+                + his_to_str(
+                    his_list[i],
+                    metadata_list[i],
+                    self.config["multi_obs"],
+                    add_prefix=True,
+                )
+                + "Act: "
             )
             sys_prompt_ls.append(self.sys_prompt)
+            hind_prompt_ls.append(self.hind_prompt)
             tags.append(i)
         # print(sys_prompt_ls[0] + user_prompt_ls[0])
-        debug(self.config, "action_prompt", sys_prompt_ls[0] + user_prompt_ls[0])
-        response_list = call_llm_thread(
-            model=self.model,
-            max_token=self.max_tokens,
-            top_p=self.top_p,
-            sys_prompts=sys_prompt_ls,
-            user_prompts=user_prompt_ls,
-            tags=tags,
-            stop=self.stop,
-            n=n,
+        debug(
+            self.config,
+            self.task,
+            "action_prompt",
+            sys_prompt_ls[0] + user_prompt_ls[0],
         )
+        if self.config['use_ablation']==False:
+            debug(self.config, self.task, "hind_prompt", self.hind_prompt)
+        if self.config["use_ablation"]==False:
+            response_list = call_llm_thread(
+                model=self.model,
+                max_token=self.max_tokens,
+                top_p=self.top_p,
+                sys_prompts=sys_prompt_ls,
+                user_prompts=user_prompt_ls,
+                tags=tags,
+                stop=self.stop,
+                n=n // 2,
+            )
+            response_list1 = call_llm_thread(
+                model=self.model,
+                max_token=self.max_tokens,
+                top_p=self.top_p,
+                sys_prompts=hind_prompt_ls,
+                user_prompts=user_prompt_ls,
+                tags=tags,
+                stop=self.stop,
+                n=n - n // 2,
+            )
+        else:
+            response_list = call_llm_thread(
+                model=self.model,
+                max_token=self.max_tokens,
+                top_p=self.top_p,
+                sys_prompts=sys_prompt_ls,
+                user_prompts=user_prompt_ls,
+                tags=tags,
+                stop=self.stop,
+                n=n,
+            )
         # print(response_list)
         acts_ls = [None] * len(his_list)
         for response, tag in response_list:
-            if self.model == "GPT-4":
-                acts = [ch.message["content"] for ch in response.choices]
-            elif self.model == "llama":
-                acts = response
+            acts = response
+            if self.config["use_ablation"]==False:
+                for item, tagg in response_list1:
+                    if tagg == tag:
+                        acts = acts + item
+                        break
+            if self.model == "llama":
+
                 print("llama_act:", acts)
+
+            elif self.model == "deepseek":
+
+                print("deepseek_act:", acts)
+            elif "gpt" in self.model:
+
+                print("gpt_act:", acts)
+            debug(self.config, self.task, "act", acts)
+            acts = [act.replace("Act: ", "") for act in acts]
             ori_acts = list(set(acts))
 
             acts = predict_processor.regular_actions(ori_acts)
 
-            if len(acts) < n:
-                acts = predict_processor.gen_actions_from_predict(
-                    acts, predict, his_list[tag], n
-                )
+            # if len(acts) < n:
+            #     acts = predict_processor.gen_actions_from_predict(
+            #         acts, predict, his_list[tag], n
+            #     )
             if len(acts) == 0:
                 # here no feasible action is provided, we must gets some
                 self._log("prompt", user_prompt_ls[tag])

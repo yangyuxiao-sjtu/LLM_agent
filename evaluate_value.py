@@ -18,6 +18,7 @@ from LLM_subgoal.utils.LLM_utils import (
     call_llm,
     call_llm_thread,
 )
+from LLM_subgoal.adapt_model import make_desc
 
 # sys.path.append('/mnt/sda/yuxiao_code/hlsm')
 # from lgp.abcd.observation import Observation
@@ -130,19 +131,33 @@ def get_knn_example(task, use_predict=True, n=2):
     return prompt
 
 
-def get_prompt(sample, predict_type, multi_obs=True):
+def get_prompt(sample, predict_type, multi_obs=True, use_ablation=False):
     ret = ""
     if multi_obs == True:
         obs_num = 100
     else:
         obs_num = 1
+
     for task in sample:
         ret += "Task:" + task["task"] + "\n"
         if predict_type == "object":
             ret += (
-                "The objects might be useful in the tasks are:" + task["predict"] + "\n"
+                "**Your knowledge about this task** is: The objects might be useful in the tasks are:"
+                + task["predict"]
+                + "\n"
             )
+        elif predict_type == "pddl":
+            dict = task["pddl"]
+            for k, v in dict.items():
+                if v == "":
+                    dict[k] = None
+            predict = make_desc(dict)
+            ret += "**Your knowledge about this task** is: " + predict[0] + "\n"
         prompts = task["prompts"].split("\n")
+        if use_ablation:
+            prompts = task["gt_prompt"].split("\n")
+            print("use_ablation_prompt!")
+        ret += "**actions**:\n"
         for item in prompts:
             if "The objects you have seen are" in item and obs_num > 0:
                 ret += item + "\n"
@@ -151,25 +166,34 @@ def get_prompt(sample, predict_type, multi_obs=True):
                 "The objects you have seen are" not in item and ":" in item
             ):  # this is action
                 ret += item + "\n" + ">OK\n"
-
-        ret += "Critic:" + task["Critic"] + "\n\n"
+        if predict_type == "pddl":
+            ret += "Based on the **actions** and **Your knowledge about this task** , write a Critic.\n"
+        if use_ablation:
+            ret += "Critic:" + task["gt_critic"] + "\n\n"
+        else:
+            ret += "Critic:" + task["Critic"] + "\n\n"
     return ret
 
 
 def get_predict_prompt(predict, predict_type):
     if predict_type == "object":
         return (
-            "The objects might be useful in the tasks are:"
+            "**Your knowledge about this task** is: The objects might be useful in the tasks are:"
             + predict
             + "\n"
             + "Note that these predict might be wrong, you should consider carefully.\n"
         )
     elif predict_type == "pddl":
-        return "Your knowledge about this task is: " + predict + "\n"
+        return "**Your knowledge about this task** is: " + predict + "\n"
+    elif predict_type ==None:
+        return ""
 
 
-def debug(config, name, obj=None):
-    with open(config["debug"], "a") as f:
+def debug(config,task, name, obj=None):
+    if config["debug"] == None:
+        return
+    path = os.path.join(config["debug"], task.replace("/", "_") + ".txt")
+    with open(path, "a") as f:
         if obj != None:
             f.write(f"{name}: {obj}\n")
         else:
@@ -213,12 +237,11 @@ class LLM_critic:
     def __init__(
         self,
         config,
-        model="llama",
         max_tokens=300,
         top_p=0.8,
         stop=["\n"],
     ):
-        self.config = config
+        self.config = config.copy()
 
         base_path = os.path.abspath(__file__)
 
@@ -227,7 +250,7 @@ class LLM_critic:
         knn_data_path = os.path.join(base_directory, knn_data_path)
         with open(knn_data_path, "r") as knn:
             self.knn_set = json.load(knn)
-        self.model = model
+        self.model = config["model"]
         self.use_predict = config["use_predict"]
         self.max_tokens = max_tokens
         self.prompt_path = config["value_prompt"]
@@ -236,7 +259,7 @@ class LLM_critic:
         self.task = None
         self.example_num = 2
         self.base_prompt = f"""
-        You are a value critic of states in a household task. You would be given a task description, some observations and actions, you need to give a critic about them.  
+        You are a value critic of states in a household task. You would be given a task description, some observations and actions, you need to give a critic about them. **Note Your critic should end with format: the value is a/b=...**
         {action_instr}
         Here are {self.example_num} examples:\n
         """
@@ -260,8 +283,12 @@ class LLM_critic:
         #     val_ls = []
         #     for item in his_list:
         #         self.get_value(task, item, pddl)
+
         prompt_func = lambda a: get_prompt(
-            a, self.config["predict_type"], self.config["multi_obs"]
+            a,
+            self.config["predict_type"],
+            self.config["multi_obs"],
+            self.config["use_ablation"],
         )
         if task != self.task:
             self.sys_prompt = self.base_prompt + knn_retriver(
@@ -287,17 +314,19 @@ class LLM_critic:
         sys_prompt_ls = []
         user_prompt_ls = []
         tags = []
-
+        print('value_act_l',len(his_list))
         for i in range(len(his_list)):
             user_prompt_ls.append(
                 task_prompt
+                + "**actions**:\n"
                 + his_to_str(his_list[i], multi_obs=self.config["multi_obs"])
-                + "Critic:"
             )
+            if self.config['predict_type']=='pddl':
+                user_prompt_ls[-1]+="Based on the **actions** and **Your knowledge about this task** , write a Critic.\nCritic:"
 
             sys_prompt_ls.append(self.sys_prompt)
             tags.append(i)
-        debug(self.config, "value_prompt", sys_prompt_ls[0] + user_prompt_ls[0])
+        debug(self.config,self.task ,"value_prompt", sys_prompt_ls[0] + user_prompt_ls[0])
         response_list = call_llm_thread(
             model=self.model,
             max_token=self.max_tokens,
@@ -309,14 +338,12 @@ class LLM_critic:
             n=1,
         )
 
-        val_ls = [None] * len(his_list)
-
+        val_ls = [None] * (len(his_list))
+        debug(self.config,self.task,'critic_length',len(his_list))
         for response, tag in response_list:
-            if self.model == "GPT-4":
-                val_ls[tag] = response.choices[0].message["content"]
-            elif self.model == "llama":
-                val_ls[tag] = response[0]
-        debug(self.config, "critic", val_ls)
+            val_ls[tag] = response[0]
+
+        debug(self.config,self.task ,"critic", val_ls)
         return val_ls
 
     def set_log(self, log):

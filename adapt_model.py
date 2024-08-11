@@ -9,6 +9,7 @@ from torchvision import transforms
 from torchvision.utils import save_image
 import sys
 import re
+sys.path.append("/mnt/sda/yuxiao_code/hlsm")
 from transformers import AutoTokenizer
 import transformers
 from LLM_subgoal.utils.LLM_utils import (
@@ -17,6 +18,7 @@ from LLM_subgoal.utils.LLM_utils import (
     call_llm,
     call_llm_thread,
 )
+
 from lgp.env.alfred.segmentation_definitions import (
     _INTERACTIVE_OBJECTS,
     _OPENABLES,
@@ -36,10 +38,21 @@ def key_func(item):
     return item["task_desc"]
 
 
+def debug(config, task, name, obj=None):
+    if config["debug"] == None:
+        return
+    path = os.path.join(config["debug"], task.replace("/", "_") + ".txt")
+    with open(path, "a") as f:
+        if obj != None:
+            f.write(f"{name}: {obj}\n")
+        else:
+            f.write(f"{name}\n")
+
+
 def get_example(sample):
     ret = ""
     for item in sample:
-        ret += item["task"] + "\n"
+        ret += "Task: " + item["task"] + "\n"
         ret += "The objects you seen are: " + item["gt"][0]["object"] + "\n"
         ret += "Predict: "
         for k, v in item["pddl"].items():
@@ -65,6 +78,7 @@ def trans(pddl):
     ]
 
     dict = {}
+    pddl = pddl.strip()
     pddl = pddl.split("\n")[:7]
     for i, item in enumerate(pddl):
         dict[ls[i]] = item.split(":")[1].strip()
@@ -76,11 +90,11 @@ def trans(pddl):
         and dict["mrecep_target"] not in _MOVABLE_RECEPTACLES
     ):
         dict["mrecep_target"] = None
-    if dict["toggle_target"] != None and dict["toggle_target"] not in _TOGGLABLES:
+    if dict["toggle_target"] != None and dict["toggle_target"] not in _TOGGLABLES+ ["Faucet"]:
         dict["toggle_target"] = None
     if (
         dict["parent_target"] != None
-        and dict["parent_target"] not in _RECEPTACLE_OBJECTS
+        and dict["parent_target"] not in _RECEPTACLE_OBJECTS+ ["Sink"]+['Bathtub']
     ):
         dict["parent_target"] = None
     for k, v in dict.items():
@@ -111,31 +125,42 @@ def make_desc(dict):
     target_obj = dict["object_target"]
     if dict["object_sliced"] == True:
         ret["object_sliced"] = True
-        task_desc += f"I need to pick the knife to slice {num} {target_obj} and put down the knife on Sink/SinkBasin first. "
-    else:
+        task_desc += f"I need to pick the knife to slice {num} {target_obj} and put down the knife first. Then I should pick up {target_obj}."
+    elif dict["object_target"] != None and dict["object_target"] != "None":
         task_desc += f"I need to pick up {num} {target_obj} first. "
     if dict["mrecep_target"] != None:
         ret["mrecep_target"] = dict["mrecep_target"]
-        task_desc += f"Then I should  put the {target_obj} on the {dict['mrecep_target']} and pickup the {dict['mrecep_target']}. "
+        task_desc += f"Then I should  put the {target_obj} in/on the {dict['mrecep_target']} and pickup the {dict['mrecep_target']}. "
         target_obj = dict["mrecep_target"]
     if dict["object_state"] != None:
         if "heat" in dict["object_state"]:
             ret["object_state"] = "heat"
-            task_desc += f"Then I should use  open the microwave, put the {target_obj} into microwave, close the microwave, turn on the microwave, turnoff the  microwave, open the microwave and pickup the {target_obj}, then I should close the microwave."
+            task_desc += f"Then I should use microwave to heat the {target_obj}.*Important:Note that I need to turn on and turn off the microwave and the microwave is initially closed. After that I should pick up {target_obj} from microwave ."
         elif "cool" in dict["object_state"]:
             ret["object_state"] = "cool"
-            task_desc += f"Then I should use fridge to cool the {target_obj}. "
+            task_desc += f"Then I should put the {target_obj} in fridge to cool it. *Important:Note that I don't need to turn on the fridge and the fridge is initially closed. After thatm I should pick up {target_obj} from fridge . "
         elif "clean" in dict["object_state"]:
             ret["object_state"] = "clean"
-            task_desc += f"Then I should put the {target_obj} to  Sink/SinkBasin and toggle on faucet to clean it. "
+            task_desc += f"Then I should put the {target_obj} in Sink/SinkBasin and toggle on faucet to clean it. After that, I should pickup {target_obj}. "
     if dict["toggle_target"] != None:
         ret["toggle_target"] = dict["toggle_target"]
-        task_desc += f"Then I should toggle on the {dict['toggle_target']}. "
+        if task_desc != "":
+            task_desc += "Then "
+        task_desc += f"I should toggle on the {dict['toggle_target']}."
+        if "Lamp" in ret["toggle_target"]:
+            task_desc += (
+                f"*Important:Note I must hold {target_obj} in my hand while turning on the lamp."
+            )
     if dict["parent_target"] != None:
         ret["parent_target"] = dict["parent_target"]
-        task_desc += f"Then I should put {target_obj} on the {dict['parent_target']}. "
+        task_desc += (
+            f"Then I should put {target_obj} in/on the {dict['parent_target']}. "
+        )
+
     if num == "two":
-        task_desc += f"Note that I need to pick two {dict['object_target']}, but I can only hold one thing at a time, so I need to do this one by one. "
+        task_desc += f"*Important:Note that I need to pick two {dict['object_target']}, but I can only hold one thing at a time, so I need to do this one by one. "
+    else:
+        task_desc += f"*Important:Note that I can only pick one object at once, so I need to put down one object before I pick a new object."
     return task_desc, ret
 
 
@@ -205,15 +230,16 @@ class adap_model:
         return ans
 
     def act_pddl(self, obs, task):
-        example_num = 10
+        example_num = 5
         prompt = f"""Predict the necessary components for the following household task:
 -**Moveable Receptacle (mrecep_target)**: Identify any container or vessel required for the task. Return `None` if not applicable.
 -**Object Slicing (object_sliced)**: Determine if the object needs to be sliced. Provide a boolean value (`True` for yes, `False` for no).
--**Object Target (object_target)**: Identify the specific object that is the focus of the task and will be interacted with. This could be the item that needs to be moved, cleaned, heated, cooled, sliced.
+-**Object Target (object_target)**: Identify the specific object that is the focus of the task and will be interacted with. This could be the item that needs to be moved, cleaned, heated, cooled, sliced or examined.
 -**Parent Target (parent_target)**: Specify the final resting place for the object or its parts. Return `None` if there is no designated location.
 -**Toggle Target (toggle_target)**: Indicate any appliance or device that must be toggled during the task. Return `None` if no toggling is required.
 -**Object State (object_state)**: Indicate whether the target object needs to be clean, heat, or cool. Return 'None' if no such action is required.
--**Two Objects (two_object)**: Specify whether the task requires the agent to handle and place two identical objects into the parent target location. Set to True if needed, otherwise False.
+-**Two Objects (two_object)**: Specify whether the task requires the agent to handle and place two *identical* objects into the parent target location. Set to True if needed, otherwise False.  Note that this parameter should be True only when the task demands picking and placing two of the *same* items.
+-**Note that the objects you need to predict might not been seen yet.
 Here is {example_num} example:
  """
 
@@ -226,9 +252,23 @@ Here is {example_num} example:
             self.config["same_ICL"],
         )
         user_prompt = (
-            task + "\n" + "The objects you seen are: " + obs + "\n" + "Predict:"
+            "Task: "
+            + task
+            + "\n"
+            + "The objects you seen are: "
+            + obs
+            + "\n"
+            + "Predict:"
         )
-        ans = call_llm("llama", 150, 0.8, None, prompt + example, user_prompt, 1)
+        # print(prompt + example)
+        # print(user_prompt)
+        debug(self.config, task, "sys_p:", prompt + example)
+        debug(self.config, task, "user_p", user_prompt)
+
+        ans = call_llm(
+            self.config["model"], 150, 0.2, None, prompt + example, user_prompt, 1
+        )
+        debug(self.config, task, "pddl_predict", ans)
         dict = trans(ans[0])
         return make_desc(dict)
 
@@ -261,18 +301,8 @@ Here is {example_num} example:
 import json
 
 if __name__ == "__main__":
-    adp = adap_model()
-    with open("/mnt/sda/yuxiao_code/LLM_subgoal/prompts/llm_samples.json", "r") as f:
-        data = json.load(f)
-    new_data = []
-    for rollout in data:
-        new_rollout = []
-        task = rollout[0]["task"]
-        for item in rollout:
-            obs = item["object"]
-            ret = adp.act_llm(obs, task)
-            item["predict"] = ret
-            new_rollout.append(item)
-        new_data.append(new_rollout)
-    with open("/mnt/sda/yuxiao_code/LLM_subgoal/prompts/llm_samples_n.json", "w") as f:
-        json.dump(new_data, f, indent=4)
+    with open("/mnt/sda/yuxiao_code/ALFRED_PROJECT/LLM_subgoal/config.json", "r") as f:
+        config = json.load(f)
+    adp = adap_model(config=config)
+    ret=trans("mrecep_target: None\nobject_sliced: False\nobject_target: Pot\nparent_target: Sink\ntoggle_target: None\nobject_state: None\ntwo_object: False")
+    print(ret)

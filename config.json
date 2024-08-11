@@ -1,12 +1,16 @@
 {
+    "model": "gpt-4-turbo",
     "use_predict": true,
     "predict_type": "pddl",
     "use_reflection": false,
-    "action_prompt": "prompts/pddl_complete.json",
-    "value_prompt": "prompts/value_hindsight.json",
-    "debug": "./debug.txt",
+    "action_prompt": "prompts/finetune/act_relable_hind.json",
+    "value_prompt": "prompts/finetune/value_relable_task.json",
+    "debug": "/mnt/sda/yuxiao_code/ALFRED_PROJECT/few_valid/valid_seen_hind2/debug",
     "LLM_critic": true,
     "multi_obs": false,
     "same_ICL": true,
-    "rollout": true
+    "rollout": true,
+    "SPJ": false,
+    "use_ablation": false,
+    "save_dir": "/mnt/sda/yuxiao_code/ALFRED_PROJECT/few_valid/valid_seen_hind2/rollout"
 }

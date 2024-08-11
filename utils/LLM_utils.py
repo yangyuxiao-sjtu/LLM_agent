@@ -1,6 +1,7 @@
 import os
 import sys
 import openai
+from openai import OpenAI
 import random
 import json
 import threading
@@ -8,12 +9,12 @@ import torch
 from transformers import AutoTokenizer
 import transformers
 from vllm import LLM, SamplingParams
-
+import yaml
 from LLM_subgoal import sentence_embedder
 
 from sentence_transformers.util import cos_sim
 
-openai.api_key = "sk-proj-jxew31rgcBtYjchHn8ziT3BlbkFJf3H5tds737YtWMTz4RS3"
+# openai.api_key = "sk-proj-jxew31rgcBtYjchHn8ziT3BlbkFJf3H5tds737YtWMTz4RS3"
 import queue
 
 Llama_model = None
@@ -21,7 +22,7 @@ tokenizer = None
 token_used = 0
 
 use_vllm = False
-
+openai_client =None
 
 def knn_retriver(data, key_func, get_prompt, input, n, same_ICL=True):
     encoded = sentence_embedder.encode(input)
@@ -45,7 +46,7 @@ def knn_retriver(data, key_func, get_prompt, input, n, same_ICL=True):
     return knn_prompt
 
 
-def his_to_str(history, metadata=None, multi_obs=True):
+def his_to_str(history, metadata=None, multi_obs=True, add_prefix=False):
     prompt = ""
     if multi_obs == True:
         num = 100
@@ -60,7 +61,10 @@ def his_to_str(history, metadata=None, multi_obs=True):
             prompt += "The objects you have seen are:" + action["metadata"] + "\n"
             num -= 1
         if isinstance(action["action"], str):
-            prompt += action["action"] + "\n" + ">OK\n"
+            if add_prefix:
+                prompt += "Act: " + action["action"] + "\n" + ">OK\n"
+            else:
+                prompt += action["action"] + "\n" + ">OK\n"
 
     return prompt
 
@@ -148,6 +152,81 @@ def get_used_token():
     return token_used
 
 
+def call_deepseek(max_token, stop, sys_prompt, user_prompt, n, top_p=0.8):
+    global token_used
+    ## deepseek currently only support n=1
+    #sk-bca6adb77186430fbcfceb92ebad4fb1
+    res = []
+    client = OpenAI(
+        api_key="sk-bca6adb77186430fbcfceb92ebad4fb1",
+        base_url="https://api.deepseek.com",
+    )
+    for tries in range(0, 8):
+        try:
+            response = client.chat.completions.create(
+                model="deepseek-chat",
+                messages=[
+                    {"role": "system", "content": sys_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                stream=False,
+                logprobs=True,
+                top_p=top_p,
+                stop=stop,
+                max_tokens=max_token,
+            )
+            token_used += response.usage.total_tokens
+            if response.choices[0].message.content.strip() != "":
+                res.append(response.choices[0].message.content)
+            if len(res) == n:
+                break
+        except Exception as e:
+            print('openai_error!',e)
+    if len(res)<n:
+        assert("call openai error!")
+    return res
+def load_client(key_path="/mnt/sda/yuxiao_code/chat_with_openai_api/openai_key.yaml"):
+    openai._reset_client()
+    key = yaml.safe_load(open(key_path))
+    for k, v in key.items():
+        setattr(openai, k, v)
+    return openai._load_client()
+def call_openai(max_token, stop, sys_prompt, user_prompt, n, top_p=0.8):
+    global token_used
+    global openai_client
+    if openai_client ==None:
+        openai_client=load_client()
+    ## deepseek currently only support n=1
+    #sk-bca6adb77186430fbcfceb92ebad4fb1
+    res = []
+
+    for tries in range(0, 8):
+        try:
+            response = openai_client.chat.completions.create(
+                model="gpt-4-turbo",
+                messages=[
+                    {"role": "system", "content": sys_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                stream=False,
+                top_p=top_p,
+                stop=stop,
+                max_tokens=max_token,
+                n=n
+            )
+          
+            token_used += response.usage.total_tokens
+            for i in range(len(response.choices)):
+                if response.choices[i].message.content.strip() != "":
+                    res.append(response.choices[i].message.content)
+            if len(res) == n:
+                break
+        except Exception as e:
+            print('OPENAI_error!',e)
+            print('response is:',  (response))
+    if len(res)<n:
+        assert("call openai error!")
+    return res
 # this func is try to use opensource llm(LLAMA3) instead of GPT-4
 def call_llama(max_token, stop, sys_prompt, user_prompt, n):
     if use_vllm == True:
@@ -204,7 +283,27 @@ def call_llm(
 ):
     if model == "llama":
         return call_llama(max_token, stop, sys_prompt, user_prompt, n)
-    response = {}
+    elif model == "deepseek":
+        return call_deepseek(
+            max_token,
+            stop,
+            sys_prompt,
+            user_prompt,
+            n,
+            top_p=top_p,
+        )
+    elif "gpt-4" in model:
+        return call_openai(
+            max_token,
+            stop,
+            sys_prompt,
+            user_prompt,
+            n,
+            top_p=top_p,
+        )
+    elif "gpt" not in model:
+        assert "error model!!"
+
     if sys_prompt == None:
         assert "sys_prompt is None!"
     if user_prompt == None:
@@ -245,6 +344,25 @@ def call_llama_thread(max_token, stop, sys_prompts, user_prompts, tags, n):
         ret_list.append((res, tags[i]))
     return ret_list
 
+def call_openai_thread(max_token,stop,sys_prompts,user_prompts,tags,n,top_p):
+    ret_list = []
+    print('openai_thread:',len(sys_prompts))
+    if tags == None:
+        tags = [i for i in range(len(sys_prompts))]
+    for i in range(len(sys_prompts)):
+        res = call_openai(max_token, stop, sys_prompts[i], user_prompts[i], n, top_p)
+        ret_list.append((res, tags[i]))
+    return ret_list
+
+def call_deepseek_thread(max_token, stop, sys_prompts, user_prompts, tags, n, top_p):
+    ret_list = []
+    if tags == None:
+        tags = [i for i in range(len(sys_prompts))]
+    for i in range(len(sys_prompts)):
+        res = call_deepseek(max_token, stop, sys_prompts[i], user_prompts[i], n, top_p)
+        ret_list.append((res, tags[i]))
+    return ret_list
+
 
 # aiming to call multiple openai at same time
 def call_llm_thread(
@@ -262,6 +380,17 @@ def call_llm_thread(
         return
     if model == "llama":
         return call_llama_thread(max_token, stop, sys_prompts, user_prompts, tags, n)
+    elif model == "deepseek":
+        return call_deepseek_thread(
+            max_token, stop, sys_prompts, user_prompts, tags, n, top_p=top_p
+        )
+    elif "gpt-4" in model:
+           return call_openai_thread(
+            max_token, stop, sys_prompts, user_prompts, tags, n, top_p=top_p
+        )
+    elif "gpt" not in model:
+        assert "error model!!"
+    return call_openai_thread(max_token,stop,sys_prompts,user_prompts,tags,n,top_p=p)
     result_queue = queue.Queue()
     res_list = []
 
