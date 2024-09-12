@@ -11,7 +11,7 @@ import transformers
 from vllm import LLM, SamplingParams
 import yaml
 from LLM_subgoal import sentence_embedder
-
+import time
 from sentence_transformers.util import cos_sim
 
 # openai.api_key = "sk-proj-jxew31rgcBtYjchHn8ziT3BlbkFJf3H5tds737YtWMTz4RS3"
@@ -175,6 +175,7 @@ def call_deepseek(max_token, stop, sys_prompt, user_prompt, n, top_p=0.8):
                 stop=stop,
                 max_tokens=max_token,
             )
+          
             token_used += response.usage.total_tokens
             if response.choices[0].message.content.strip() != "":
                 res.append(response.choices[0].message.content)
@@ -201,7 +202,9 @@ def call_openai(max_token, stop, sys_prompt, user_prompt, n, top_p=0.8):
     res = []
 
     for tries in range(0, 8):
+        response=None
         try:
+            time.sleep(0.5)
             response = openai_client.chat.completions.create(
                 model="gpt-4-turbo",
                 messages=[

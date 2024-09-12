@@ -155,10 +155,7 @@ class LlmAgent(Agent):
             )
 
             self.failed_action = self.action_history[-1]
-            if (
-                "md " in self.failed_action
-                
-            ):
+            if "md " in self.failed_action:
                 self.failed_action["action"] = self.failed_action["md"]["origin_act"]
             self.action_history = self.action_history[:-1]
             self._log("failed action", self.failed_action["action"])
@@ -259,9 +256,11 @@ class LlmAgent(Agent):
             self._log(" new task id", task.get_task_id())
 
     def finalize(self, total_reward: float):
-        if self.config["save_dir"]==None:
-            return 
+        if self.config["save_dir"] == None:
+            return
         if self.task != None:
+            if not os.path.exists(self.config["save_dir"]):
+                os.makedirs(self.config["save_dir"])
             path = os.path.join(
                 self.config["save_dir"], str(self.task).replace("/", "_") + ".json"
             )
@@ -471,8 +470,8 @@ class LlmAgent(Agent):
         child_critic_ls = self.value.act_threads(
             self.task, tmp_act_his_list, failed_info, self.reflection, predict, pddl
         )
-        print('critic_ls',len(child_critic_ls))
-        print('act_his-lis:',len(tmp_act_his_list))
+        print("critic_ls", len(child_critic_ls))
+        print("act_his-lis:", len(tmp_act_his_list))
         for i in range(len(child_critic_ls)):
             acts = tmp_act_his_list[i][-1]
             acts["critic"] = child_critic_ls[i]
@@ -532,7 +531,7 @@ class LlmAgent(Agent):
         return (action, critic)
 
     def act(
-        self, observation_or_state_repr: Union[Observation, StateRepr], md=None
+        self, observation_or_state_repr: Union[Observation, StateRepr], env_md=None
     ) -> Action:
         # call below function to create a action, where act_type_str can be create through AlfredSubgoal.action_type_intid_to_str
         # and arg_vector_out is a   torch.Size([1, 125]) one hot vector where 1 indicate which object to interact with
@@ -556,27 +555,38 @@ class LlmAgent(Agent):
         rep = s_0.data.data
         meta_info = []
         # use hlsm obj detector to get what have seen
-        for i in range(124):
-            if torch.any(rep[0][i] >= 1):
-                obj_name = object_intid_to_string(i)
-                if obj_name in _INTERACTIVE_OBJECTS:
-                    meta_info.append(obj_name)
+        if self.config["use_gt_img"] == False:
+            for i in range(124):
+                if torch.any(rep[0][i] >= 1):
+                    obj_name = object_intid_to_string(i)
+                    if obj_name in _INTERACTIVE_OBJECTS:
+                        meta_info.append(obj_name)
+        else:
+            # when use gt seg img, we can't retrieve info from it,
+            meta_info = env_md["viewed_obj"]
         # use adapt_model to predict useful obj
         meta_info = ", ".join(meta_info)
         predict = None
-        pddl=None
-        if self.failed_action != None and 'action' in self.failed_action:
+        pddl = None
+        if self.failed_action != None and "action" in self.failed_action:
             proposed_action = self.failed_action["action"]
-            if  self.failed_action["md"]!=None and "failed_times" in self.failed_action["md"]:
+            if (
+                self.failed_action["md"] != None
+                and "failed_times" in self.failed_action["md"]
+            ):
                 t = self.failed_action["md"]["failed_times"] + 1
-                proposed_action=self.failed_action["md"]["origin_act"]
+                proposed_action = self.failed_action["md"]["origin_act"]
             else:
                 t = 0
-            md = {"is_sampled": True, "origin_act": str(proposed_action), "failed_times": t}
+            md = {
+                "is_sampled": True,
+                "origin_act": str(proposed_action),
+                "failed_times": t,
+            }
             sampled_action = self.predict_processor.sample_action(
                 proposed_action, str(self.task)
             )
-           
+
             proposed_action = self._convert_straction(sampled_action)
             critic = "use prev failed action"
             if (
@@ -586,29 +596,28 @@ class LlmAgent(Agent):
                 if pddl != self.pddl:
                     md = None
                     self.failed_action = None
+            elif t % 5 == 0 and self.use_predict == False:
+                self.failed_action = None
         if len(self.action_history) < 20 and self.failed_action == None:
-            if self.stored_action:
-                proposed_action, critic = self.stored_action.popleft()
-                proposed_action = self._convert_straction(proposed_action)
-            else:
-                if self.use_predict:
-                    predict, pddl = self.adaptation_model.act(meta_info, self.task)
-                    self.pddl = pddl
-                    self._log("orin prid", predict)
-                    if self.config["predict_type"] == "object":
-                        predict = self.predict_processor.process_with_metadata(
-                            predict, meta_info
-                        )
-                proposed_action, critic = self._beam_search(meta_info, predict, pddl)
-                tmp_action, critic = self._process_act(
-                    proposed_action, meta_info, critic
-                )
-                while tmp_action != proposed_action:
-                    proposed_action = tmp_action
-                    tmp_action, critic = self._process_act(
-                        proposed_action, meta_info, critic
+
+            if self.use_predict:
+                predict, pddl = self.adaptation_model.act(meta_info, self.task)
+                self.pddl = pddl
+                self._log("orin prid", predict)
+                if self.config["predict_type"] == "object":
+                    predict = self.predict_processor.process_with_metadata(
+                        predict, meta_info
                     )
-                proposed_action = self._convert_straction(tmp_action)
+            proposed_action, critic = self._beam_search(meta_info, predict, pddl)
+            # tmp_action, critic = self._process_act(
+            #     proposed_action, meta_info, critic
+            # )
+            # while tmp_action != proposed_action:
+            #     proposed_action = tmp_action
+            #     tmp_action, critic = self._process_act(
+            #         proposed_action, meta_info, critic
+            #     )
+            proposed_action = self._convert_straction(proposed_action)
 
         elif len(self.action_history) >= 20:
             proposed_action = self._convert_straction("Stop: NIL")

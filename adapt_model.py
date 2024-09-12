@@ -41,6 +41,8 @@ def key_func(item):
 def debug(config, task, name, obj=None):
     if config["debug"] == None:
         return
+    if not os.path.exists(config["debug"]):
+        os.makedirs(config["debug"])
     path = os.path.join(config["debug"], task.replace("/", "_") + ".txt")
     with open(path, "a") as f:
         if obj != None:
@@ -158,9 +160,9 @@ def make_desc(dict):
         )
 
     if num == "two":
-        task_desc += f"*Important:Note that I need to pick two {dict['object_target']}, but I can only hold one thing at a time, so I need to do this one by one. "
-    else:
-        task_desc += f"*Important:Note that I can only pick one object at once, so I need to put down one object before I pick a new object."
+        task_desc += f"Important:Note that I need to pick two {dict['object_target']} one by one."
+    # else:
+    #     task_desc += f"*Important:Note that I can only pick one object at once, so I need to put down one object before I pick a new object."
     return task_desc, ret
 
 
@@ -174,7 +176,7 @@ class adap_model:
         self.img_folder = os.path.join(base_dir, "tmp_img")
         self.tokenizer = None
         self.pipeline = None
-        knn_data_path = config["action_prompt"]
+        knn_data_path = config["adapt_prompt"]
         base_path = os.path.abspath(__file__)
 
         base_directory = os.path.dirname(base_path)

@@ -26,16 +26,61 @@ ablation = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/openai_valid_s
 unseen = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/eval_hlsm_valid_unseen/rollouts"
 gpt_seen = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/openai_valid_seen_hind/rollouts"
 
-no_adapt="/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/openai_valid_seen_no_adapt/rollouts"
+no_adapt = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/openai_valid_seen_no_adapt/rollouts"
+
 
 def load(rollout_path):
     return pickle.load(rollout_path)
 
-few_shot_ablation="/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/openai_fewshot_valid_seen_ablation/rollouts"
-few_shot_critic_hind= "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_act_no_hind2/rollouts"
+
+few_shot_ablation = (
+    "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_aba3/rollouts"
+)
+few_shot_act_hind = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_few_act_hind/rollouts"
+few_shot_critic_hind = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_critic_hind2/rollouts"
+few_shot_hind = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_act_hind3/rollouts"
 ori = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/deep_seek_eval_hlsm_valid_unseen/rollouts"
+
+few_shot_relable_critic_aba = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_aba_finetune_critic/rollouts"
+few_shot_relable_aba4 = (
+    "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_aba_4act/rollouts"
+)
+valid_seen_aba1 = (
+    "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_aba_full/rollouts"
+)
+valid_seen_aba2 = (
+    "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_aba2/rollouts"
+)
+
+valid_seen_aba_relable_critic_4samples = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_aba_full_relable_critic/rollouts"
+valid_seen_aba_relable_critic_2samples = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_full_aba_relable_2samples/rollouts"
+valid_seen_hind = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_actor_critic_hind_full/rollouts"
+valid_seen_critic = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_critic_hind_full/rollouts"
+valid_seen_no_adapt = (
+    "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_no_adapt/rollouts"
+)
+valid_unseen_aba = (
+    "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_unseen_aba/rollouts"
+)
+valid_unseen_hind = (
+    "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_unseen_hind/rollouts"
+)
+valid_unseen_no_adapt = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_unseen_no_adapt/rollouts"
+gt = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_gt/rollouts"
 SR = [0, 0]
-dir = few_shot_critic_hind
+valid_seen_gt = (
+    "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_gt/rollouts"
+)
+valid_seen_aba_final = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_aba_relabel/rollouts"
+valid_seen_full_aba_relable = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_aba_relabel/rollouts"
+valid_seen_few_aba_relable = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_few_aba_relabel/rollouts"
+valid_seen_few_gt_relable = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_few_gt_aba_relabel/rollouts"
+valid_seen_few_gt_hind = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_few_gt_hind/rollouts"
+valid_seen_full_gt_hind = (
+    "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_seen_gt_hind/rollouts"
+)
+valid_unseen_full_gt_hind = "/mnt/sda/yuxiao_code/ALFRED_PROJECT/hlsm/data/results/valid_unseen_gt_hind/rollouts"
+dir = valid_unseen_hind
 dict = {}
 complete = {}
 cnt = 0
@@ -52,9 +97,9 @@ for _, __, files in os.walk(dir):
         if str(task) not in dict:
             dict[str(task)] = [0, 0]
             complete[str(task)] = [0, 0]
-        if "cool" in str(task):
+        if "clean" in str(task):
             cnt += 1
-            if cnt > 870:
+            if cnt > 160:
                 continue
         dict[str(task)][0] += dt[-1]["md"]["goal_conditions_met"][0]
         dict[str(task)][1] += dt[-1]["md"]["goal_conditions_met"][1]

@@ -38,8 +38,9 @@ _ACTIONS = [
     "SliceObject",
     "Stop",
 ]
-
-
+_TOGGLABLES=_TOGGLABLES + ["Faucet"]
+_RECEPTACLE_OBJECTS=_RECEPTACLE_OBJECTS + ["Sink"]+['Bathtub']
+_OPENABLES=_OPENABLES+['Laptop']
 class predict_processor:
     def __init__(
         self,
@@ -116,11 +117,11 @@ class predict_processor:
         if act == "PickupObject" or act == "SliceObject":
             allowed_set = _PICKABLES
         elif act == "OpenObject" or act == "CloseObject":
-            allowed_set = _OPENABLES+['Laptop']
+            allowed_set = _OPENABLES
         elif act == "ToggleObjectOn" or act == "ToggleObjectOff":
-            allowed_set = _TOGGLABLES + ["Faucet"]
+            allowed_set = _TOGGLABLES
         elif act == "PutObject":
-            allowed_set = _RECEPTACLE_OBJECTS + ["Sink"]+['Bathtub']
+            allowed_set = _RECEPTACLE_OBJECTS
         enc = sentence_embedder.encode(obj)
         allowed_obj = []
         for word in allowed_set:
@@ -142,11 +143,11 @@ class predict_processor:
             if allowed_set == "PickupObject" or allowed_set == "SliceObject":
                 allowed_set = _PICKABLES
             elif allowed_set == "OpenObject" or allowed_set == "CloseObject":
-                allowed_set = _OPENABLES+['Laptop']
+                allowed_set = _OPENABLES
             elif allowed_set == "ToggleObjectOn" or allowed_set == "ToggleObjectOff":
-                allowed_set = _TOGGLABLES + ["Faucet"]
+                allowed_set = _TOGGLABLES
             elif allowed_set == "PutObject":
-                allowed_set = _RECEPTACLE_OBJECTS + ["Sink"]+['Bathtub']
+                allowed_set = _RECEPTACLE_OBJECTS
             else:
                 allowed_set = allowed_set.split(",")
 
@@ -165,8 +166,82 @@ class predict_processor:
             return allowed_set[idx]
         else:
             return None
+    def env_info(self,his):
 
-    def regular_actions(self, actions, threshold=0.8):
+        inventory =None
+        openable_obj_state={}
+        for item in reversed(his):
+ 
+            action = item['action']
+            act = action.split(":")[0]
+            obj =action.split(":")[1].strip()
+            if 'Put' in act:
+                inventpry =None
+                break
+            if 'Pick' in act:
+                inventory =obj
+                break
+        for item in reversed(his):
+            action = item['action']
+            act = action.split(":")[0]
+            obj =action.split(":")[1].strip()
+            if 'Open' in act or 'Close' in act:
+                if obj not in openable_obj_state and obj!='Laptop':
+                    if 'Open' in act:
+                        openable_obj_state[obj]='open'
+                    else :
+                         openable_obj_state[obj]='close'
+  
+                        
+        return {'inventory':inventory,'openable':openable_obj_state}
+    def get_recep(self,obs):
+        if isinstance(obs,str):
+            obs = obs.split(",")
+        for item in obs:
+            item=item.strip()
+            if item in _RECEPTACLE_OBJECTS and item not in _OPENABLES:
+                return item
+        return None
+    def get_knife(self,obs):
+        if isinstance(obs,str):
+            obs = obs.split(",")
+        for item in obs:
+            item=item.strip()
+            if 'Knife' in item:
+                return item
+        return None
+    def allowed_actions(self,new_actions,his,obs):
+        env_info =self.env_info(his)
+        ret = []
+        for action in new_actions:
+            act = action.split(":")[0].strip()
+            obj =action.split(":")[1].strip()
+            if act =="PickupObject" and env_info['inventory']!=None:
+                recep =self.get_recep(obs)
+                if recep==None:
+                    continue
+                else:
+                    ret.append(f'PutObject : {recep}')
+            elif act=='PutObject' and obj in _OPENABLES:
+                if obj not in env_info['openable'] or env_info['openable'][obj]=='close':
+                    ret.append(f'OpenObject : {obj}')
+                else:
+                    ret.append(action)
+            elif act =='SliceObject' and (env_info['inventory']==None or 'Knife' not in env_info['inventory']):
+                knife =self.get_knife(obs)
+                if knife ==None:
+                    continue
+                ret.append(f'PickupObject : {knife}')
+            else:
+                ret.append(action)
+        return ret
+                
+                
+                     
+                
+            
+        
+    def regular_actions(self, actions, threshold=0.8,his=None,obs=None):
         new_actions = []
         for act_pair in actions:
             act_pair = act_pair.strip()
@@ -182,6 +257,8 @@ class predict_processor:
                     obj = "Sink"
                 if obj != None:
                     new_actions.append(f"{act}: {obj}")
+        if his!=None and obs!=None:
+            new_actions=self.allowed_actions(new_actions,his,obs)
         return new_actions
 
     def process_with_metadata(

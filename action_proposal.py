@@ -52,7 +52,7 @@ def get_predict_prompt(predict, predict_type):
         )
     elif predict_type == "pddl":
         return "Your knowledge about this task is: " + predict + "\n"
-    elif predict_type =='None':
+    elif predict_type == "None":
         return ""
 
 
@@ -65,7 +65,7 @@ def get_action_prompt(
 ):
     ret = ""
     ret1 = ""
- 
+
     if use_ablation:
         p = 0
     for task in sample:
@@ -110,12 +110,33 @@ def get_action_prompt(
 def debug(config, task, name, obj=None):
     if config["debug"] == None:
         return
+    if not os.path.exists(config["debug"]):
+        os.makedirs(config["debug"])
     path = os.path.join(config["debug"], task.replace("/", "_") + ".txt")
     with open(path, "a") as f:
         if obj != None:
             f.write(f"{name}: {obj}\n")
         else:
             f.write(f"{name}\n")
+
+
+def get_env_info_prompt(env_info):
+    p = ""
+    if env_info["inventory"] != None:
+        if p == "":
+            p += "\nYour knowledge about the current state are:"
+        p += f"You are holding the {env_info['inventory']}, so you can't pickup new item unless you put down {env_info['inventory']}."
+    if env_info["openable"] != None:
+        if p == "":
+            p += "\nYour knowledge about the current state are:"
+        for k, v in env_info["openable"].items():
+            if v == "open":
+                p += f"The {k} is open."
+            else:
+                p += f"The {k} is closed, so you need to open it before put object in it."
+    if p != "":
+        p += "\n"
+    return p
 
 
 class action_proposal:
@@ -129,15 +150,13 @@ class action_proposal:
     ):
         self.use_predict = config["use_predict"]
         self.config = config.copy()
-         
-      
-       
+
         self.model = config["model"]
         self.task = None
         self.max_tokens = max_tokens
         self.top_p = top_p
         self.baseprompt = f"""Interact with a household to solve a task. At each step, you will be provided with the previous observations and action pairs.
-        You **are required** to return an action.The answer should contain two parts, the action type and a target. {action_instr}
+        Important: You **are required** to return an action.The answer should contain two parts, the action type and a target. {action_instr}
         Here are {example_num} examples. \n
         """
         self.example_num = example_num
@@ -213,6 +232,7 @@ class action_proposal:
             )
         if self.use_predict == True and predict != None:
             task_prompt += get_predict_prompt(predict, self.config["predict_type"])
+
         task_prompt += "Task: " + task + "\n"
 
         sys_prompt_ls = []
@@ -221,8 +241,12 @@ class action_proposal:
         tags = []
 
         for i in range(len(his_list)):
+            env_info = predict_processor.env_info(his_list[i])
+            env_info_prompt = get_env_info_prompt(env_info)
+            print(env_info)
             user_prompt_ls.append(
                 task_prompt
+                + env_info_prompt
                 + his_to_str(
                     his_list[i],
                     metadata_list[i],
@@ -241,9 +265,9 @@ class action_proposal:
             "action_prompt",
             sys_prompt_ls[0] + user_prompt_ls[0],
         )
-        if self.config['use_ablation']==False:
+        if self.config["use_ablation"] == False:
             debug(self.config, self.task, "hind_prompt", self.hind_prompt)
-        if self.config["use_ablation"]==False:
+        if self.config["use_ablation"] == False:
             response_list = call_llm_thread(
                 model=self.model,
                 max_token=self.max_tokens,
@@ -279,7 +303,7 @@ class action_proposal:
         acts_ls = [None] * len(his_list)
         for response, tag in response_list:
             acts = response
-            if self.config["use_ablation"]==False:
+            if self.config["use_ablation"] == False:
                 for item, tagg in response_list1:
                     if tagg == tag:
                         acts = acts + item
@@ -298,7 +322,9 @@ class action_proposal:
             acts = [act.replace("Act: ", "") for act in acts]
             ori_acts = list(set(acts))
 
-            acts = predict_processor.regular_actions(ori_acts)
+            acts = predict_processor.regular_actions(
+                ori_acts, his=his_list[tag], obs=metadata_list[tag]
+            )
 
             # if len(acts) < n:
             #     acts = predict_processor.gen_actions_from_predict(
@@ -308,7 +334,9 @@ class action_proposal:
                 # here no feasible action is provided, we must gets some
                 self._log("prompt", user_prompt_ls[tag])
                 self._log("ori_acts", ori_acts)
-                acts = predict_processor.regular_actions(ori_acts, 0)
+                acts = predict_processor.regular_actions(
+                    ori_acts, 0, his=his_list[tag], obs=metadata_list[tag]
+                )
                 if len(acts) == 0:
                     acts = ["Stop : NIL"]
 

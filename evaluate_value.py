@@ -153,7 +153,8 @@ def get_prompt(sample, predict_type, multi_obs=True, use_ablation=False):
                     dict[k] = None
             predict = make_desc(dict)
             ret += "**Your knowledge about this task** is: " + predict[0] + "\n"
-        prompts = task["prompts"].split("\n")
+        if use_ablation == False:
+            prompts = task["prompts"].split("\n")
         if use_ablation:
             prompts = task["gt_prompt"].split("\n")
             print("use_ablation_prompt!")
@@ -185,13 +186,15 @@ def get_predict_prompt(predict, predict_type):
         )
     elif predict_type == "pddl":
         return "**Your knowledge about this task** is: " + predict + "\n"
-    elif predict_type ==None:
+    elif predict_type == None:
         return ""
 
 
-def debug(config,task, name, obj=None):
+def debug(config, task, name, obj=None):
     if config["debug"] == None:
         return
+    if not os.path.exists(config["debug"]):
+        os.makedirs(config["debug"])
     path = os.path.join(config["debug"], task.replace("/", "_") + ".txt")
     with open(path, "a") as f:
         if obj != None:
@@ -243,6 +246,7 @@ class LLM_critic:
     ):
         self.config = config.copy()
 
+       
         base_path = os.path.abspath(__file__)
 
         base_directory = os.path.dirname(base_path)
@@ -314,19 +318,23 @@ class LLM_critic:
         sys_prompt_ls = []
         user_prompt_ls = []
         tags = []
-        print('value_act_l',len(his_list))
+        print("value_act_l", len(his_list))
         for i in range(len(his_list)):
             user_prompt_ls.append(
                 task_prompt
                 + "**actions**:\n"
                 + his_to_str(his_list[i], multi_obs=self.config["multi_obs"])
             )
-            if self.config['predict_type']=='pddl':
-                user_prompt_ls[-1]+="Based on the **actions** and **Your knowledge about this task** , write a Critic.\nCritic:"
+            if self.config["predict_type"] == "pddl":
+                user_prompt_ls[
+                    -1
+                ] += "Based on the **actions** and **Your knowledge about this task** , write a Critic.\nCritic:"
 
             sys_prompt_ls.append(self.sys_prompt)
             tags.append(i)
-        debug(self.config,self.task ,"value_prompt", sys_prompt_ls[0] + user_prompt_ls[0])
+        debug(
+            self.config, self.task, "value_prompt", sys_prompt_ls[0] + user_prompt_ls[0]
+        )
         response_list = call_llm_thread(
             model=self.model,
             max_token=self.max_tokens,
@@ -339,11 +347,11 @@ class LLM_critic:
         )
 
         val_ls = [None] * (len(his_list))
-        debug(self.config,self.task,'critic_length',len(his_list))
+        debug(self.config, self.task, "critic_length", len(his_list))
         for response, tag in response_list:
             val_ls[tag] = response[0]
 
-        debug(self.config,self.task ,"critic", val_ls)
+        debug(self.config, self.task, "critic", val_ls)
         return val_ls
 
     def set_log(self, log):
