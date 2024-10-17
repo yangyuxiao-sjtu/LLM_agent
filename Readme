@@ -1,4 +1,4 @@
 TO run finetuned LLava:
 create a new screen
-conda activate llava
+
 run init.sh
